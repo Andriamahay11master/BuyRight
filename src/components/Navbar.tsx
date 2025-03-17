@@ -30,34 +30,36 @@ const Navbar: React.FC = () => {
         <FontAwesomeIcon icon={isMenuOpen ? faTimes : faBars} />
       </button>
       
-      <div className={`navbar-menu ${isMenuOpen ? 'active' : ''}`}>
-        <Link to="/" className="nav-item">
-          <FontAwesomeIcon icon={faHome} className="nav-icon" />
-          Home
-        </Link>
-        <Link to="/create" className="nav-item">
-          <FontAwesomeIcon icon={faPlus} className="nav-icon" />
-          Create List
-        </Link>
-        <Link to="/profile" className="nav-item">
-          <FontAwesomeIcon icon={faUser} className="nav-icon" />
-          Profile
-        </Link>
-      </div>
-      
-      <div className={`navbar-auth ${isMenuOpen ? 'active' : ''}`}>
-        <Link to="/login" className="nav-item">
-          <FontAwesomeIcon icon={faSignInAlt} className="nav-icon" />
-          Login
-        </Link>
-        <Link to="/register" className="nav-item">
-          <FontAwesomeIcon icon={faUserPlus} className="nav-icon" />
-          Register
-        </Link>
-        <button className="logout-btn">
-          <FontAwesomeIcon icon={faSignOutAlt} className="nav-icon" />
-          Logout
-        </button>
+      <div className={`navbar-content ${isMenuOpen ? 'active' : ''}`}>
+        <div className="navbar-menu">
+          <Link to="/" className="nav-item">
+            <FontAwesomeIcon icon={faHome} className="nav-icon" />
+            Home
+          </Link>
+          <Link to="/create" className="nav-item">
+            <FontAwesomeIcon icon={faPlus} className="nav-icon" />
+            Create List
+          </Link>
+          <Link to="/profile" className="nav-item">
+            <FontAwesomeIcon icon={faUser} className="nav-icon" />
+            Profile
+          </Link>
+        </div>
+        
+        <div className="navbar-auth">
+          <Link to="/login" className="nav-item">
+            <FontAwesomeIcon icon={faSignInAlt} className="nav-icon" />
+            Login
+          </Link>
+          <Link to="/register" className="nav-item">
+            <FontAwesomeIcon icon={faUserPlus} className="nav-icon" />
+            Register
+          </Link>
+          <button className="logout-btn">
+            <FontAwesomeIcon icon={faSignOutAlt} className="nav-icon" />
+            Logout
+          </button>
+        </div>
       </div>
     </nav>
   );

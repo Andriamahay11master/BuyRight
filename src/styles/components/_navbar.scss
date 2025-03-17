@@ -23,20 +23,36 @@
     }
   }
 
+  .navbar-content {
+    @include flex-between;
+    flex: 1;
+    margin-left: $spacing-lg;
+
+    @include mobile {
+      display: none;
+      width: 100%;
+      margin-left: 0;
+      margin-top: $spacing-md;
+      padding-top: $spacing-md;
+      border-top: 1px solid lighten($text-color, 60%);
+    }
+
+    &.active {
+      display: flex;
+      @include mobile {
+        @include flex-column;
+      }
+    }
+  }
+
   .navbar-menu {
     @include flex-center;
     gap: $spacing-md;
 
     @include mobile {
-      display: none;
       width: 100%;
-      padding: $spacing-sm 0;
       @include flex-column;
       gap: $spacing-sm;
-    }
-
-    &.active {
-      display: flex;
     }
 
     .nav-item {
@@ -63,15 +79,9 @@
     gap: $spacing-sm;
 
     @include mobile {
-      display: none;
       width: 100%;
-      padding: $spacing-sm 0;
       @include flex-column;
       gap: $spacing-sm;
-    }
-
-    &.active {
-      display: flex;
     }
 
     .nav-item {
@@ -105,7 +115,6 @@
   }
 
   .menu-toggle {
-    display: none;
     background: none;
     border: none;
     font-size: 1.5rem;
@@ -113,6 +122,7 @@
     color: $text-color;
     padding: $spacing-xs;
     @include flex-center;
+    display: none;
 
     @include mobile {
       display: flex;
