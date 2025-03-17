@@ -23,6 +23,23 @@ const ListDetailPage: React.FC = () => {
         
         <div className="items-list">
           {/* Shopping items will be listed here */}
+          {listId && <div className="item-card">
+            <div className="item-card-content">
+              <div className="item-card-checkbox">
+                <input type="checkbox" id="item-checkbox" />
+              </div>
+              <div className="item-card-details">
+                <div className="item-card-name">
+                  <h3>Item Name</h3>
+                </div>
+                <div className="item-card-quantity">
+                  <span className="quantity-label">Quantity:</span>
+                  <span className="quantity-value">1</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          }
         </div>
         
         <div className="add-item-section">
