@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faBars, 
@@ -7,14 +7,36 @@ import {
   faHome, 
   faPlus, 
   faUser, 
-  faSignInAlt, 
-  faUserPlus, 
   faSignOutAlt 
 } from '@fortawesome/free-solid-svg-icons';
 
 const Navbar: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Close menu when route changes
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location.pathname]);
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const navbar = document.querySelector('.navbar');
+      if (isMenuOpen && navbar && !navbar.contains(event.target as Node)) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    if (isMenuOpen) {
+      document.addEventListener('click', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [isMenuOpen]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -47,14 +69,6 @@ const Navbar: React.FC = () => {
         </div>
         
         <div className="navbar-auth">
-          <Link to="/login" className="nav-item">
-            <FontAwesomeIcon icon={faSignInAlt} className="nav-icon" />
-            Login
-          </Link>
-          <Link to="/register" className="nav-item">
-            <FontAwesomeIcon icon={faUserPlus} className="nav-icon" />
-            Register
-          </Link>
           <button className="logout-btn">
             <FontAwesomeIcon icon={faSignOutAlt} className="nav-icon" />
             Logout
@@ -65,4 +79,4 @@ const Navbar: React.FC = () => {
   );
 };
 
-export default Navbar; 
+export default Navbar;
