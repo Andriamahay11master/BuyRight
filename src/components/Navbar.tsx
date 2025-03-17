@@ -1,5 +1,16 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { 
+  faBars, 
+  faTimes, 
+  faHome, 
+  faPlus, 
+  faUser, 
+  faSignInAlt, 
+  faUserPlus, 
+  faSignOutAlt 
+} from '@fortawesome/free-solid-svg-icons';
 
 const Navbar: React.FC = () => {
   const navigate = useNavigate();
@@ -16,19 +27,37 @@ const Navbar: React.FC = () => {
       </div>
       
       <button className="menu-toggle" onClick={toggleMenu}>
-        ☰
+        <FontAwesomeIcon icon={isMenuOpen ? faTimes : faBars} />
       </button>
       
       <div className={`navbar-menu ${isMenuOpen ? 'active' : ''}`}>
-        <Link to="/" className="nav-item">Home</Link>
-        <Link to="/create" className="nav-item">Create List</Link>
-        <Link to="/profile" className="nav-item">Profile</Link>
+        <Link to="/" className="nav-item">
+          <FontAwesomeIcon icon={faHome} className="nav-icon" />
+          Home
+        </Link>
+        <Link to="/create" className="nav-item">
+          <FontAwesomeIcon icon={faPlus} className="nav-icon" />
+          Create List
+        </Link>
+        <Link to="/profile" className="nav-item">
+          <FontAwesomeIcon icon={faUser} className="nav-icon" />
+          Profile
+        </Link>
       </div>
       
       <div className={`navbar-auth ${isMenuOpen ? 'active' : ''}`}>
-        <Link to="/login" className="nav-item">Login</Link>
-        <Link to="/register" className="nav-item">Register</Link>
-        <button className="logout-btn">Logout</button>
+        <Link to="/login" className="nav-item">
+          <FontAwesomeIcon icon={faSignInAlt} className="nav-icon" />
+          Login
+        </Link>
+        <Link to="/register" className="nav-item">
+          <FontAwesomeIcon icon={faUserPlus} className="nav-icon" />
+          Register
+        </Link>
+        <button className="logout-btn">
+          <FontAwesomeIcon icon={faSignOutAlt} className="nav-icon" />
+          Logout
+        </button>
       </div>
     </nav>
   );

@@ -44,6 +44,13 @@
       text-decoration: none;
       font-weight: 500;
       transition: $transition-fast;
+      @include flex-center;
+      gap: $spacing-sm;
+
+      .nav-icon {
+        width: 1.2rem;
+        height: 1.2rem;
+      }
 
       &:hover {
         color: $primary-color;
@@ -72,6 +79,13 @@
       text-decoration: none;
       font-weight: 500;
       transition: $transition-fast;
+      @include flex-center;
+      gap: $spacing-sm;
+
+      .nav-icon {
+        width: 1.2rem;
+        height: 1.2rem;
+      }
 
       &:hover {
         color: $primary-color;
@@ -80,6 +94,13 @@
 
     .logout-btn {
       @include button($error-color);
+      @include flex-center;
+      gap: $spacing-sm;
+
+      .nav-icon {
+        width: 1.2rem;
+        height: 1.2rem;
+      }
     }
   }
 
@@ -90,9 +111,15 @@
     font-size: 1.5rem;
     cursor: pointer;
     color: $text-color;
+    padding: $spacing-xs;
+    @include flex-center;
 
     @include mobile {
-      display: block;
+      display: flex;
+    }
+
+    &:hover {
+      color: $primary-color;
     }
   }
 } 
