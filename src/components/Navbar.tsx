@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar: React.FC = () => {
   const navigate = useNavigate();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   return (
     <nav className="navbar">
@@ -10,13 +15,17 @@ const Navbar: React.FC = () => {
         <Link to="/">BuyRight</Link>
       </div>
       
-      <div className="navbar-menu">
+      <button className="menu-toggle" onClick={toggleMenu}>
+        ☰
+      </button>
+      
+      <div className={`navbar-menu ${isMenuOpen ? 'active' : ''}`}>
         <Link to="/" className="nav-item">Home</Link>
         <Link to="/create" className="nav-item">Create List</Link>
         <Link to="/profile" className="nav-item">Profile</Link>
       </div>
       
-      <div className="navbar-auth">
+      <div className={`navbar-auth ${isMenuOpen ? 'active' : ''}`}>
         <Link to="/login" className="nav-item">Login</Link>
         <Link to="/register" className="nav-item">Register</Link>
         <button className="logout-btn">Logout</button>

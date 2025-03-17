@@ -1,0 +1,98 @@
+@import '../variables';
+@import '../mixins';
+
+.navbar {
+  background-color: $white;
+  box-shadow: $shadow-sm;
+  padding: $spacing-md;
+  @include flex-between;
+
+  @include mobile {
+    padding: $spacing-sm;
+    flex-wrap: wrap;
+  }
+
+  .navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: $primary-color;
+    text-decoration: none;
+
+    @include mobile {
+      font-size: 1.25rem;
+    }
+  }
+
+  .navbar-menu {
+    @include flex-center;
+    gap: $spacing-md;
+
+    @include mobile {
+      display: none;
+      width: 100%;
+      padding: $spacing-sm 0;
+      @include flex-column;
+      gap: $spacing-sm;
+    }
+
+    &.active {
+      display: flex;
+    }
+
+    .nav-item {
+      color: $text-color;
+      text-decoration: none;
+      font-weight: 500;
+      transition: $transition-fast;
+
+      &:hover {
+        color: $primary-color;
+      }
+    }
+  }
+
+  .navbar-auth {
+    @include flex-center;
+    gap: $spacing-sm;
+
+    @include mobile {
+      display: none;
+      width: 100%;
+      padding: $spacing-sm 0;
+      @include flex-column;
+      gap: $spacing-sm;
+    }
+
+    &.active {
+      display: flex;
+    }
+
+    .nav-item {
+      color: $text-color;
+      text-decoration: none;
+      font-weight: 500;
+      transition: $transition-fast;
+
+      &:hover {
+        color: $primary-color;
+      }
+    }
+
+    .logout-btn {
+      @include button($error-color);
+    }
+  }
+
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: $text-color;
+
+    @include mobile {
+      display: block;
+    }
+  }
+} 

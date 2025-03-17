@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const RegisterPage: React.FC = () => {
   return (
@@ -21,7 +22,10 @@ const RegisterPage: React.FC = () => {
           <label htmlFor="confirmPassword">Confirm Password</label>
           <input type="password" id="confirmPassword" name="confirmPassword" required />
         </div>
-        <button type="submit">Register</button>
+        <button type="submit">Create Account</button>
+        <div className="form-footer">
+          Already have an account? <Link to="/login">Login here</Link>
+        </div>
       </form>
     </div>
   );

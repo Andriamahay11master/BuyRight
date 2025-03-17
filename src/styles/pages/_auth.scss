@@ -1,0 +1,52 @@
+@import '../variables';
+@import '../mixins';
+
+.login-page,
+.register-page {
+  max-width: 400px;
+  margin: $spacing-xl auto;
+  padding: $spacing-lg;
+  @include card;
+
+  @include mobile {
+    margin: $spacing-lg $spacing-md;
+    padding: $spacing-md;
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: $spacing-xl;
+    color: $primary-color;
+  }
+
+  .login-form,
+  .register-form {
+    @include flex-column;
+    gap: $spacing-md;
+
+    .form-group {
+      margin-bottom: 0;
+    }
+
+    button {
+      margin-top: $spacing-md;
+      width: 100%;
+    }
+  }
+
+  .form-footer {
+    margin-top: $spacing-lg;
+    text-align: center;
+    font-size: 0.9rem;
+
+    a {
+      color: $primary-color;
+      text-decoration: none;
+      font-weight: 500;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+} 

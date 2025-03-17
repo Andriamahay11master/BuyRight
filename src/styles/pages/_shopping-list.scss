@@ -1,0 +1,127 @@
+@import '../variables';
+@import '../mixins';
+
+// Home page styles
+.home-page {
+  .lists-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: $spacing-md;
+    margin-top: $spacing-lg;
+
+    @include mobile {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+// Create list page styles
+.create-list-page {
+  max-width: 800px;
+  margin: $spacing-xl auto;
+  padding: $spacing-lg;
+  @include card;
+
+  @include mobile {
+    margin: $spacing-lg $spacing-md;
+    padding: $spacing-md;
+  }
+
+  .items-section {
+    margin-top: $spacing-xl;
+
+    h2 {
+      margin-bottom: $spacing-md;
+    }
+
+    .items-container {
+      @include flex-column;
+      gap: $spacing-md;
+      margin-bottom: $spacing-md;
+    }
+
+    .add-item-btn {
+      @include button($secondary-color);
+      width: 100%;
+    }
+  }
+
+  .create-list-btn {
+    width: 100%;
+    margin-top: $spacing-xl;
+  }
+}
+
+// List detail page styles
+.list-detail-page {
+  max-width: 800px;
+  margin: $spacing-xl auto;
+  padding: $spacing-lg;
+  @include card;
+
+  @include mobile {
+    margin: $spacing-lg $spacing-md;
+    padding: $spacing-md;
+  }
+
+  .list-header {
+    @include flex-between;
+    margin-bottom: $spacing-xl;
+
+    @include mobile {
+      @include flex-column;
+      gap: $spacing-md;
+      align-items: flex-start;
+    }
+
+    h1 {
+      margin-bottom: 0;
+    }
+
+    .list-actions {
+      @include flex-center;
+      gap: $spacing-sm;
+
+      button {
+        @include button;
+        
+        &.share-btn {
+          @include button($secondary-color);
+        }
+        
+        &.delete-btn {
+          @include button($error-color);
+        }
+      }
+    }
+  }
+
+  .list-info {
+    margin-bottom: $spacing-xl;
+    padding-bottom: $spacing-md;
+    border-bottom: 1px solid lighten($text-color, 60%);
+
+    .list-description {
+      color: lighten($text-color, 20%);
+      margin-bottom: $spacing-sm;
+    }
+
+    .list-date {
+      font-size: 0.9rem;
+      color: lighten($text-color, 40%);
+    }
+  }
+
+  .items-list {
+    @include flex-column;
+    gap: $spacing-md;
+    margin-bottom: $spacing-xl;
+  }
+
+  .add-item-section {
+    .add-item-btn {
+      @include button($secondary-color);
+      width: 100%;
+    }
+  }
+} 

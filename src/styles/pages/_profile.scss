@@ -1,0 +1,112 @@
+@import '../variables';
+@import '../mixins';
+
+.profile-page {
+  max-width: 800px;
+  margin: $spacing-xl auto;
+  padding: $spacing-lg;
+  @include card;
+
+  @include mobile {
+    margin: $spacing-lg $spacing-md;
+    padding: $spacing-md;
+  }
+
+  .profile-content {
+    @include flex-column;
+    gap: $spacing-xl;
+
+    @include tablet {
+      flex-direction: row;
+      gap: $spacing-xl;
+    }
+  }
+
+  .profile-info {
+    flex: 1;
+
+    .profile-header {
+      @include flex-center;
+      gap: $spacing-lg;
+      margin-bottom: $spacing-xl;
+
+      @include mobile {
+        @include flex-column;
+        text-align: center;
+        gap: $spacing-md;
+      }
+
+      .profile-avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background-color: lighten($text-color, 60%);
+        @include flex-center;
+        font-size: 3rem;
+        color: $white;
+
+        @include mobile {
+          width: 100px;
+          height: 100px;
+          font-size: 2.5rem;
+        }
+      }
+
+      .profile-name {
+        h2 {
+          margin-bottom: $spacing-xs;
+        }
+
+        p {
+          color: lighten($text-color, 20%);
+        }
+      }
+    }
+
+    .profile-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: $spacing-md;
+
+      .stat-item {
+        @include card;
+        text-align: center;
+        padding: $spacing-md;
+
+        h3 {
+          font-size: 1rem;
+          color: lighten($text-color, 20%);
+          margin-bottom: $spacing-xs;
+        }
+
+        p {
+          font-size: 1.5rem;
+          font-weight: bold;
+          color: $primary-color;
+        }
+      }
+    }
+  }
+
+  .profile-settings {
+    flex: 2;
+
+    h2 {
+      margin-bottom: $spacing-lg;
+    }
+
+    .settings-form {
+      @include flex-column;
+      gap: $spacing-md;
+
+      .form-group {
+        margin-bottom: 0;
+      }
+
+      button {
+        margin-top: $spacing-md;
+        width: 100%;
+      }
+    }
+  }
+} 

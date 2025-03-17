@@ -7,6 +7,7 @@ import RegisterPage from './pages/RegisterPage';
 import CreateListPage from './pages/CreateListPage';
 import ListDetailPage from './pages/ListDetailPage';
 import ProfilePage from './pages/ProfilePage';
+import './styles/main.scss';
 
 const App: React.FC = () => {
   return (
