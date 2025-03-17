@@ -1,0 +1,83 @@
+// Reset and base styles
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, Inter, 'Segoe UI', Roboto, Oxygen,
+      Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: $background-color;
+    color: $text-color;
+    line-height: 1.6;
+  }
+  
+  // App layout
+  .app {
+    min-height: 100vh;
+    @include flex-column;
+  }
+  
+  .main-content {
+    flex: 1;
+    padding: $spacing-lg;
+    @include container;
+  }
+  
+  // Typography
+  h1, h2, h3, h4, h5, h6 {
+    margin-bottom: $spacing-md;
+    color: $text-color;
+  }
+  
+  h1 {
+    font-size: 2rem;
+    @include mobile {
+      font-size: 1.75rem;
+    }
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+    @include mobile {
+      font-size: 1.25rem;
+    }
+  }
+  
+  // Form styles
+  .form-group {
+    margin-bottom: $spacing-md;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: $spacing-xs;
+    font-weight: 500;
+  }
+  
+  input, textarea {
+    @include form-input;
+  }
+  
+  button {
+    @include button;
+  }
+  
+  // Utility classes
+  .text-center {
+    text-align: center;
+  }
+  
+  .mt-1 { margin-top: $spacing-xs; }
+  .mt-2 { margin-top: $spacing-sm; }
+  .mt-3 { margin-top: $spacing-md; }
+  .mt-4 { margin-top: $spacing-lg; }
+  .mt-5 { margin-top: $spacing-xl; }
+  
+  .mb-1 { margin-bottom: $spacing-xs; }
+  .mb-2 { margin-bottom: $spacing-sm; }
+  .mb-3 { margin-bottom: $spacing-md; }
+  .mb-4 { margin-bottom: $spacing-lg; }
+  .mb-5 { margin-bottom: $spacing-xl; }
+  
