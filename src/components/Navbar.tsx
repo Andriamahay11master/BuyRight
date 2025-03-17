@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faBars, 
@@ -11,13 +11,14 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 const Navbar: React.FC = () => {
-  const navigate = useNavigate();
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeLink, setActiveLink] = useState('/');
 
   // Close menu when route changes
   useEffect(() => {
     setIsMenuOpen(false);
+    setActiveLink(location.pathname);
   }, [location.pathname]);
 
   // Close menu when clicking outside
@@ -42,6 +43,10 @@ const Navbar: React.FC = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const handleLinkClick = (path: string) => {
+    setActiveLink(path);
+  };
+
   return (
     <nav className="navbar">
       <div className="navbar-brand">
@@ -54,15 +59,27 @@ const Navbar: React.FC = () => {
       
       <div className={`navbar-content ${isMenuOpen ? 'active' : ''}`}>
         <div className="navbar-menu">
-          <Link to="/" className="nav-item">
+          <Link 
+            to="/" 
+            className={`nav-item ${activeLink === '/' ? 'active' : ''}`}
+            onClick={() => handleLinkClick('/')}
+          >
             <FontAwesomeIcon icon={faHome} className="nav-icon" />
             Home
           </Link>
-          <Link to="/create" className="nav-item">
+          <Link 
+            to="/create" 
+            className={`nav-item ${activeLink === '/create' ? 'active' : ''}`}
+            onClick={() => handleLinkClick('/create')}
+          >
             <FontAwesomeIcon icon={faPlus} className="nav-icon" />
             Create List
           </Link>
-          <Link to="/profile" className="nav-item">
+          <Link 
+            to="/profile" 
+            className={`nav-item ${activeLink === '/profile' ? 'active' : ''}`}
+            onClick={() => handleLinkClick('/profile')}
+          >
             <FontAwesomeIcon icon={faUser} className="nav-icon" />
             Profile
           </Link>
