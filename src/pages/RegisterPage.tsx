@@ -69,8 +69,8 @@ const RegisterPage: React.FC = () => {
         sharedLists: 0
       });
 
-      // Redirect to home page
-      navigate('/');
+      // Redirect to login page
+      navigate('/login');
     } catch (err: any) {
       setError(err.message || 'Failed to create account');
     } finally {
