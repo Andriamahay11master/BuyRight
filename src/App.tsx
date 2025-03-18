@@ -1,13 +1,15 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import AuthenticatedLayout from './components/AuthenticatedLayout';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import CreateListPage from './pages/CreateListPage';
-import ListDetailPage from './pages/ListDetailPage';
 import ProfilePage from './pages/ProfilePage';
-import './styles/main.scss';
+import ResetPasswordPage from './pages/ResetPasswordPage';
+import AuthenticatedLayout from './components/AuthenticatedLayout';
+import ProtectedRoute from './components/ProtectedRoute';
+import './styles/main.scss'
+import ListDetailPage from './pages/ListDetailPage';
 
 const App: React.FC = () => {
   return (
@@ -16,14 +18,52 @@ const App: React.FC = () => {
         {/* Public routes */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
 
-        {/* Protected routes with navbar */}
-        <Route element={<AuthenticatedLayout />}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/create" element={<CreateListPage />} />
-          <Route path="/list/:listId" element={<ListDetailPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
-        </Route>
+        {/* Protected routes */}
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <AuthenticatedLayout>
+                <HomePage />
+              </AuthenticatedLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/create"
+          element={
+            <ProtectedRoute>
+              <AuthenticatedLayout>
+                <CreateListPage />
+              </AuthenticatedLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <AuthenticatedLayout>
+                <ProfilePage />
+              </AuthenticatedLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/list/:id"
+          element={
+            <ProtectedRoute>
+              <AuthenticatedLayout>
+                <ListDetailPage />
+              </AuthenticatedLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Catch all route */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
   );

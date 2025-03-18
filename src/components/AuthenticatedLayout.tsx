@@ -1,13 +1,16 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
 import Navbar from './Navbar';
 
-const AuthenticatedLayout: React.FC = () => {
+interface AuthenticatedLayoutProps {
+  children: React.ReactNode;
+}
+
+const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({ children }) => {
   return (
     <div className="app">
       <Navbar />
       <main className="main-content">
-        <Outlet />
+        {children}
       </main>
     </div>
   );

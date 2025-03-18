@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import firebase from '../firebase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,6 +7,7 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -14,6 +15,9 @@ const LoginPage: React.FC = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+
+  // Get the redirect path from location state or default to home
+  const from = (location.state as any)?.from?.pathname || '/';
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -39,8 +43,8 @@ const LoginPage: React.FC = () => {
         formData.password
       );
 
-      // Redirect to home page after successful login
-      navigate('/');
+      // Redirect to the page user tried to visit or home
+      navigate(from, { replace: true });
     } catch (err: any) {
       setError(err.message || 'Failed to login');
     } finally {
@@ -78,9 +82,14 @@ const LoginPage: React.FC = () => {
             <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
           </div>
         </div>
-        <button type="submit" disabled={loading}>
-          {loading ? 'Logging in...' : 'Login'}
-        </button>
+        <div className="form-actions">
+          <button type="submit" disabled={loading}>
+            {loading ? 'Logging in...' : 'Login'}
+          </button>
+          <Link to="/reset-password" className="forgot-password">
+            Forgot Password?
+          </Link>
+        </div>
         <div className="form-footer">
           Don't have an account? <Link to="/register">Register here</Link>
         </div>
