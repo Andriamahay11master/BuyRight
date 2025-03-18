@@ -19,6 +19,16 @@
     color: $primary-color;
   }
 
+  .error-message {
+    background-color: lighten($error-color, 45%);
+    color: $error-color;
+    padding: $spacing-sm;
+    border-radius: $border-radius-sm;
+    margin-bottom: $spacing-md;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+
   input[type="email"],
   input[type="text"],
   input[type="password"] {
@@ -65,6 +75,11 @@
     button {
       margin-top: $spacing-md;
       width: 100%;
+
+      &:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+      }
     }
   }
 
