@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import Loader from './Loader';
 
@@ -9,6 +9,7 @@ interface PublicRouteProps {
 
 const PublicRoute: React.FC<PublicRouteProps> = ({ children }) => {
   const { user, loading } = useAuth();
+  const location = useLocation();
 
   if (loading) {
     return (
@@ -19,8 +20,11 @@ const PublicRoute: React.FC<PublicRouteProps> = ({ children }) => {
   }
 
   if (user) {
-    // Redirect to home page if user is authenticated
-    return <Navigate to="/" replace />;
+    // If user is authenticated, redirect to home page
+    // Use replace to prevent adding to browser history
+    // If there's a 'from' state, use that instead of home
+    const from = (location.state as any)?.from?.pathname || '/';
+    return <Navigate to={from} replace />;
   }
 
   return <>{children}</>;

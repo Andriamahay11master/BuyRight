@@ -16,7 +16,11 @@
   // App layout
   .app {
     min-height: 100vh;
+    padding-top: 100px;
     @include flex-column;
+    @include mobile {
+      padding-top: 60px;
+    }
   }
   
   .main-content {

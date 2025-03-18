@@ -21,7 +21,8 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
 
   if (!user) {
     // Redirect to login page but save the attempted location
-    return <Navigate to="/login" state={{ from: location }} replace />;
+    // Use replace to prevent adding to browser history
+    return <Navigate to="/login" state={{ from: location.pathname }} replace />;
   }
 
   return <>{children}</>;
