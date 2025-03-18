@@ -5,6 +5,7 @@ import { doc, setDoc } from 'firebase/firestore';
 import firebase from '../firebase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import Loader from '../components/Loader';
 
 const RegisterPage: React.FC = () => {
   const navigate = useNavigate();
@@ -92,6 +93,7 @@ const RegisterPage: React.FC = () => {
             value={formData.displayName}
             onChange={handleChange}
             required
+            disabled={loading}
           />
         </div>
         <div className="form-group">
@@ -103,6 +105,7 @@ const RegisterPage: React.FC = () => {
             value={formData.email}
             onChange={handleChange}
             required
+            disabled={loading}
           />
         </div>
         <div className="form-group form-group-password">
@@ -115,6 +118,7 @@ const RegisterPage: React.FC = () => {
             onChange={handleChange}
             required
             minLength={6}
+            disabled={loading}
           />
           <div className="password-toggle" onClick={() => togglePasswordVisibility('password')}>
             <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
@@ -130,16 +134,24 @@ const RegisterPage: React.FC = () => {
             onChange={handleChange}
             required
             minLength={6}
+            disabled={loading}
           />
           <div className="password-toggle" onClick={() => togglePasswordVisibility('confirmPassword')}>
             <FontAwesomeIcon icon={showConfirmPassword ? faEyeSlash : faEye} />
           </div>
         </div>
         <button type="submit" disabled={loading}>
-          {loading ? 'Creating Account...' : 'Create Account'}
+          {loading ? (
+            <>
+              <Loader size="small" color="#ffffff" />
+              Creating Account...
+            </>
+          ) : (
+            'Create Account'
+          )}
         </button>
         <div className="form-footer">
-          Already have an account? <Link to="/login">Login here</Link>
+          Already have an account? <Link to="/login" style={{ pointerEvents: loading ? 'none' : 'auto' }}>Login here</Link>
         </div>
       </form>
     </div>

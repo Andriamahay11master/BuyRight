@@ -4,6 +4,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import firebase from '../firebase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import Loader from '../components/Loader';
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
@@ -66,6 +67,7 @@ const LoginPage: React.FC = () => {
             value={formData.email}
             onChange={handleChange}
             required
+            disabled={loading}
           />
         </div>
         <div className="form-group form-group-password">
@@ -77,6 +79,7 @@ const LoginPage: React.FC = () => {
             value={formData.password}
             onChange={handleChange}
             required
+            disabled={loading}
           />
           <div className="password-toggle" onClick={togglePasswordVisibility}>
             <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
@@ -84,14 +87,21 @@ const LoginPage: React.FC = () => {
         </div>
         <div className="form-actions">
           <button type="submit" disabled={loading}>
-            {loading ? 'Logging in...' : 'Login'}
+            {loading ? (
+              <>
+                <Loader size="small" color="#ffffff" />
+                Logging in...
+              </>
+            ) : (
+              'Login'
+            )}
           </button>
-          <Link to="/reset-password" className="forgot-password">
+          <Link to="/reset-password" className="forgot-password" style={{ pointerEvents: loading ? 'none' : 'auto' }}>
             Forgot Password?
           </Link>
         </div>
         <div className="form-footer">
-          Don't have an account? <Link to="/register">Register here</Link>
+          Don't have an account? <Link to="/register" style={{ pointerEvents: loading ? 'none' : 'auto' }}>Register here</Link>
         </div>
       </form>
     </div>

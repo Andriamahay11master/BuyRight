@@ -4,6 +4,7 @@ import { sendPasswordResetEmail } from 'firebase/auth';
 import firebase from '../firebase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import Loader from '../components/Loader';
 
 const ResetPasswordPage: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -51,14 +52,22 @@ const ResetPasswordPage: React.FC = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 placeholder="Enter your email"
+                disabled={loading}
               />
             </div>
           </div>
           <button type="submit" disabled={loading}>
-            {loading ? 'Sending...' : 'Send Reset Link'}
+            {loading ? (
+              <>
+                <Loader size="small" color="#ffffff" />
+                Sending...
+              </>
+            ) : (
+              'Send Reset Link'
+            )}
           </button>
           <div className="form-footer">
-            Remember your password? <Link to="/login">Login here</Link>
+            Remember your password? <Link to="/login" style={{ pointerEvents: loading ? 'none' : 'auto' }}>Login here</Link>
           </div>
         </form>
       )}
