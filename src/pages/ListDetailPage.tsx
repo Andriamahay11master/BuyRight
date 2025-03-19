@@ -51,17 +51,23 @@ const ListDetailPage: React.FC = () => {
         }
 
         const listData = listDoc.data();
+        if (!listData) {
+          setError('List data is empty');
+          setLoading(false);
+          return;
+        }
+
         setList({
-          name: listData.name,
-          description: listData.description,
-          items: listData.items.map((item: any, index: number) => ({
+          name: listData.name || '',
+          description: listData.description || '',
+          items: (listData.items || []).map((item: any, index: number) => ({
             ...item,
             id: index.toString()
           })),
-          totalItems: listData.totalItems,
-          completedItems: listData.completedItems,
-          createdAt: listData.createdAt?.toDate(),
-          updatedAt: listData.updatedAt?.toDate()
+          totalItems: listData.totalItems || 0,
+          completedItems: listData.completedItems || 0,
+          createdAt: listData.createdAt?.toDate() || new Date(),
+          updatedAt: listData.updatedAt?.toDate() || new Date()
         });
       } catch (err: any) {
         setError(err.message || 'Failed to fetch list');
@@ -234,7 +240,6 @@ const ListDetailPage: React.FC = () => {
       const listRef = doc(firebase.db, 'lists', listId);
       await deleteDoc(listRef);
 
-      // Update user's totalLists count
       const userRef = doc(firebase.db, 'users', user!.uid);
       await updateDoc(userRef, {
         totalLists: increment(-1)

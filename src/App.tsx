@@ -76,7 +76,7 @@ const App: React.FC = () => {
             }
           />
           <Route
-            path="/list/:id"
+            path="/list/:listId"
             element={
               <ProtectedRoute>
                 <AuthenticatedLayout>
