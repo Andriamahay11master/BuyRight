@@ -6,7 +6,7 @@ import { collection, query, where, getDocs, orderBy, doc, deleteDoc, updateDoc, 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import Loader from '../components/Loader';
-import '../styles/pages/_home.scss';
+import Modal from '../components/Modal';
 import { ListData } from '../models/ListData';
 
 const HomePage: React.FC = () => {
@@ -15,6 +15,8 @@ const HomePage: React.FC = () => {
   const [lists, setLists] = useState<ListData[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [listToDelete, setListToDelete] = useState<string | null>(null);
 
   useEffect(() => {
     if (!user) return;
@@ -63,19 +65,30 @@ const HomePage: React.FC = () => {
     navigate('/create');
   };
 
-  const handleDeleteList = async (listId: string) => {
-    if (!window.confirm('Are you sure you want to delete this list?')) return;
+  const openDeleteModal = (listId: string) => {
+    setListToDelete(listId);
+    setDeleteModalOpen(true);
+  };
+
+  const closeDeleteModal = () => {
+    setDeleteModalOpen(false);
+    setListToDelete(null);
+  };
+
+  const handleDeleteList = async () => {
+    if (!listToDelete || !user) return;
 
     try {
-      const listRef = doc(firebase.db, 'lists', listId);
+      const listRef = doc(firebase.db, 'lists', listToDelete);
       await deleteDoc(listRef);
 
-      const userRef = doc(firebase.db, 'users', user!.uid);
+      const userRef = doc(firebase.db, 'users', user.uid);
       await updateDoc(userRef, {
         totalLists: increment(-1)
       });
 
-      setLists(lists.filter(list => list.id !== listId));
+      setLists(lists.filter(list => list.id !== listToDelete));
+      closeDeleteModal();
     } catch (err: any) {
       setError(err.message || 'Failed to delete list');
     }
@@ -120,7 +133,7 @@ const HomePage: React.FC = () => {
               <div className="list-card-header">
                 <h2>{list.name}</h2>
                 <button
-                  onClick={() => handleDeleteList(list.id || '')}
+                  onClick={() => openDeleteModal(list.id || '')}
                   className="btn-delete"
                 >
                   <FontAwesomeIcon icon={faTrash} />
@@ -149,6 +162,25 @@ const HomePage: React.FC = () => {
           ))}
         </div>
       )}
+
+      <Modal
+        isOpen={deleteModalOpen}
+        onClose={closeDeleteModal}
+        title="Delete List"
+        size="small"
+      >
+        <div className="delete-confirmation">
+          <p>Are you sure you want to delete this list? This action cannot be undone.</p>
+          <div className="modal-actions">
+            <button onClick={closeDeleteModal} className="btn-cancel">
+              Cancel
+            </button>
+            <button onClick={handleDeleteList} className="btn-delete">
+              Delete
+            </button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };

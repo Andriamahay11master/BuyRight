@@ -168,6 +168,50 @@
       }
     }
   }
+
+  .delete-confirmation {
+    text-align: center;
+    padding: 1rem 0;
+
+    p {
+      color: $text-primary;
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+
+      button {
+        padding: 0.75rem 1.5rem;
+        border-radius: 4px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.2s;
+
+        &.btn-cancel {
+          background-color: $surface-secondary;
+          color: $text-primary;
+          border: 1px solid $border-color;
+
+          &:hover {
+            background-color: $surface-hover;
+          }
+        }
+
+        &.btn-delete {
+          background-color: $error-color;
+          color: $white;
+          border: none;
+
+          &:hover {
+            background-color: darken($error-color, 5%);
+          }
+        }
+      }
+    }
+  }
 }
 
 @media (max-width: 768px) {
