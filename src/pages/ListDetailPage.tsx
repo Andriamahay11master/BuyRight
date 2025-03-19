@@ -6,6 +6,7 @@ import firebase from '../firebase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTrash, faArrowUp, faArrowDown, faEdit, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import Loader from '../components/Loader';
+import Modal from '../components/Modal';
 import { ListItem } from '../models/ListItem';
 import { ListData } from '../models/ListData';
 
@@ -19,6 +20,9 @@ const ListDetailPage: React.FC = () => {
   const [error, setError] = useState('');
   const [editingItem, setEditingItem] = useState<string | null>(null);
   const [editForm, setEditForm] = useState<ListItem | null>(null);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [deleteItemModalOpen, setDeleteItemModalOpen] = useState(false);
+  const [itemToDelete, setItemToDelete] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchList = async () => {
@@ -130,32 +134,6 @@ const ListDetailPage: React.FC = () => {
     }
   };
 
-  const deleteItem = async (itemId: string) => {
-    if (!list || !listId) return;
-
-    const updatedItems = list.items.filter(item => item.id !== itemId);
-    const completedCount = updatedItems.filter(item => item.completed).length;
-
-    try {
-      const listRef = doc(firebase.db, 'lists', listId);
-      await updateDoc(listRef, {
-        items: updatedItems,
-        totalItems: updatedItems.length,
-        completedItems: completedCount,
-        updatedAt: serverTimestamp()
-      });
-
-      setList({
-        ...list,
-        items: updatedItems,
-        totalItems: updatedItems.length,
-        completedItems: completedCount
-      });
-    } catch (err: any) {
-      setError(err.message || 'Failed to delete item');
-    }
-  };
-
   const moveItem = async (index: number, direction: 'up' | 'down') => {
     if (!list || !listId) return;
 
@@ -215,16 +193,32 @@ const ListDetailPage: React.FC = () => {
     }
   };
 
-  const deleteList = async () => {
-    if (!listId) return;
+  const openDeleteModal = () => {
+    setDeleteModalOpen(true);
+  };
 
-    if (!window.confirm('Are you sure you want to delete this list?')) return;
+  const closeDeleteModal = () => {
+    setDeleteModalOpen(false);
+  };
+
+  const openDeleteItemModal = (itemId: string) => {
+    setItemToDelete(itemId);
+    setDeleteItemModalOpen(true);
+  };
+
+  const closeDeleteItemModal = () => {
+    setDeleteItemModalOpen(false);
+    setItemToDelete(null);
+  };
+
+  const handleDeleteList = async () => {
+    if (!listId || !user) return;
 
     try {
       const listRef = doc(firebase.db, 'lists', listId);
       await deleteDoc(listRef);
 
-      const userRef = doc(firebase.db, 'users', user!.uid);
+      const userRef = doc(firebase.db, 'users', user.uid);
       await updateDoc(userRef, {
         totalLists: increment(-1)
       });
@@ -232,6 +226,33 @@ const ListDetailPage: React.FC = () => {
       navigate('/');
     } catch (err: any) {
       setError(err.message || 'Failed to delete list');
+    }
+  };
+
+  const handleDeleteItem = async () => {
+    if (!list || !listId || !itemToDelete) return;
+
+    const updatedItems = list.items.filter(item => item.id !== itemToDelete);
+    const completedCount = updatedItems.filter(item => item.completed).length;
+
+    try {
+      const listRef = doc(firebase.db, 'lists', listId);
+      await updateDoc(listRef, {
+        items: updatedItems,
+        totalItems: updatedItems.length,
+        completedItems: completedCount,
+        updatedAt: serverTimestamp()
+      });
+
+      setList({
+        ...list,
+        items: updatedItems,
+        totalItems: updatedItems.length,
+        completedItems: completedCount
+      });
+      closeDeleteItemModal();
+    } catch (err: any) {
+      setError(err.message || 'Failed to delete item');
     }
   };
 
@@ -259,7 +280,7 @@ const ListDetailPage: React.FC = () => {
       <div className="list-header">
         <h1>{list.name}</h1>
         <div className="list-actions">
-          <button onClick={deleteList} className="btn-delete">
+          <button onClick={openDeleteModal} className="btn-delete">
             Delete List
           </button>
         </div>
@@ -310,7 +331,7 @@ const ListDetailPage: React.FC = () => {
                   <button
                     type="button"
                     className="btn-icon btn-delete"
-                    onClick={() => deleteItem(item.id)}
+                    onClick={() => openDeleteItemModal(item.id)}
                   >
                     <FontAwesomeIcon icon={faTrash} />
                   </button>
@@ -406,6 +427,46 @@ const ListDetailPage: React.FC = () => {
           ))}
         </div>
       </div>
+
+      {/* List Delete Modal */}
+      <Modal
+        isOpen={deleteModalOpen}
+        onClose={closeDeleteModal}
+        title="Delete List"
+        size="small"
+      >
+        <div className="delete-confirmation">
+          <p>Are you sure you want to delete this list? This action cannot be undone.</p>
+          <div className="modal-actions">
+            <button onClick={closeDeleteModal} className="btn-cancel">
+              Cancel
+            </button>
+            <button onClick={handleDeleteList} className="btn-delete">
+              Delete
+            </button>
+          </div>
+        </div>
+      </Modal>
+
+      {/* Item Delete Modal */}
+      <Modal
+        isOpen={deleteItemModalOpen}
+        onClose={closeDeleteItemModal}
+        title="Delete Item"
+        size="small"
+      >
+        <div className="delete-confirmation">
+          <p>Are you sure you want to delete this item? This action cannot be undone.</p>
+          <div className="modal-actions">
+            <button onClick={closeDeleteItemModal} className="btn-cancel">
+              Cancel
+            </button>
+            <button onClick={handleDeleteItem} className="btn-delete">
+              Delete
+            </button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };
