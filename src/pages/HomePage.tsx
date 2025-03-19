@@ -6,26 +6,8 @@ import { collection, query, where, getDocs, orderBy, doc, deleteDoc, updateDoc, 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import Loader from '../components/Loader';
-
-interface ListItem {
-  id: string;
-  name: string;
-  quantity: number;
-  unit: string;
-  notes: string;
-  completed: boolean;
-}
-
-interface ListData {
-  id: string;
-  name: string;
-  description: string;
-  items: ListItem[];
-  totalItems: number;
-  completedItems: number;
-  createdAt: Date;
-  updatedAt: Date;
-}
+import '../styles/pages/_home.scss';
+import { ListData } from '../models/ListData';
 
 const HomePage: React.FC = () => {
   const { user } = useAuth();
@@ -138,7 +120,7 @@ const HomePage: React.FC = () => {
               <div className="list-card-header">
                 <h2>{list.name}</h2>
                 <button
-                  onClick={() => handleDeleteList(list.id)}
+                  onClick={() => handleDeleteList(list.id || '')}
                   className="btn-delete"
                 >
                   <FontAwesomeIcon icon={faTrash} />
