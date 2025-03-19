@@ -1,7 +1,6 @@
 import { ListItem } from "./ListItem";
 
 export type ListData = {
-    id: string;
     name: string;
     description: string;
     items: ListItem[];

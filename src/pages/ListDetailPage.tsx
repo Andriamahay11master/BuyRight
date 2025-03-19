@@ -6,25 +6,9 @@ import firebase from '../firebase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTrash, faArrowUp, faArrowDown, faEdit, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import Loader from '../components/Loader';
+import { ListItem } from '../models/ListItem';
+import { ListData } from '../models/ListData';
 
-interface ListItem {
-  id: string;
-  name: string;
-  quantity: number;
-  unit: string;
-  notes: string;
-  completed: boolean;
-}
-
-interface ListData {
-  name: string;
-  description: string;
-  items: ListItem[];
-  totalItems: number;
-  completedItems: number;
-  createdAt: Date;
-  updatedAt: Date;
-}
 
 const ListDetailPage: React.FC = () => {
   const { listId } = useParams<{ listId: string }>();
