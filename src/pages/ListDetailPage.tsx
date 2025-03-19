@@ -1,49 +1,420 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { doc, getDoc, updateDoc, deleteDoc, serverTimestamp, increment } from 'firebase/firestore';
+import { useAuth } from '../contexts/AuthContext';
+import firebase from '../firebase';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faTrash, faArrowUp, faArrowDown, faEdit, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
+import Loader from '../components/Loader';
+
+interface ListItem {
+  id: string;
+  name: string;
+  quantity: number;
+  unit: string;
+  notes: string;
+  completed: boolean;
+}
+
+interface ListData {
+  name: string;
+  description: string;
+  items: ListItem[];
+  totalItems: number;
+  completedItems: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
 const ListDetailPage: React.FC = () => {
   const { listId } = useParams<{ listId: string }>();
+  const navigate = useNavigate();
+  const { user } = useAuth();
+  const [list, setList] = useState<ListData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [editingItem, setEditingItem] = useState<string | null>(null);
+  const [editForm, setEditForm] = useState<ListItem | null>(null);
+
+  useEffect(() => {
+    const fetchList = async () => {
+      if (!listId || !user) return;
+
+      try {
+        const listRef = doc(firebase.db, 'lists', listId);
+        const listDoc = await getDoc(listRef);
+
+        if (!listDoc.exists()) {
+          setError('List not found');
+          setLoading(false);
+          return;
+        }
+
+        const listData = listDoc.data();
+        setList({
+          name: listData.name,
+          description: listData.description,
+          items: listData.items.map((item: any, index: number) => ({
+            ...item,
+            id: index.toString()
+          })),
+          totalItems: listData.totalItems,
+          completedItems: listData.completedItems,
+          createdAt: listData.createdAt?.toDate(),
+          updatedAt: listData.updatedAt?.toDate()
+        });
+      } catch (err: any) {
+        setError(err.message || 'Failed to fetch list');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchList();
+  }, [listId, user]);
+
+  const handleItemComplete = async (itemId: string) => {
+    if (!list || !listId) return;
+
+    const updatedItems = list.items.map(item => 
+      item.id === itemId ? { ...item, completed: !item.completed } : item
+    );
+
+    const completedCount = updatedItems.filter(item => item.completed).length;
+
+    try {
+      const listRef = doc(firebase.db, 'lists', listId);
+      await updateDoc(listRef, {
+        items: updatedItems,
+        completedItems: completedCount,
+        updatedAt: serverTimestamp()
+      });
+
+      setList({
+        ...list,
+        items: updatedItems,
+        completedItems: completedCount
+      });
+    } catch (err: any) {
+      setError(err.message || 'Failed to update item');
+    }
+  };
+
+  const startEditing = (item: ListItem) => {
+    setEditingItem(item.id);
+    setEditForm(item);
+  };
+
+  const cancelEditing = () => {
+    setEditingItem(null);
+    setEditForm(null);
+  };
+
+  const handleEditChange = (field: keyof ListItem, value: string | number) => {
+    if (!editForm) return;
+    setEditForm({ ...editForm, [field]: value });
+  };
+
+  const saveEdit = async () => {
+    if (!list || !listId || !editForm) return;
+
+    const updatedItems = list.items.map(item =>
+      item.id === editForm.id ? editForm : item
+    );
+
+    try {
+      const listRef = doc(firebase.db, 'lists', listId);
+      await updateDoc(listRef, {
+        items: updatedItems,
+        updatedAt: serverTimestamp()
+      });
+
+      setList({
+        ...list,
+        items: updatedItems
+      });
+      setEditingItem(null);
+      setEditForm(null);
+    } catch (err: any) {
+      setError(err.message || 'Failed to update item');
+    }
+  };
+
+  const deleteItem = async (itemId: string) => {
+    if (!list || !listId) return;
+
+    const updatedItems = list.items.filter(item => item.id !== itemId);
+    const completedCount = updatedItems.filter(item => item.completed).length;
+
+    try {
+      const listRef = doc(firebase.db, 'lists', listId);
+      await updateDoc(listRef, {
+        items: updatedItems,
+        totalItems: updatedItems.length,
+        completedItems: completedCount,
+        updatedAt: serverTimestamp()
+      });
+
+      setList({
+        ...list,
+        items: updatedItems,
+        totalItems: updatedItems.length,
+        completedItems: completedCount
+      });
+    } catch (err: any) {
+      setError(err.message || 'Failed to delete item');
+    }
+  };
+
+  const moveItem = async (index: number, direction: 'up' | 'down') => {
+    if (!list || !listId) return;
+
+    const newItems = [...list.items];
+    const newIndex = direction === 'up' ? index - 1 : index + 1;
+    
+    if (newIndex >= 0 && newIndex < list.items.length) {
+      [newItems[index], newItems[newIndex]] = [newItems[newIndex], newItems[index]];
+      
+      try {
+        const listRef = doc(firebase.db, 'lists', listId);
+        await updateDoc(listRef, {
+          items: newItems,
+          updatedAt: serverTimestamp()
+        });
+
+        setList({
+          ...list,
+          items: newItems
+        });
+      } catch (err: any) {
+        setError(err.message || 'Failed to reorder items');
+      }
+    }
+  };
+
+  const addItem = async () => {
+    if (!list || !listId) return;
+
+    const newItem: ListItem = {
+      id: list.items.length.toString(),
+      name: '',
+      quantity: 1,
+      unit: '',
+      notes: '',
+      completed: false
+    };
+
+    const updatedItems = [...list.items, newItem];
+
+    try {
+      const listRef = doc(firebase.db, 'lists', listId);
+      await updateDoc(listRef, {
+        items: updatedItems,
+        totalItems: updatedItems.length,
+        updatedAt: serverTimestamp()
+      });
+
+      setList({
+        ...list,
+        items: updatedItems,
+        totalItems: updatedItems.length
+      });
+      startEditing(newItem);
+    } catch (err: any) {
+      setError(err.message || 'Failed to add item');
+    }
+  };
+
+  const deleteList = async () => {
+    if (!listId) return;
+
+    if (!window.confirm('Are you sure you want to delete this list?')) return;
+
+    try {
+      const listRef = doc(firebase.db, 'lists', listId);
+      await deleteDoc(listRef);
+
+      // Update user's totalLists count
+      const userRef = doc(firebase.db, 'users', user!.uid);
+      await updateDoc(userRef, {
+        totalLists: increment(-1)
+      });
+
+      navigate('/');
+    } catch (err: any) {
+      setError(err.message || 'Failed to delete list');
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="loader-container">
+        <Loader size="large" />
+      </div>
+    );
+  }
+
+  if (error || !list) {
+    return (
+      <div className="error-container">
+        <div className="error-message">{error || 'List not found'}</div>
+        <button onClick={() => navigate('/')} className="btn-primary">
+          Return to Home
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="list-detail-page">
       <div className="list-header">
-        <h1>Shopping List</h1>
+        <h1>{list.name}</h1>
         <div className="list-actions">
-          <button className="share-btn">Share</button>
-          <button className="edit-btn">Edit</button>
-          <button className="delete-btn">Delete</button>
+          <button onClick={deleteList} className="btn-delete">
+            Delete List
+          </button>
         </div>
       </div>
-      
-      <div className="list-content">
-        <div className="list-info">
-          <p className="list-description">Description will go here</p>
-          <p className="list-date">Created on: Date will go here</p>
+
+      {list.description && (
+        <div className="list-description">
+          <p>{list.description}</p>
         </div>
-        
-        <div className="items-list">
-          {/* Shopping items will be listed here */}
-          {listId && <div className="item-card">
-            <div className="item-card-content">
-              <div className="item-card-checkbox">
-                <input type="checkbox" id="item-checkbox" />
-              </div>
-              <div className="item-card-details">
-                <div className="item-card-name">
-                  <h3>Item Name</h3>
+      )}
+
+      <div className="list-stats">
+        <span>Total Items: {list.totalItems}</span>
+        <span>Completed: {list.completedItems}</span>
+        <span>Progress: {Math.round((list.completedItems / list.totalItems) * 100)}%</span>
+      </div>
+
+      <div className="items-section">
+        <div className="section-header">
+          <h2>Items</h2>
+          <button onClick={addItem} className="btn-add-item">
+            <FontAwesomeIcon icon={faPlus} />
+            Add Item
+          </button>
+        </div>
+
+        <div className="items-container">
+          {list.items.map((item, index) => (
+            <div key={item.id} className={`item-card ${item.completed ? 'completed' : ''}`}>
+              <div className="item-header">
+                <div className="item-controls">
+                  <button
+                    type="button"
+                    className="btn-icon"
+                    onClick={() => moveItem(index, 'up')}
+                    disabled={index === 0}
+                  >
+                    <FontAwesomeIcon icon={faArrowUp} />
+                  </button>
+                  <button
+                    type="button"
+                    className="btn-icon"
+                    onClick={() => moveItem(index, 'down')}
+                    disabled={index === list.items.length - 1}
+                  >
+                    <FontAwesomeIcon icon={faArrowDown} />
+                  </button>
+                  <button
+                    type="button"
+                    className="btn-icon btn-delete"
+                    onClick={() => deleteItem(item.id)}
+                  >
+                    <FontAwesomeIcon icon={faTrash} />
+                  </button>
                 </div>
-                <div className="item-card-quantity">
-                  <span className="quantity-label">Quantity:</span>
-                  <span className="quantity-value">1</span>
-                </div>
+                <span className="item-number">#{index + 1}</span>
               </div>
+
+              {editingItem === item.id ? (
+                <div className="item-fields">
+                  <div className="form-group">
+                    <label htmlFor={`edit-name-${item.id}`}>Item Name</label>
+                    <input
+                      type="text"
+                      id={`edit-name-${item.id}`}
+                      value={editForm?.name || ''}
+                      onChange={(e) => handleEditChange('name', e.target.value)}
+                      required
+                    />
+                  </div>
+
+                  <div className="item-quantity">
+                    <div className="form-group">
+                      <label htmlFor={`edit-quantity-${item.id}`}>Quantity</label>
+                      <input
+                        type="number"
+                        id={`edit-quantity-${item.id}`}
+                        value={editForm?.quantity || 1}
+                        onChange={(e) => handleEditChange('quantity', parseInt(e.target.value) || 1)}
+                        min="1"
+                        required
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label htmlFor={`edit-unit-${item.id}`}>Unit</label>
+                      <input
+                        type="text"
+                        id={`edit-unit-${item.id}`}
+                        value={editForm?.unit || ''}
+                        onChange={(e) => handleEditChange('unit', e.target.value)}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor={`edit-notes-${item.id}`}>Notes</label>
+                    <input
+                      type="text"
+                      id={`edit-notes-${item.id}`}
+                      value={editForm?.notes || ''}
+                      onChange={(e) => handleEditChange('notes', e.target.value)}
+                    />
+                  </div>
+
+                  <div className="edit-actions">
+                    <button onClick={saveEdit} className="btn-save">
+                      <FontAwesomeIcon icon={faCheck} />
+                      Save
+                    </button>
+                    <button onClick={cancelEditing} className="btn-cancel">
+                      <FontAwesomeIcon icon={faTimes} />
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div className="item-content">
+                  <div className="item-main">
+                    <div className="item-name">
+                      <input
+                        type="checkbox"
+                        checked={item.completed}
+                        onChange={() => handleItemComplete(item.id)}
+                      />
+                      <span>{item.name}</span>
+                    </div>
+                    <div className="item-details">
+                      <span className="quantity">{item.quantity}</span>
+                      {item.unit && <span className="unit">{item.unit}</span>}
+                    </div>
+                  </div>
+                  {item.notes && <div className="item-notes">{item.notes}</div>}
+                  <button
+                    onClick={() => startEditing(item)}
+                    className="btn-edit"
+                  >
+                    <FontAwesomeIcon icon={faEdit} />
+                    Edit
+                  </button>
+                </div>
+              )}
             </div>
-          </div>
-          }
-        </div>
-        
-        <div className="add-item-section">
-          <button className="add-item-btn">Add New Item</button>
+          ))}
         </div>
       </div>
     </div>
