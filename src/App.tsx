@@ -27,7 +27,6 @@ const App: React.FC = () => {
         {showSplash ? (
           <SplashScreen onComplete={handleSplashComplete} />
         ) : (
-          <div className="app">
             <Routes>
               {/* Public routes - only accessible when not authenticated */}
               <Route
@@ -100,7 +99,6 @@ const App: React.FC = () => {
               {/* Catch all route */}
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
-          </div>
         )}
       </AuthProvider>
     </Router>
