@@ -26,7 +26,8 @@ const ProfilePage: React.FC = () => {
   const [error, setError] = useState('');
   const [isEditing, setIsEditing] = useState(false);
   const [editForm, setEditForm] = useState({
-    displayName: ''
+    displayName: '',
+    email: ''
   });
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [reauthModalOpen, setReauthModalOpen] = useState(false);
@@ -43,7 +44,7 @@ const ProfilePage: React.FC = () => {
         if (userDoc.exists()) {
           const data = userDoc.data() as UserData;
           setUserData(data);
-          setEditForm({ displayName: data.displayName });
+          setEditForm({ displayName: data.displayName, email: data.email });
         }
       } catch (err: any) {
         setError(err.message || 'Failed to fetch user data');
@@ -69,7 +70,7 @@ const ProfilePage: React.FC = () => {
 
   const cancelEditing = () => {
     if (userData) {
-      setEditForm({ displayName: userData.displayName });
+      setEditForm({ displayName: userData.displayName, email: userData.email });
     }
     setIsEditing(false);
   };
@@ -87,10 +88,11 @@ const ProfilePage: React.FC = () => {
       const userRef = doc(firebase.db, 'users', user.uid);
       await updateDoc(userRef, {
         displayName: editForm.displayName,
+        email: editForm.email,
         updatedAt: new Date().toISOString()
       });
 
-      setUserData(prev => prev ? { ...prev, displayName: editForm.displayName } : null);
+      setUserData(prev => prev ? { ...prev, displayName: editForm.displayName, email: editForm.email } : null);
       setIsEditing(false);
     } catch (err: any) {
       setError(err.message || 'Failed to update profile');
@@ -205,10 +207,19 @@ const ProfilePage: React.FC = () => {
             <FontAwesomeIcon icon={faEnvelope} />
             <div className="field-content">
               <label>Email</label>
-              <span>{userData.email}</span>
+              {isEditing ? (
+                <input
+                  type="email"
+                  name="email"
+                  value={editForm.email}
+                  onChange={handleEditChange}
+                  required
+                />
+              ) : (
+                <span>{userData.email}</span>
+              )}
             </div>
           </div>
-
           <div className="profile-field">
             <FontAwesomeIcon icon={faCalendar} />
             <div className="field-content">
