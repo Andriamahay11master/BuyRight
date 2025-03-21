@@ -7,22 +7,11 @@ const Navbar: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [activeLink, setActiveLink] = useState('/');
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  // Listen for auth state changes
-  useEffect(() => {
-    const unsubscribe = firebase.auth.onAuthStateChanged((user) => {
-      setIsAuthenticated(!!user);
-    });
-
-    return () => unsubscribe();
-  }, []);
 
   // Close menu when route changes
   useEffect(() => {
     setActiveLink(location.pathname);
   }, [location.pathname]);
-
 
   const handleLinkClick = (path: string) => {
     setActiveLink(path);
