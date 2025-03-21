@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
-  faBars, 
-  faTimes, 
   faHome, 
   faPlus, 
   faUser, 
@@ -16,7 +14,6 @@ import firebase from '../firebase';
 const Navbar: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeLink, setActiveLink] = useState('/');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -31,31 +28,9 @@ const Navbar: React.FC = () => {
 
   // Close menu when route changes
   useEffect(() => {
-    setIsMenuOpen(false);
     setActiveLink(location.pathname);
   }, [location.pathname]);
 
-  // Close menu when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      const navbar = document.querySelector('.navbar');
-      if (isMenuOpen && navbar && !navbar.contains(event.target as Node)) {
-        setIsMenuOpen(false);
-      }
-    };
-
-    if (isMenuOpen) {
-      document.addEventListener('click', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, [isMenuOpen]);
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
 
   const handleLinkClick = (path: string) => {
     setActiveLink(path);
@@ -75,14 +50,10 @@ const Navbar: React.FC = () => {
       <div className="navbar-brand">
         <Link to="/">BuyRight</Link>
       </div>
-      
-      <button className="menu-toggle" onClick={toggleMenu}>
-        <FontAwesomeIcon icon={isMenuOpen ? faTimes : faBars} />
-      </button>
-      
-      <div className={`navbar-content ${isMenuOpen ? 'active' : ''}`}>
+       
+      <div className="navbar-content">
         {isAuthenticated ? (
-          <>
+          <div className='navbar-menu-container'>
             <div className="navbar-menu">
               <Link 
                 to="/" 
@@ -116,7 +87,7 @@ const Navbar: React.FC = () => {
                 Logout
               </button>
             </div>
-          </>
+          </div>
         ) : (
           <div className="navbar-auth">
             <Link to="/login" className="login-btn">
