@@ -61,7 +61,7 @@ const Navbar: React.FC = () => {
                 onClick={() => handleLinkClick('/')}
               >
                 <FontAwesomeIcon icon={faHome} className="nav-icon" />
-                Home
+                <span>Home</span>
               </Link>
               <Link 
                 to="/create" 
@@ -69,7 +69,7 @@ const Navbar: React.FC = () => {
                 onClick={() => handleLinkClick('/create')}
               >
                 <FontAwesomeIcon icon={faPlus} className="nav-icon" />
-                Create List
+                <span>Create List</span>
               </Link>
               <Link 
                 to="/profile" 
@@ -77,7 +77,7 @@ const Navbar: React.FC = () => {
                 onClick={() => handleLinkClick('/profile')}
               >
                 <FontAwesomeIcon icon={faUser} className="nav-icon" />
-                Profile
+                <span>Profile</span>
               </Link>
             </div>
             

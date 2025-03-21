@@ -1,7 +1,7 @@
 .navbar {
-  background-color: #ffffff;
+  background-color: $white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 1rem 2rem;
+  padding: $spacing-md $spacing-xl;
   position: fixed;
   top: 0;
   left: 0;
@@ -12,30 +12,35 @@
   align-items: center;
 
   @include mobile {
-    padding: $spacing-sm;
+    padding: $spacing-sm $spacing-md;
     flex-wrap: wrap;
   }
 
   .navbar-brand {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #2c3e50;
-
+    color: $primary-color;
     a {
       text-decoration: none;
       color: inherit;
     }
-
-    @include mobile {
-      font-size: 1.25rem;
-    }
   }
-
   .navbar-content {
     display: flex;
     align-items: center;
     gap: 2rem;
+    @include tablet {
+      gap: 1rem;
+    }
 
+    .navbar-menu-container {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      @include tablet {
+        gap: 1rem;
+      }
+    }
     .navbar-menu {
       display: flex;
       gap: 1.5rem;
@@ -47,32 +52,43 @@
         bottom: 0;
         left: 0;
         right: 0;
-        background-color: #ffffff;
-        padding: 1rem;
-        box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-        z-index: 1000;
+        background-color: $white;
+        padding: 0.7rem;
+        box-shadow: 0px -5px 20px 20px rgba(0, 0, 0, 0.1);
+        z-index: 100;
+        justify-content: center;
+        gap: 2rem;
+        border-radius: 3rem 3rem 0 0;
       }
 
       .nav-item {
         text-decoration: none;
-        color: #2c3e50;
+        color: $text-primary;
         font-weight: 500;
         display: flex;
         align-items: center;
         gap: 0.5rem;
         padding: 0.5rem;
         transition: color 0.3s ease;
-
+        white-space: nowrap;
         &:hover {
-          color: #3498db;
+          color: $primary-color;
         }
 
         &.active {
-          color: #3498db;
+          color: $primary-color;
         }
 
         .nav-icon {
           font-size: 1.1rem;
+          @include mobile {
+            font-size: 1.4rem;
+          }
+        }
+        span {
+          @include mobile {
+            display: none;
+          }
         }
       }
     }
@@ -87,8 +103,6 @@
         width: 100%;
       }
 
-      .login-btn,
-      .register-btn,
       .logout-btn {
         display: flex;
         align-items: center;
@@ -101,54 +115,16 @@
         text-decoration: none;
         border: none;
         background: none;
-
+        color: $error-color-dark;
+        border: 1px solid $error-color-dark;
         .nav-icon {
           font-size: 1.1rem;
         }
-      }
-
-      .login-btn {
-        color: #3498db;
-        border: 1px solid #3498db;
-
         &:hover {
-          background-color: #3498db;
-          color: #ffffff;
-        }
+            background-color: $error-color-dark;
+            color: $white;
+          }
       }
-
-      .register-btn {
-        background-color: #3498db;
-        color: #ffffff;
-
-        &:hover {
-          background-color: #2980b9;
-        }
-      }
-
-      .logout-btn {
-        color: #e74c3c;
-        border: 1px solid #e74c3c;
-
-        &:hover {
-          background-color: #e74c3c;
-          color: #ffffff;
-        }
-      }
-    }
-  }
-
-  .menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    color: #2c3e50;
-    cursor: pointer;
-    padding: 0.5rem;
-
-    @media (max-width: 768px) {
-      display: block;
     }
   }
 } 
