@@ -60,10 +60,7 @@ const Navbar: React.FC = () => {
                 className={`nav-item ${activeLink === '/' ? 'active' : ''}`}
                 onClick={() => handleLinkClick('/')}
               >
-                <svg className="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M9 22V12h6v10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+                <i className='icon-home'></i>
                 <span>Home</span>
               </Link>
               <Link 
@@ -71,9 +68,7 @@ const Navbar: React.FC = () => {
                 className={`nav-item ${activeLink === '/create' ? 'active' : ''}`}
                 onClick={() => handleLinkClick('/create')}
               >
-                <svg className="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 5v14m-7-7h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+                <i className="icon-plus"></i>
                 <span>Create List</span>
               </Link>
               <Link 
@@ -81,17 +76,14 @@ const Navbar: React.FC = () => {
                 className={`nav-item ${activeLink === '/profile' ? 'active' : ''}`}
                 onClick={() => handleLinkClick('/profile')}
               >
-                <svg className="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <circle cx="12" cy="7" r="4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+                <i className="icon-user"></i>
                 <span>Profile</span>
               </Link>
             </div>
             
             <div className="navbar-auth">
               <button className="logout-btn" onClick={handleLogout}>
-                <FontAwesomeIcon icon={faSignOutAlt} className="nav-icon" />
+                <i className="icon-log-out"></i>
                 Logout
               </button>
             </div>
