@@ -1,13 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
-  faHome, 
-  faPlus, 
-  faUser, 
-  faSignOutAlt,
-  faSignInAlt
-} from '@fortawesome/free-solid-svg-icons';
 import { signOut } from 'firebase/auth';
 import firebase from '../firebase';
 

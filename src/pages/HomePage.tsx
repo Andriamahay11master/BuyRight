@@ -3,8 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import firebase from '../firebase';
 import { collection, query, where, getDocs, orderBy, doc, deleteDoc, updateDoc, increment } from 'firebase/firestore';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import Loader from '../components/Loader';
 import Modal from '../components/Modal';
 import { ListData } from '../models/ListData';
@@ -107,7 +105,7 @@ const HomePage: React.FC = () => {
       <div className="page-header">
         <h1>My Shopping Lists</h1>
         <button onClick={handleCreateList} className="btn-create">
-          <FontAwesomeIcon icon={faPlus} />
+          <i className="icon-plus-circle"></i>
           Create New List
         </button>
       </div>
@@ -122,7 +120,7 @@ const HomePage: React.FC = () => {
         <div className="empty-state">
           <p>You don't have any shopping lists yet.</p>
           <button onClick={handleCreateList} className="btn-create">
-            <FontAwesomeIcon icon={faPlus} />
+            <i className="icon-plus"></i>
             Create Your First List
           </button>
         </div>
@@ -136,7 +134,7 @@ const HomePage: React.FC = () => {
                   onClick={() => openDeleteModal(list.id || '')}
                   className="btn-delete"
                 >
-                  <FontAwesomeIcon icon={faTrash} />
+                  <i className="icon-trash-2"></i>
                 </button>
               </div>
 

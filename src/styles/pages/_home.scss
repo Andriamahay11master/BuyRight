@@ -2,13 +2,20 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
+  @include mobile {
+    padding: 2rem 0 5.5rem;
+  }
 
   .page-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2rem;
-
+    @include mobile {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 1rem;
+    }
     h1 {
       margin: 0;
       color: $text-primary;
@@ -28,10 +35,10 @@
       transition: background-color 0.2s;
 
       &:hover {
-        background-color: $success-color-dark;
+        background-color: $secondary-color;
       }
 
-      svg {
+      i {
         font-size: 1.1rem;
       }
     }
@@ -71,10 +78,10 @@
       transition: background-color 0.2s;
 
       &:hover {
-        background-color: $success-color-dark;
+        background-color: $secondary-color;
       }
 
-      svg {
+      i {
         font-size: 1.1rem;
       }
     }
@@ -85,7 +92,9 @@
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1.5rem;
     margin-top: 1rem;
-
+    @include tablet{
+      grid-template-columns: 1fr;
+    }
     .list-card {
       background-color: $white;
       border-radius: 8px;
@@ -101,7 +110,7 @@
       .list-card-header {
         display: flex;
         justify-content: space-between;
-        align-items: flex-start;
+        align-items: center;
         margin-bottom: 1rem;
 
         h2 {
@@ -123,7 +132,7 @@
             background-color: rgba($error-color, 0.1);
           }
 
-          svg {
+          i {
             font-size: 1.1rem;
           }
         }
@@ -154,15 +163,15 @@
 
         .btn-view {
           padding: 0.5rem 1rem;
-          background-color: $surface-secondary;
-          color: $text-primary;
+          background-color: $primary-color;
+          color: $white;
           border: 1px solid $border-color;
           border-radius: 4px;
           cursor: pointer;
           transition: background-color 0.2s;
 
           &:hover {
-            background-color: $surface-hover;
+            background-color: $secondary-color;
           }
         }
       }
@@ -213,19 +222,3 @@
     }
   }
 }
-
-@media (max-width: 768px) {
-  .home-page {
-    padding: 1rem;
-
-    .page-header {
-      flex-direction: column;
-      gap: 1rem;
-      text-align: center;
-    }
-
-    .lists-container {
-      grid-template-columns: 1fr;
-    }
-  }
-} 
