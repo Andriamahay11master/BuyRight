@@ -71,15 +71,16 @@
         padding: 0.5rem;
         transition: color 0.3s ease;
         white-space: nowrap;
+        font-weight: 700;
         &:hover {
-          color: $primary-color;
+          color: $secondary-color;
         }
 
         &.active {
-          color: $primary-color;
+          color: $secondary-color;
         }
 
-        .nav-icon {
+        i {
           font-size: 1.1rem;
           @include mobile {
             font-size: 1.4rem;

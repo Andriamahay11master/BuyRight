@@ -52,7 +52,6 @@ const Navbar: React.FC = () => {
       </div>
        
       <div className="navbar-content">
-        {isAuthenticated ? (
           <div className='navbar-menu-container'>
             <div className="navbar-menu">
               <Link 
@@ -88,17 +87,6 @@ const Navbar: React.FC = () => {
               </button>
             </div>
           </div>
-        ) : (
-          <div className="navbar-auth">
-            <Link to="/login" className="login-btn">
-              <FontAwesomeIcon icon={faSignInAlt} className="nav-icon" />
-              Login
-            </Link>
-            <Link to="/register" className="register-btn">
-              Register
-            </Link>
-          </div>
-        )}
       </div>
     </nav>
   );
