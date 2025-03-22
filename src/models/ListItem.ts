@@ -4,5 +4,5 @@ export type ListItem = {
     quantity: number;
     unit: string;
     notes: string;
-    completed: boolean;
+    completed?: boolean;
 }

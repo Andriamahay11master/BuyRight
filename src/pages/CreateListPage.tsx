@@ -6,14 +6,7 @@ import firebase from '../firebase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTrash, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import Loader from '../components/Loader';
-
-interface ListItem {
-  id: string;
-  name: string;
-  quantity: number;
-  unit: string;
-  notes: string;
-}
+import { ListItem } from '../models/ListItem';
 
 const CreateListPage: React.FC = () => {
   const navigate = useNavigate();
@@ -155,11 +148,11 @@ const CreateListPage: React.FC = () => {
             <h2>Items</h2>
             <button
               type="button"
-              className="btn-add-item"
+              className="btn btn-add-item"
               onClick={addItem}
               disabled={loading}
             >
-              <FontAwesomeIcon icon={faPlus} />
+              <i className="icon-plus-circle"></i>
               Add Item
             </button>
           </div>
@@ -175,7 +168,7 @@ const CreateListPage: React.FC = () => {
                       onClick={() => moveItem(index, 'up')}
                       disabled={index === 0 || loading}
                     >
-                      <FontAwesomeIcon icon={faArrowUp} />
+                      <i className="icon-arrow-up"></i>
                     </button>
                     <button
                       type="button"
@@ -183,7 +176,7 @@ const CreateListPage: React.FC = () => {
                       onClick={() => moveItem(index, 'down')}
                       disabled={index === items.length - 1 || loading}
                     >
-                      <FontAwesomeIcon icon={faArrowDown} />
+                      <i className="icon-arrow-down"></i>
                     </button>
                     <button
                       type="button"
@@ -191,7 +184,7 @@ const CreateListPage: React.FC = () => {
                       onClick={() => removeItem(item.id)}
                       disabled={loading}
                     >
-                      <FontAwesomeIcon icon={faTrash} />
+                      <i className="icon-trash-2"></i>
                     </button>
                   </div>
                   <span className="item-number">#{index + 1}</span>
@@ -258,13 +251,13 @@ const CreateListPage: React.FC = () => {
         <div className="form-actions">
           <button
             type="button"
-            className="btn-secondary"
+            className="btn btn-secondary"
             onClick={() => navigate(-1)}
             disabled={loading}
           >
             Cancel
           </button>
-          <button type="submit" disabled={loading || items.length === 0}>
+          <button className="btn btn-primary" type="submit" disabled={loading || items.length === 0}>
             {loading ? (
               <>
                 <Loader size="small" color="#ffffff" />

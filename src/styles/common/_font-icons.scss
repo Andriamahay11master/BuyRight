@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url($font-path-icon + '/icomoon.eot?7z3ap3');
-  src:  url($font-path-icon + '/icomoon.eot?7z3ap3#iefix') format('embedded-opentype'),
-    url($font-path-icon + '/icomoon.ttf?7z3ap3') format('truetype'),
-    url($font-path-icon + '/icomoon.woff?7z3ap3') format('woff'),
-    url($font-path-icon + '/icomoon.svg?7z3ap3#icomoon') format('svg');
+  src:  url($font-path-icon + 'icomoon.eot?1lpbis');
+  src:  url($font-path-icon + 'icomoon.eot?1lpbis#iefix') format('embedded-opentype'),
+    url($font-path-icon + 'icomoon.ttf?1lpbis') format('truetype'),
+    url($font-path-icon + 'icomoon.woff?1lpbis') format('woff'),
+    url($font-path-icon + 'icomoon.svg?1lpbis#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -25,6 +25,18 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-arrow-down:before {
+  content: "\e913";
+}
+.icon-chevron-down:before {
+  content: "\e914";
+}
+.icon-arrow-up:before {
+  content: "\e911";
+}
+.icon-chevron-up:before {
+  content: "\e912";
+}
 .icon-calendar:before {
   content: "\e90d";
 }
@@ -82,3 +94,4 @@
 .icon-bin2:before {
   content: "\e9ad";
 }
+
