@@ -124,9 +124,19 @@ const CreateListPage: React.FC = () => {
             id="name"
             name="name"
             value={formData.name}
-            onChange={handleChange}
+            onChange={(e) => {
+              const value = e.target.value.replace(/[^a-zA-Z0-9\sáéíóúàèìòùäëïöüâêîôûñ]/g, '');
+              handleChange({
+                ...e,
+                target: {
+                  ...e.target,
+                  value,
+                  name: e.target.name
+                }
+              });
+            }}
             required
-            placeholder="Enter list name"
+            placeholder="Fill in the name of the list"
             disabled={loading}
           />
         </div>
@@ -136,8 +146,18 @@ const CreateListPage: React.FC = () => {
             id="description"
             name="description"
             value={formData.description}
-            onChange={handleChange}
-            placeholder="Enter list description"
+            onChange={(e) => {
+              const value = e.target.value.replace(/[^a-zA-Z0-9\sáéíóúàèìòùäëïöüâêîôûñ]/g, '');
+              handleChange({
+                ...e,
+                target: {
+                  ...e.target,
+                  value,
+                  name: e.target.name
+                }
+              });
+            }}
+            placeholder="Fill in the description of the list"
             rows={4}
             disabled={loading}
           />
@@ -197,9 +217,12 @@ const CreateListPage: React.FC = () => {
                       type="text"
                       id={`item-name-${item.id}`}
                       value={item.name}
-                      onChange={(e) => updateItem(item.id, 'name', e.target.value)}
+                      onChange={(e) => {
+                        const alphanumericValue = e.target.value.replace(/[^a-zA-Z0-9\sáéíóúàèìòùäëïöüâêîôûñ]/g, '');
+                        updateItem(item.id, 'name', alphanumericValue);
+                      }}
                       required
-                      placeholder="Enter item name"
+                      placeholder="Write the name of the item (letters and numbers only)"
                       disabled={loading}
                     />
                   </div>
@@ -224,8 +247,11 @@ const CreateListPage: React.FC = () => {
                         type="text"
                         id={`item-unit-${item.id}`}
                         value={item.unit}
-                        onChange={(e) => updateItem(item.id, 'unit', e.target.value)}
-                        placeholder="e.g., kg, pcs"
+                        onChange={(e) => {
+                          const value = e.target.value.replace(/[^a-zA-Záéíóúàèìòùäëïöüâêîôûñ]/g, '');
+                          updateItem(item.id, 'unit', value);
+                        }}
+                        placeholder="e.g., kg, pcs, l, ml, etc."
                         disabled={loading}
                       />
                     </div>
@@ -237,7 +263,10 @@ const CreateListPage: React.FC = () => {
                       type="text"
                       id={`item-notes-${item.id}`}
                       value={item.notes}
-                      onChange={(e) => updateItem(item.id, 'notes', e.target.value)}
+                      onChange={(e) => {
+                        const value = e.target.value.replace(/[^a-zA-Z0-9\sáéíóúàèìòùäëïöüâêîôûñ]/g, '');
+                        updateItem(item.id, 'notes', value);
+                      }}
                       placeholder="Additional details"
                       disabled={loading}
                     />
