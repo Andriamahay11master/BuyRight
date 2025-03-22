@@ -3,8 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { collection, addDoc, serverTimestamp, doc, updateDoc, increment } from 'firebase/firestore';
 import { useAuth } from '../contexts/AuthContext';
 import firebase from '../firebase';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faTrash, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import Loader from '../components/Loader';
 import { ListItem } from '../models/ListItem';
 
@@ -230,15 +228,33 @@ const CreateListPage: React.FC = () => {
                   <div className="item-quantity">
                     <div className="form-group">
                       <label htmlFor={`item-quantity-${item.id}`}>Quantity</label>
-                      <input
-                        type="number"
-                        id={`item-quantity-${item.id}`}
-                        value={item.quantity}
-                        onChange={(e) => updateItem(item.id, 'quantity', parseInt(e.target.value) || 1)}
-                        min="1"
-                        required
-                        disabled={loading}
-                      />
+                      <div className="quantity-controls">
+                        <input
+                          type="number"
+                          id={`item-quantity-${item.id}`}
+                          value={item.quantity}
+                          onChange={(e) => updateItem(item.id, 'quantity', parseInt(e.target.value) || 1)}
+                          min="1"
+                          required
+                          disabled={loading}
+                        />
+                        <button
+                        type="button"
+                        className="btn-icon"
+                        onClick={() => updateItem(item.id, 'quantity', Math.max(1, item.quantity - 1))}
+                        disabled={loading || item.quantity <= 1}
+                      >
+                        <i className="icon-minus"></i>
+                      </button>
+                        <button
+                          type="button"
+                          className="btn-icon"
+                          onClick={() => updateItem(item.id, 'quantity', item.quantity + 1)}
+                          disabled={loading}
+                        >
+                          <i className="icon-plus"></i>
+                        </button>
+                      </div>
                     </div>
 
                     <div className="form-group">
