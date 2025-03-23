@@ -4,8 +4,6 @@ import { useAuth } from '../contexts/AuthContext';
 import { deleteDoc, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { updateProfile, deleteUser, reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth';
 import firebase from '../firebase';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faEnvelope, faCalendar, faEdit, faTrash, faSave, faTimes } from '@fortawesome/free-solid-svg-icons';
 import Loader from '../components/Loader';
 import Modal from '../components/Modal';
 
@@ -170,11 +168,11 @@ const ProfilePage: React.FC = () => {
           ) : (
             <div className="edit-actions">
               <button onClick={saveProfile} className="btn btn-save">
-                <FontAwesomeIcon icon={faSave} />
+                <i className="icon-save"></i>
                 Save
               </button>
               <button onClick={cancelEditing} className="btn btn-cancel">
-                <FontAwesomeIcon icon={faTimes} />
+                <i className="icon-clear"></i>
                 Cancel
               </button>
             </div>
