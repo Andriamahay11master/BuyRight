@@ -306,7 +306,7 @@
           border: none;
 
           &:hover {
-            background-color: darken($error-color, 5%);
+            background-color: scale-color($error-color, $lightness: 5%);
           }
         }
       }

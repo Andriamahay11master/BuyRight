@@ -66,7 +66,7 @@
 @mixin form-input {
   width: 100%;
   padding: $spacing-sm;
-  border: 1px solid lighten($text-color, 60%);
+  border: 1px solid scale-color($text-color, $lightness: 60%);
   border-radius: $border-radius-sm;
   font-size: 1rem;
   transition: $transition-fast;
