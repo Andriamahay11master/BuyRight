@@ -2,11 +2,15 @@
   max-width: 800px;
   margin: 2rem auto;
   padding: 0 1rem;
-
+  @include mobile{
+    padding-bottom: 5rem;
+  }
   .profile-header {
     @include flex-between;
     margin-bottom: 2rem;
-
+    @include mobile{
+      align-items: flex-start;
+    }
     h1 {
       color: $primary-color;
       margin: 0;
@@ -126,7 +130,6 @@
           padding: 0.5rem;
           border: 1px solid $border-color;
           border-radius: 4px;
-          font-size: 1rem;
           color: $text-primary;
 
           &:focus {
@@ -264,7 +267,6 @@
         padding: 0.75rem;
         border: 1px solid $border-color;
         border-radius: 4px;
-        font-size: 1rem;
         color: $text-primary;
 
         &:focus {
