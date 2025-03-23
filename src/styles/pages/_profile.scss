@@ -1,15 +1,10 @@
-@import '../common/variables';
-@import '../common/mixins';
-
 .profile-page {
   max-width: 800px;
   margin: 2rem auto;
   padding: 0 1rem;
 
   .profile-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    @include flex-between;
     margin-bottom: 2rem;
 
     h1 {
@@ -37,7 +32,7 @@
           background-color: $success-color-dark;
         }
 
-        svg {
+        i  {
           font-size: 1.1rem;
         }
       }
@@ -75,7 +70,7 @@
             }
           }
 
-          svg {
+          i {
             font-size: 1.1rem;
           }
         }
@@ -84,8 +79,7 @@
   }
 
   .profile-content {
-    display: flex;
-    flex-direction: column;
+    @include flex-column;
     gap: 2rem;
   }
 
@@ -106,9 +100,9 @@
         border-bottom: none;
       }
 
-      svg {
-        color: $secondary-color;
-        font-size: 1.2rem;
+      i {
+        color: $primary-color;
+        font-size: 1.3rem;
         margin-top: 0.25rem;
       }
 
@@ -203,7 +197,7 @@
         background-color: darken($error-color, 5%);
       }
 
-      svg {
+      i {
         font-size: 1.1rem;
       }
     }

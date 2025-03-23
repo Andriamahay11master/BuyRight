@@ -163,17 +163,17 @@ const ProfilePage: React.FC = () => {
           {!isEditing ? (
             <button onClick={startEditing} className="btn btn-edit">
               <i className="icon-edit"></i>
-              Edit Profile
+              <span>Edit Profile</span>
             </button>
           ) : (
             <div className="edit-actions">
               <button onClick={saveProfile} className="btn btn-save">
                 <i className="icon-save"></i>
-                Save
+                <span>Save</span>
               </button>
               <button onClick={cancelEditing} className="btn btn-cancel">
                 <i className="icon-clear"></i>
-                Cancel
+                <span>Cancel</span>
               </button>
             </div>
           )}
@@ -242,7 +242,7 @@ const ProfilePage: React.FC = () => {
           <p>Once you delete your account, there is no going back. Please be certain.</p>
           <button onClick={openDeleteModal} className="btn btn-delete">
             <i className="icon-trash-2"></i>
-            Delete Account
+            <span>Delete Account</span>
           </button>
         </div>
       </div>
@@ -258,10 +258,10 @@ const ProfilePage: React.FC = () => {
           <p>Are you sure you want to delete your account? This action cannot be undone.</p>
           <div className="modal-actions">
             <button onClick={closeDeleteModal} className="btn btn-cancel">
-              Cancel
+              <span>Cancel</span>
             </button>
             <button onClick={openReauthModal} className="btn btn-delete">
-              Delete Account
+              <span>Delete Account</span>
             </button>
           </div>
         </div>

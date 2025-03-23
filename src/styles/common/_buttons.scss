@@ -1,3 +1,6 @@
+.btn{
+    @include flex-center;
+}
 .btn-icon{
     @include flex-center;
 }
