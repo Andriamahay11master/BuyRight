@@ -8,7 +8,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faEnvelope, faCalendar, faEdit, faTrash, faSave, faTimes } from '@fortawesome/free-solid-svg-icons';
 import Loader from '../components/Loader';
 import Modal from '../components/Modal';
-import '../styles/pages/_profile.scss';
 
 interface UserData {
   displayName: string;
@@ -151,7 +150,7 @@ const ProfilePage: React.FC = () => {
     return (
       <div className="error-container">
         <div className="error-message">{error || 'Failed to load profile'}</div>
-        <button onClick={() => navigate('/')} className="btn-primary">
+        <button onClick={() => navigate('/')} className="btn btn-primary">
           Return to Home
         </button>
       </div>
@@ -164,17 +163,17 @@ const ProfilePage: React.FC = () => {
         <h1>Profile</h1>
         <div className="profile-actions">
           {!isEditing ? (
-            <button onClick={startEditing} className="btn-edit">
-              <FontAwesomeIcon icon={faEdit} />
+            <button onClick={startEditing} className="btn btn-edit">
+              <i className="icon-edit"></i>
               Edit Profile
             </button>
           ) : (
             <div className="edit-actions">
-              <button onClick={saveProfile} className="btn-save">
+              <button onClick={saveProfile} className="btn btn-save">
                 <FontAwesomeIcon icon={faSave} />
                 Save
               </button>
-              <button onClick={cancelEditing} className="btn-cancel">
+              <button onClick={cancelEditing} className="btn btn-cancel">
                 <FontAwesomeIcon icon={faTimes} />
                 Cancel
               </button>
@@ -186,7 +185,7 @@ const ProfilePage: React.FC = () => {
       <div className="profile-content">
         <div className="profile-section">
           <div className="profile-field">
-            <FontAwesomeIcon icon={faUser} />
+            <i className="icon-user"></i>
             <div className="field-content">
               <label>Display Name</label>
               {isEditing ? (
@@ -204,7 +203,7 @@ const ProfilePage: React.FC = () => {
           </div>
 
           <div className="profile-field">
-            <FontAwesomeIcon icon={faEnvelope} />
+            <i className="icon-mail"></i>
             <div className="field-content">
               <label>Email</label>
               {isEditing ? (
@@ -221,7 +220,7 @@ const ProfilePage: React.FC = () => {
             </div>
           </div>
           <div className="profile-field">
-            <FontAwesomeIcon icon={faCalendar} />
+            <i className="icon-calendar"></i>
             <div className="field-content">
               <label>Member Since</label>
               <span>{new Date(userData.createdAt).toLocaleDateString()}</span>
@@ -243,8 +242,8 @@ const ProfilePage: React.FC = () => {
         <div className="danger-zone">
           <h2>Danger Zone</h2>
           <p>Once you delete your account, there is no going back. Please be certain.</p>
-          <button onClick={openDeleteModal} className="btn-delete">
-            <FontAwesomeIcon icon={faTrash} />
+          <button onClick={openDeleteModal} className="btn btn-delete">
+            <i className="icon-trash-2"></i>
             Delete Account
           </button>
         </div>
@@ -260,10 +259,10 @@ const ProfilePage: React.FC = () => {
         <div className="delete-confirmation">
           <p>Are you sure you want to delete your account? This action cannot be undone.</p>
           <div className="modal-actions">
-            <button onClick={closeDeleteModal} className="btn-cancel">
+            <button onClick={closeDeleteModal} className="btn btn-cancel">
               Cancel
             </button>
-            <button onClick={openReauthModal} className="btn-delete">
+            <button onClick={openReauthModal} className="btn btn-delete">
               Delete Account
             </button>
           </div>
@@ -289,10 +288,10 @@ const ProfilePage: React.FC = () => {
             />
           </div>
           <div className="modal-actions">
-            <button onClick={closeReauthModal} className="btn-cancel">
+            <button onClick={closeReauthModal} className="btn btn-cancel">
               Cancel
             </button>
-            <button onClick={handleDeleteAccount} className="btn-delete">
+            <button onClick={handleDeleteAccount} className="btn btn-delete">
               Confirm Delete
             </button>
           </div>
