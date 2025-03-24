@@ -3,8 +3,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { doc, getDoc, updateDoc, deleteDoc, serverTimestamp, increment } from 'firebase/firestore';
 import { useAuth } from '../contexts/AuthContext';
 import firebase from '../firebase';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faTrash, faArrowUp, faArrowDown, faEdit, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import Loader from '../components/Loader';
 import Modal from '../components/Modal';
 import { ListItem } from '../models/ListItem';
@@ -268,7 +266,7 @@ const ListDetailPage: React.FC = () => {
     return (
       <div className="error-container">
         <div className="error-message">{error || 'List not found'}</div>
-        <button onClick={() => navigate('/')} className="btn-primary">
+        <button onClick={() => navigate('/')} className="btn btn-primary">
           Return to Home
         </button>
       </div>
@@ -280,7 +278,7 @@ const ListDetailPage: React.FC = () => {
       <div className="list-header">
         <h1>{list.name}</h1>
         <div className="list-actions">
-          <button onClick={openDeleteModal} className="btn-delete">
+          <button onClick={openDeleteModal} className="btn btn-delete">
             Delete List
           </button>
         </div>
@@ -301,9 +299,9 @@ const ListDetailPage: React.FC = () => {
       <div className="items-section">
         <div className="section-header">
           <h2>Items</h2>
-          <button onClick={addItem} className="btn-add-item">
-            <FontAwesomeIcon icon={faPlus} />
-            Add Item
+          <button onClick={addItem} className="btn btn-add-item">
+            <i className="icon-plus-circle"></i>
+            <span>Add Item</span>
           </button>
         </div>
 
@@ -314,26 +312,26 @@ const ListDetailPage: React.FC = () => {
                 <div className="item-controls">
                   <button
                     type="button"
-                    className="btn-icon"
+                    className="btn btn-icon"
                     onClick={() => moveItem(index, 'up')}
                     disabled={index === 0}
                   >
-                    <FontAwesomeIcon icon={faArrowUp} />
+                    <i className="icon-arrow-up"></i>
                   </button>
                   <button
                     type="button"
-                    className="btn-icon"
+                    className="btn btn-icon"
                     onClick={() => moveItem(index, 'down')}
                     disabled={index === list.items.length - 1}
                   >
-                    <FontAwesomeIcon icon={faArrowDown} />
+                    <i className="icon-arrow-down"></i>
                   </button>
                   <button
                     type="button"
-                    className="btn-icon btn-delete"
+                    className="btn btn-icon btn-delete"
                     onClick={() => openDeleteItemModal(item.id)}
                   >
-                    <FontAwesomeIcon icon={faTrash} />
+                    <i className="icon-trash-2"></i>
                   </button>
                 </div>
                 <span className="item-number">#{index + 1}</span>
@@ -387,12 +385,12 @@ const ListDetailPage: React.FC = () => {
                   </div>
 
                   <div className="edit-actions">
-                    <button onClick={saveEdit} className="btn-save">
-                      <FontAwesomeIcon icon={faCheck} />
+                    <button onClick={saveEdit} className="btn btn-save">
+                      <i className="icon-save"></i>
                       Save
                     </button>
-                    <button onClick={cancelEditing} className="btn-cancel">
-                      <FontAwesomeIcon icon={faTimes} />
+                    <button onClick={cancelEditing} className="btn btn-cancel">
+                      <i className="icon-clear"></i>
                       Cancel
                     </button>
                   </div>
@@ -416,9 +414,9 @@ const ListDetailPage: React.FC = () => {
                   {item.notes && <div className="item-notes">{item.notes}</div>}
                   <button
                     onClick={() => startEditing(item)}
-                    className="btn-edit"
+                    className="btn btn-edit"
                   >
-                    <FontAwesomeIcon icon={faEdit} />
+                    <i className="icon-edit"></i>
                     Edit
                   </button>
                 </div>
@@ -438,10 +436,10 @@ const ListDetailPage: React.FC = () => {
         <div className="delete-confirmation">
           <p>Are you sure you want to delete this list? This action cannot be undone.</p>
           <div className="modal-actions">
-            <button onClick={closeDeleteModal} className="btn-cancel">
+            <button onClick={closeDeleteModal} className="btn btn-cancel">
               Cancel
             </button>
-            <button onClick={handleDeleteList} className="btn-delete">
+            <button onClick={handleDeleteList} className="btn btn-delete">
               Delete
             </button>
           </div>
@@ -458,10 +456,10 @@ const ListDetailPage: React.FC = () => {
         <div className="delete-confirmation">
           <p>Are you sure you want to delete this item? This action cannot be undone.</p>
           <div className="modal-actions">
-            <button onClick={closeDeleteItemModal} className="btn-cancel">
+            <button onClick={closeDeleteItemModal} className="btn btn-cancel">
               Cancel
             </button>
-            <button onClick={handleDeleteItem} className="btn-delete">
+            <button onClick={handleDeleteItem} className="btn btn-delete">
               Delete
             </button>
           </div>
