@@ -1,8 +1,10 @@
 .list-detail-page {
   max-width: 800px;
   margin: 2rem auto;
-  padding: 0 1rem;
-
+  padding: 2rem;
+  @include mobile{
+    padding-bottom: 5rem;
+  }
   .list-header {
     display: flex;
     justify-content: space-between;
@@ -20,28 +22,29 @@
 
       .btn-delete {
         padding: 0.5rem 1rem;
-        background: $error-color;
-        color: white;
+        background: $error-color-dark;
+        color: $white;
         border: none;
         border-radius: 4px;
         cursor: pointer;
         transition: background-color 0.2s ease;
 
         &:hover {
-          background: $error-color-dark;
+          background: $error-color;
         }
       }
     }
   }
 
   .list-description {
-    background: $surface-secondary;
+    background: $white-f5;
     padding: 1rem;
     border-radius: 4px;
     margin-bottom: 1.5rem;
 
     p {
-      color: $secondary-color;
+      color: $text-primary;
+      font-style: italic;
       margin: 0;
     }
   }
@@ -51,11 +54,11 @@
     gap: 2rem;
     margin-bottom: 2rem;
     padding: 1rem;
-    background: $surface-secondary;
+    background: $white-f5;
     border-radius: 4px;
 
     span {
-      color: $secondary-color;
+      color: $text-primary;
       font-weight: 500;
     }
   }
@@ -78,14 +81,14 @@
         gap: 0.5rem;
         padding: 0.5rem 1rem;
         background: $primary-color;
-        color: white;
+        color: $white;
         border: none;
         border-radius: 4px;
         cursor: pointer;
         transition: background-color 0.2s ease;
 
         &:hover {
-          background: $primary-color-dark;
+          background: $secondary-color;
         }
       }
     }
@@ -97,7 +100,7 @@
     }
 
     .item-card {
-      background: $surface-secondary;
+      background: $white-f5;
       border-radius: 8px;
       padding: 1.5rem;
       position: relative;
@@ -127,13 +130,12 @@
             background: transparent;
             border: 1px solid $border-color;
             border-radius: 4px;
-            color: $secondary-color;
+            color: $text-primary;
             cursor: pointer;
             transition: all 0.2s ease;
 
             &:hover:not(:disabled) {
               background: $surface-hover;
-              color: $primary-color;
             }
 
             &:disabled {
@@ -142,12 +144,12 @@
             }
 
             &.btn-delete {
-              color: $error-color;
-              border-color: $error-color;
+              color: $error-color-dark;
+              border-color: $error-color-dark;
 
               &:hover:not(:disabled) {
                 background: $error-color;
-                color: white;
+                color: $white;
               }
             }
           }
@@ -155,7 +157,6 @@
 
         .item-number {
           font-weight: 500;
-          color: $secondary-color;
         }
       }
 
@@ -226,7 +227,6 @@
             }
 
             span {
-              color: $primary-color;
               font-weight: 500;
             }
           }
@@ -234,7 +234,6 @@
           .item-details {
             display: flex;
             gap: 0.5rem;
-            color: $secondary-color;
 
             .quantity {
               font-weight: 500;
@@ -243,7 +242,7 @@
         }
 
         .item-notes {
-          color: $secondary-color;
+          font-style: italic;
           font-size: 0.9rem;
           margin-bottom: 1rem;
         }
@@ -254,15 +253,15 @@
           gap: 0.5rem;
           padding: 0.5rem 1rem;
           background: transparent;
-          border: 1px solid $border-color;
+          border: 1px solid $primary-color;
           border-radius: 4px;
-          color: $secondary-color;
+          color: $primary-color;
           cursor: pointer;
           transition: all 0.2s ease;
 
           &:hover {
             background: $surface-hover;
-            color: $primary-color;
+            border-color: $surface-hover;
           }
         }
       }

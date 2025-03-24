@@ -32,9 +32,9 @@
     input, textarea {
       width: 100%;
       padding: 0.75rem;
-      border: 1px solid $background-color;
+      border: 1px solid $white-f5;
       border-radius: 4px;
-      background: $background-color;
+      background: $white-f5;
       color: $text-color;
       font-size: 1rem;
       transition: border-color $transition-fast;
@@ -64,7 +64,7 @@
   .items-section {
     margin-top: 2rem;
     padding-top: 2rem;
-    border-top: 1px solid $background-color;
+    border-top: 1px solid $white-f5;
 
     .section-header {
       display: flex;
@@ -126,7 +126,7 @@
           .btn-icon {
             padding: 0.5rem;
             background: $primary-color;
-            border: 1px solid $background-color;
+            border: 1px solid $white-f5;
             border-radius: 4px;
             color: $white;
             cursor: pointer;
@@ -206,12 +206,12 @@
       }
 
       &.btn-secondary {
-        background: $background-color;
+        background: $white-f5;
         color: $text-color;
-        border: 1px solid $background-color;
+        border: 1px solid $white-f5;
 
         &:hover:not(:disabled) {
-          background: scale-color($background-color, $lightness: 5%);
+          background: scale-color($white-f5, $lightness: 5%);
         }
       }
 
