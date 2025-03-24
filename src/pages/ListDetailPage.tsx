@@ -7,6 +7,7 @@ import Loader from '../components/Loader';
 import Modal from '../components/Modal';
 import { ListItem } from '../models/ListItem';
 import { ListData } from '../models/ListData';
+import { onlyLetters, onlyLettersNumbersSpace } from '../utils/regex';
 
 
 const ListDetailPage: React.FC = () => {
@@ -345,7 +346,10 @@ const ListDetailPage: React.FC = () => {
                       type="text"
                       id={`edit-name-${item.id}`}
                       value={editForm?.name || ''}
-                      onChange={(e) => handleEditChange('name', e.target.value)}
+                      onChange={(e) => {
+                        const value = e.target.value.replace(onlyLettersNumbersSpace, '');
+                        handleEditChange('name', value);
+                      }}
                       required
                     />
                   </div>
@@ -385,7 +389,11 @@ const ListDetailPage: React.FC = () => {
                         type="text"
                         id={`edit-unit-${item.id}`}
                         value={editForm?.unit || ''}
-                        onChange={(e) => handleEditChange('unit', e.target.value)}
+                        onChange={(e) => {
+                          const value = e.target.value.replace(onlyLetters, '');
+                          handleEditChange('unit', value);
+                        }}
+                        placeholder="e.g., kg, pcs, l, ml, etc."
                       />
                     </div>
                   </div>
@@ -396,7 +404,10 @@ const ListDetailPage: React.FC = () => {
                       type="text"
                       id={`edit-notes-${item.id}`}
                       value={editForm?.notes || ''}
-                      onChange={(e) => handleEditChange('notes', e.target.value)}
+                      onChange={(e) => {
+                        const value = e.target.value.replace(onlyLettersNumbersSpace, '');
+                        handleEditChange('notes', value)
+                      }}
                     />
                   </div>
 
