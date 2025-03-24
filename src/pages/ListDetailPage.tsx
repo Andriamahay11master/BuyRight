@@ -365,14 +365,14 @@ const ListDetailPage: React.FC = () => {
                         <button
                           type="button"
                           className="btn btn-icon btn-minus"
-                          onClick={() => handleEditChange('quantity', editForm?.quantity || 1 - 1)}
+                          onClick={() => handleEditChange('quantity', Math.max(1, (editForm?.quantity || 1) - 1))}
                         >
                           <i className="icon-minus"></i>
                         </button>
                         <button 
                           type="button"
                           className="btn btn-icon btn-plus"
-                          onClick={() => handleEditChange('quantity', editForm?.quantity || 1 + 1)}
+                          onClick={() => handleEditChange('quantity', (editForm?.quantity || 1) + 1)}
                         >
                           <i className="icon-plus"></i>
                         </button>
