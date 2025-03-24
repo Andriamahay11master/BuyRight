@@ -353,14 +353,30 @@ const ListDetailPage: React.FC = () => {
                   <div className="item-quantity">
                     <div className="form-group">
                       <label htmlFor={`edit-quantity-${item.id}`}>Quantity</label>
-                      <input
-                        type="number"
-                        id={`edit-quantity-${item.id}`}
-                        value={editForm?.quantity || 1}
-                        onChange={(e) => handleEditChange('quantity', parseInt(e.target.value) || 1)}
-                        min="1"
-                        required
-                      />
+                      <div className="quantity-controls">
+                        <input
+                          type="number"
+                          id={`edit-quantity-${item.id}`}
+                          value={editForm?.quantity || 1}
+                          onChange={(e) => handleEditChange('quantity', parseInt(e.target.value) || 1)}
+                          min="1"
+                          required
+                        />
+                        <button
+                          type="button"
+                          className="btn btn-icon btn-minus"
+                          onClick={() => handleEditChange('quantity', editForm?.quantity || 1 - 1)}
+                        >
+                          <i className="icon-minus"></i>
+                        </button>
+                        <button 
+                          type="button"
+                          className="btn btn-icon btn-plus"
+                          onClick={() => handleEditChange('quantity', editForm?.quantity || 1 + 1)}
+                        >
+                          <i className="icon-plus"></i>
+                        </button>
+                      </div>
                     </div>
 
                     <div className="form-group">
