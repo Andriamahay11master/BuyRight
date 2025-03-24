@@ -5,6 +5,7 @@ import { useAuth } from '../contexts/AuthContext';
 import firebase from '../firebase';
 import Loader from '../components/Loader';
 import { ListItem } from '../models/ListItem';
+import { onlyLetters, onlyLettersNumbersSpace } from '../utils/regex';
 
 const CreateListPage: React.FC = () => {
   const navigate = useNavigate();
@@ -123,7 +124,7 @@ const CreateListPage: React.FC = () => {
             name="name"
             value={formData.name}
             onChange={(e) => {
-              const value = e.target.value.replace(/[^a-zA-Z0-9\sáéíóúàèìòùäëïöüâêîôûñ]/g, '');
+              const value = e.target.value.replace(onlyLettersNumbersSpace, '');
               handleChange({
                 ...e,
                 target: {
@@ -145,7 +146,7 @@ const CreateListPage: React.FC = () => {
             name="description"
             value={formData.description}
             onChange={(e) => {
-              const value = e.target.value.replace(/[^a-zA-Z0-9\sáéíóúàèìòùäëïöüâêîôûñ]/g, '');
+              const value = e.target.value.replace(onlyLettersNumbersSpace, '');
               handleChange({
                 ...e,
                 target: {
@@ -216,7 +217,7 @@ const CreateListPage: React.FC = () => {
                       id={`item-name-${item.id}`}
                       value={item.name}
                       onChange={(e) => {
-                        const alphanumericValue = e.target.value.replace(/[^a-zA-Z0-9\sáéíóúàèìòùäëïöüâêîôûñ]/g, '');
+                        const alphanumericValue = e.target.value.replace(onlyLettersNumbersSpace, '');
                         updateItem(item.id, 'name', alphanumericValue);
                       }}
                       required
@@ -264,7 +265,7 @@ const CreateListPage: React.FC = () => {
                         id={`item-unit-${item.id}`}
                         value={item.unit}
                         onChange={(e) => {
-                          const value = e.target.value.replace(/[^a-zA-Záéíóúàèìòùäëïöüâêîôûñ]/g, '');
+                          const value = e.target.value.replace(onlyLetters, '');
                           updateItem(item.id, 'unit', value);
                         }}
                         placeholder="e.g., kg, pcs, l, ml, etc."
@@ -280,7 +281,7 @@ const CreateListPage: React.FC = () => {
                       id={`item-notes-${item.id}`}
                       value={item.notes}
                       onChange={(e) => {
-                        const value = e.target.value.replace(/[^a-zA-Z0-9\sáéíóúàèìòùäëïöüâêîôûñ]/g, '');
+                        const value = e.target.value.replace(onlyLettersNumbersSpace, '');
                         updateItem(item.id, 'notes', value);
                       }}
                       placeholder="Additional details"
