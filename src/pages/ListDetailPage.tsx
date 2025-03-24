@@ -315,7 +315,7 @@ const ListDetailPage: React.FC = () => {
                     type="button"
                     className="btn btn-icon"
                     onClick={() => moveItem(index, 'up')}
-                    disabled={index === 0}
+                    disabled={index === 0 || item.completed}
                   >
                     <i className="icon-arrow-up"></i>
                   </button>
@@ -323,7 +323,7 @@ const ListDetailPage: React.FC = () => {
                     type="button"
                     className="btn btn-icon"
                     onClick={() => moveItem(index, 'down')}
-                    disabled={index === list.items.length - 1}
+                    disabled={index === list.items.length - 1 || item.completed}
                   >
                     <i className="icon-arrow-down"></i>
                   </button>
@@ -331,6 +331,7 @@ const ListDetailPage: React.FC = () => {
                     type="button"
                     className="btn btn-icon btn-delete"
                     onClick={() => openDeleteItemModal(item.id)}
+                    disabled={item.completed}
                   >
                     <i className="icon-trash-2"></i>
                   </button>
@@ -442,6 +443,7 @@ const ListDetailPage: React.FC = () => {
                   <button
                     onClick={() => startEditing(item)}
                     className="btn btn-edit"
+                    disabled={item.completed}
                   >
                     <i className="icon-edit"></i>
                     Edit

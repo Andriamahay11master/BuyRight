@@ -308,6 +308,10 @@
             background: $surface-hover;
             border-color: $surface-hover;
           }
+          &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+          }
         }
       }
     }
