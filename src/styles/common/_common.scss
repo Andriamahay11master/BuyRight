@@ -9,7 +9,7 @@
     font-family: -apple-system, BlinkMacSystemFont, Inter, 'Segoe UI', Roboto, Oxygen,
       Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     background-color: $white-f5;
-    color: $text-color;
+    color: $black;
     font-size: 1rem;
     line-height: 1.6;
     @include mobile{
@@ -36,7 +36,7 @@
   // Typography
   h1, h2, h3, h4, h5, h6 {
     margin-bottom: $spacing-md;
-    color: $text-color;
+    color: $black;
   }
   
   h1 {

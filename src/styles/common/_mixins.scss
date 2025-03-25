@@ -18,6 +18,18 @@
   justify-content: center;
 }
 
+@mixin flex-start {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+@mixin flex-end {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
 @mixin flex-between {
   display: flex;
   align-items: center;
@@ -27,6 +39,12 @@
 @mixin flex-column {
   display: flex;
   flex-direction: column;
+}
+
+//grid
+@mixin grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 // Card styles
@@ -43,9 +61,9 @@
 }
 
 // Button styles
-@mixin button($bg-color: $primary-color, $text-color: $white) {
+@mixin button($bg-color: $primary-color, $black: $white) {
   background-color: $bg-color;
-  color: $text-color;
+  color: $black;
   border: none;
   border-radius: $border-radius-sm;
   padding: $spacing-sm $spacing-md;
@@ -66,7 +84,7 @@
 @mixin form-input {
   width: 100%;
   padding: $spacing-sm;
-  border: 1px solid scale-color($text-color, $lightness: 60%);
+  border: 1px solid scale-color($black, $lightness: 60%);
   border-radius: $border-radius-sm;
   font-size: 1rem;
   transition: $transition-fast;

@@ -6,10 +6,18 @@
     cursor: pointer;
     border-radius: 0.25rem;
     transition: background-color 0.2s;
-    
+    letter-spacing: 0.05rem;
     i {
         font-size: 1.1rem;
       }
+
+    &:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
+    &.btn-small{
+        padding: 0.5rem 1rem;
+    }
 }
 .btn-primary{
     background-color: $primary-color;
@@ -39,9 +47,9 @@
 .btn-icon{
     @include flex-center;
     font-size: 1.1rem;
-    padding: 0.5rem;
+    padding: 0.3rem;
     i {
-        font-size: 1.1rem;
+        font-size: 1rem;
     }
     &.btn-danger{
         background: rgba($danger-color, 0.2);

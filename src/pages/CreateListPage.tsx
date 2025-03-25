@@ -164,15 +164,15 @@ const CreateListPage: React.FC = () => {
 
         <div className="items-section">
           <div className="section-header">
-            <h2>Items</h2>
+            <h3>Fill in the items</h3>
             <button
               type="button"
-              className="btn btn-add-item"
+              className="btn btn-small btn-primary"
               onClick={addItem}
               disabled={loading}
             >
               <i className="icon-plus-circle"></i>
-              Add Item
+              <span>Add Item</span>
             </button>
           </div>
 
@@ -183,7 +183,7 @@ const CreateListPage: React.FC = () => {
                   <div className="item-controls">
                     <button
                       type="button"
-                      className="btn-icon"
+                      className="btn btn-icon"
                       onClick={() => moveItem(index, 'up')}
                       disabled={index === 0 || loading}
                     >
@@ -191,7 +191,7 @@ const CreateListPage: React.FC = () => {
                     </button>
                     <button
                       type="button"
-                      className="btn-icon"
+                      className="btn btn-icon"
                       onClick={() => moveItem(index, 'down')}
                       disabled={index === items.length - 1 || loading}
                     >
@@ -199,7 +199,7 @@ const CreateListPage: React.FC = () => {
                     </button>
                     <button
                       type="button"
-                      className="btn-icon btn-delete"
+                      className="btn btn-icon btn-danger"
                       onClick={() => removeItem(item.id)}
                       disabled={loading}
                     >
@@ -241,7 +241,7 @@ const CreateListPage: React.FC = () => {
                         />
                         <button
                         type="button"
-                        className="btn-icon"
+                        className="btn btn-icon"
                         onClick={() => updateItem(item.id, 'quantity', Math.max(1, item.quantity - 1))}
                         disabled={loading || item.quantity <= 1}
                       >
@@ -249,7 +249,7 @@ const CreateListPage: React.FC = () => {
                       </button>
                         <button
                           type="button"
-                          className="btn-icon"
+                          className="btn btn-icon"
                           onClick={() => updateItem(item.id, 'quantity', item.quantity + 1)}
                           disabled={loading}
                         >
@@ -297,7 +297,7 @@ const CreateListPage: React.FC = () => {
         <div className="form-actions">
           <button
             type="button"
-            className="btn btn-secondary"
+            className="btn btn-cancel"
             onClick={() => navigate(-1)}
             disabled={loading}
           >

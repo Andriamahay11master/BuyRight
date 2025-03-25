@@ -3,18 +3,17 @@
   margin: 2rem auto;
   padding: 2rem;
   @include mobile{
-    padding: 1rem 0;
+    padding: 1rem;
   }
   h1 {
     text-align: center;
     margin-bottom: 2rem;
-    color: $text-color;
+    color: $black;
   }
 }
 
 .create-list-form {
   background: $white;
-  padding: 2rem;
   border-radius: 8px;
   
   .form-group {
@@ -25,7 +24,7 @@
     label {
       display: block;
       margin-bottom: 0.5rem;
-      color: $text-color;
+      color: $black;
       font-weight: 500;
     }
 
@@ -35,7 +34,7 @@
       border: 1px solid $white-f5;
       border-radius: 4px;
       background: $white-f5;
-      color: $text-color;
+      color: $black;
       font-size: 1rem;
       transition: border-color $transition-fast;
 
@@ -63,168 +62,59 @@
 
   .items-section {
     margin-top: 2rem;
-    padding-top: 2rem;
-    border-top: 1px solid $white-f5;
 
     .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.5rem;
-
-      h2 {
-        color: $text-color;
-        margin: 0;
-      }
-
-      .btn-add-item {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.5rem 1rem;
-        background: $primary-color;
-        color: $white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background-color $transition-fast;
-
-        &:hover:not(:disabled) {
-          background: scale-color($primary-color, $lightness: -10%);
-        }
-
-        &:disabled {
-          opacity: 0.7;
-          cursor: not-allowed;
-        }
-      }
+      @include flex-between;
+      margin-bottom: 1rem;
     }
 
     .items-container {
-      display: flex;
-      flex-direction: column;
+      @include flex-column;
       gap: 1rem;
     }
 
     .item-card {
       border-radius: 8px;
-      padding: 1.5rem;
+      padding: 1rem 1.5rem;
       position: relative;
       @include mobile{
         padding: 0.5rem;
       }
       .item-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        @include flex-between;
         margin-bottom: 1rem;
 
         .item-controls {
           display: flex;
           gap: 0.5rem;
-
-          .btn-icon {
-            padding: 0.5rem;
-            background: $primary-color;
-            border: 1px solid $white-f5;
-            border-radius: 4px;
-            color: $white;
-            cursor: pointer;
-            transition: all $transition-fast;
-            
-            &:hover:not(:disabled) {
-              background: scale-color($primary-color, $lightness: -10%);
-              color: $white;
-            }
-
-            &:disabled {
-              opacity: 0.5;
-              cursor: not-allowed;
-            }
-
-            &.btn-delete {
-              background: $danger-color;
-              color: $white;
-              border-color: $danger-color;
-
-              &:hover:not(:disabled) {
-                background: $danger-color-light;
-              }
-            }
-          }
         }
 
         .item-number {
           font-weight: 500;
-          color: $text-color;
+          color: $black;
         }
       }
 
       .item-fields {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
+        @include flex-column;
 
         .item-quantity {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
+          @include grid;
           gap: 1rem;
         }
         .quantity-controls{
           display: grid;
           grid-template-columns: auto auto auto;
           grid-gap: 0.3rem;
-          .btn-icon{
-            padding: 0.5rem;
-            font-size: 1.2rem;
-          }
         }
       }
     }
   }
 
   .form-actions {
-    display: flex;
+    @include flex-end;
     gap: 1rem;
-    justify-content: flex-end;
-    margin-top: 2rem;
-
-    button {
-      padding: 0.75rem 1.5rem;
-      border-radius: 4px;
-      font-size: 1rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all $transition-fast;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-
-      &:disabled {
-        opacity: 0.7;
-        cursor: not-allowed;
-      }
-
-      &.btn-secondary {
-        background: $white-f5;
-        color: $text-color;
-        border: 1px solid $white-f5;
-
-        &:hover:not(:disabled) {
-          background: scale-color($white-f5, $lightness: 5%);
-        }
-      }
-
-      &:not(.btn-secondary) {
-        background: $primary-color;
-        color: $white;
-        border: none;
-
-        &:hover:not(:disabled) {
-          background: scale-color($primary-color, $lightness: -10%);
-        }
-      }
-    }
+    margin-top: 1rem;
   }
 }
 

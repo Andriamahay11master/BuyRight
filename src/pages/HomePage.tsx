@@ -151,7 +151,7 @@ const HomePage: React.FC = () => {
               <div className="list-actions">
                 <button
                   onClick={() => navigate(`/list/${list.id}`)}
-                  className="btn btn-primary btn-view"
+                  className="btn btn-small btn-primary"
                 >
                   View List
                 </button>
