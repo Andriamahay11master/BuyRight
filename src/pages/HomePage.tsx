@@ -120,7 +120,7 @@ const HomePage: React.FC = () => {
         <div className="empty-state">
           <p>You don't have any shopping lists yet.</p>
           <button onClick={handleCreateList} className="btn btn-primary btn-create">
-            <i className="icon-plus"></i>
+            <i className="icon-plus-circle"></i>
             <span>Create Your First List</span>
           </button>
         </div>
@@ -132,7 +132,7 @@ const HomePage: React.FC = () => {
                 <h2>{list.name}</h2>
                 <button
                   onClick={() => openDeleteModal(list.id || '')}
-                  className="btn btn-icon btn-delete"
+                  className="btn btn-icon btn-danger"
                 >
                   <i className="icon-trash-2"></i>
                 </button>
@@ -167,7 +167,7 @@ const HomePage: React.FC = () => {
         title="Delete List"
         size="small"
       >
-        <div className="delete-confirmation">
+        <div className="modal-delete">
           <p>Are you sure you want to delete this list? This action cannot be undone.</p>
           <div className="modal-actions">
             <button onClick={closeDeleteModal} className="btn btn-cancel">

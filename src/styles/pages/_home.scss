@@ -20,28 +20,6 @@
       margin: 0;
       color: $text-primary;
     }
-
-    .btn-create {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.75rem 1.5rem;
-      background-color: $primary-color;
-      color: $white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: background-color 0.2s;
-
-      &:hover {
-        background-color: $secondary-color;
-      }
-
-      i {
-        font-size: 1.1rem;
-      }
-    }
   }
 
   .error-message {
@@ -65,26 +43,9 @@
     }
 
     .btn-create {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.75rem 1.5rem;
-      background-color: $primary-color;
-      color: $white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: background-color 0.2s;
-
-      &:hover {
-        background-color: $secondary-color;
-      }
-
-      i {
-        font-size: 1.1rem;
-      }
+      margin: auto;
     }
+
   }
 
   .lists-container {
@@ -119,23 +80,6 @@
           font-size: 1.25rem;
         }
 
-        .btn-delete {
-          background: none;
-          border: none;
-          color: $danger-color-light;
-          cursor: pointer;
-          padding: 0.5rem;
-          border-radius: 4px;
-          transition: background-color 0.2s;
-
-          &:hover {
-            background-color: rgba($danger-color-light, 0.1);
-          }
-
-          i {
-            font-size: 1.1rem;
-          }
-        }
       }
 
       .list-description {
@@ -163,62 +107,10 @@
 
         .btn-view {
           padding: 0.5rem 1rem;
-          background-color: $primary-color;
-          color: $white;
-          border: 1px solid $border-color;
-          border-radius: 4px;
-          cursor: pointer;
-          transition: background-color 0.2s;
-
-          &:hover {
-            background-color: $secondary-color;
-          }
         }
       }
     }
   }
 
-  .delete-confirmation {
-    text-align: center;
-    padding: 1rem 0;
-
-    p {
-      color: $text-primary;
-      margin-bottom: 1.5rem;
-    }
-
-    .modal-actions {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-
-      button {
-        padding: 0.75rem 1.5rem;
-        border-radius: 4px;
-        font-size: 1rem;
-        cursor: pointer;
-        transition: all 0.2s;
-
-        &.btn-cancel {
-          background-color: $surface-secondary;
-          color: $text-primary;
-          border: 1px solid $border-color;
-
-          &:hover {
-            background-color: $surface-hover;
-          }
-        }
-
-        &.btn-delete {
-          background-color: $danger-color-light;
-          color: $white;
-          border: none;
-
-          &:hover {
-            background-color: scale-color($danger-color-light, $lightness: 5%);
-          }
-        }
-      }
-    }
-  }
+  
 }
