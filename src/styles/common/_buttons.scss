@@ -4,3 +4,16 @@
 .btn-icon{
     @include flex-center;
 }
+.btn-primary{
+    background-color: $primary-color;
+    color: $white;
+}
+.btn-danger{
+    background-color: $danger-color;
+    color: $white;
+}
+.btn-success{
+    background-color: $success-color;
+    color: $white;
+}
+

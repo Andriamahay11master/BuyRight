@@ -87,7 +87,7 @@
         }
         
         &.delete-btn {
-          @include button($error-color);
+          @include button($danger-color-light);
         }
       }
     }

@@ -143,12 +143,12 @@
             }
 
             &.btn-delete {
-              background: $error-color-dark;
+              background: $danger-color;
               color: $white;
-              border-color: $error-color-dark;
+              border-color: $danger-color;
 
               &:hover:not(:disabled) {
-                background: $error-color;
+                background: $danger-color-light;
               }
             }
           }
@@ -229,7 +229,7 @@
 }
 
 .error-message {
-  background: $error-color-dark;
+  background: $danger-color;
   color: $white;
   padding: 1rem;
   border-radius: 4px;

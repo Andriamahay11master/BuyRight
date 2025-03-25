@@ -116,13 +116,13 @@
         text-decoration: none;
         border: none;
         background: none;
-        color: $error-color-dark;
-        border: 1px solid $error-color-dark;
+        color: $danger-color;
+        border: 1px solid $danger-color;
         .nav-icon {
           font-size: 1.1rem;
         }
         &:hover {
-            background-color: $error-color-dark;
+            background-color: $danger-color;
             color: $white;
           }
       }

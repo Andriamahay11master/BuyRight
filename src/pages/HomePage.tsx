@@ -104,9 +104,9 @@ const HomePage: React.FC = () => {
     <div className="home-page">
       <div className="page-header">
         <h1>My Shopping Lists</h1>
-        <button onClick={handleCreateList} className="btn-create">
+        <button onClick={handleCreateList} className="btn btn-primary btn-create">
           <i className="icon-plus-circle"></i>
-          Create New List
+          <span>Create New List</span>
         </button>
       </div>
 
@@ -119,9 +119,9 @@ const HomePage: React.FC = () => {
       {lists.length === 0 ? (
         <div className="empty-state">
           <p>You don't have any shopping lists yet.</p>
-          <button onClick={handleCreateList} className="btn-create">
+          <button onClick={handleCreateList} className="btn btn-primary btn-create">
             <i className="icon-plus"></i>
-            Create Your First List
+            <span>Create Your First List</span>
           </button>
         </div>
       ) : (
@@ -132,7 +132,7 @@ const HomePage: React.FC = () => {
                 <h2>{list.name}</h2>
                 <button
                   onClick={() => openDeleteModal(list.id || '')}
-                  className="btn-delete"
+                  className="btn btn-icon btn-delete"
                 >
                   <i className="icon-trash-2"></i>
                 </button>
@@ -151,7 +151,7 @@ const HomePage: React.FC = () => {
               <div className="list-actions">
                 <button
                   onClick={() => navigate(`/list/${list.id}`)}
-                  className="btn-view"
+                  className="btn btn-primary btn-view"
                 >
                   View List
                 </button>
@@ -170,10 +170,10 @@ const HomePage: React.FC = () => {
         <div className="delete-confirmation">
           <p>Are you sure you want to delete this list? This action cannot be undone.</p>
           <div className="modal-actions">
-            <button onClick={closeDeleteModal} className="btn-cancel">
+            <button onClick={closeDeleteModal} className="btn btn-cancel">
               Cancel
             </button>
-            <button onClick={handleDeleteList} className="btn-delete">
+            <button onClick={handleDeleteList} className="btn btn-danger">
               Delete
             </button>
           </div>

@@ -45,8 +45,8 @@
   }
 
   .error-message {
-    background-color: rgba($error-color, 0.1);
-    color: $error-color;
+    background-color: rgba($danger-color-light, 0.1);
+    color: $danger-color-light;
     padding: 1rem;
     border-radius: 4px;
     margin-bottom: 1rem;
@@ -122,14 +122,14 @@
         .btn-delete {
           background: none;
           border: none;
-          color: $error-color;
+          color: $danger-color-light;
           cursor: pointer;
           padding: 0.5rem;
           border-radius: 4px;
           transition: background-color 0.2s;
 
           &:hover {
-            background-color: rgba($error-color, 0.1);
+            background-color: rgba($danger-color-light, 0.1);
           }
 
           i {
@@ -210,12 +210,12 @@
         }
 
         &.btn-delete {
-          background-color: $error-color;
+          background-color: $danger-color-light;
           color: $white;
           border: none;
 
           &:hover {
-            background-color: scale-color($error-color, $lightness: 5%);
+            background-color: scale-color($danger-color-light, $lightness: 5%);
           }
         }
       }
