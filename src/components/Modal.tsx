@@ -1,6 +1,4 @@
 import React, { useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 interface ModalProps {
   isOpen: boolean;
@@ -48,8 +46,8 @@ const Modal: React.FC<ModalProps> = ({
         <div className="modal-header">
           <h2>{title}</h2>
           {showCloseButton && (
-            <button className="modal-close" onClick={onClose}>
-              <FontAwesomeIcon icon={faTimes} />
+            <button className="btn btn-icon btn-close" onClick={onClose}>
+              <i className="icon-clear"></i>
             </button>
           )}
         </div>

@@ -66,7 +66,7 @@
 
           &.btn-cancel {
             background-color: $surface-secondary;
-            color: $text-primary;
+            color: $black;
             border: 1px solid $border-color;
 
             &:hover {
@@ -121,7 +121,7 @@
         }
 
         span {
-          color: $text-primary;
+          color: $black;
           font-size: 1.1rem;
         }
 
@@ -130,7 +130,7 @@
           padding: 0.5rem;
           border: 1px solid $border-color;
           border-radius: 4px;
-          color: $text-primary;
+          color: $black;
 
           &:focus {
             outline: none;
@@ -211,7 +211,7 @@
     padding: 1rem 0;
 
     p {
-      color: $text-primary;
+      color: $black;
       margin-bottom: 1.5rem;
     }
 
@@ -229,7 +229,7 @@
 
         &.btn-cancel {
           background-color: $surface-secondary;
-          color: $text-primary;
+          color: $black;
           border: 1px solid $border-color;
 
           &:hover {
@@ -255,7 +255,7 @@
     padding: 1rem 0;
 
     p {
-      color: $text-primary;
+      color: $black;
       margin-bottom: 1.5rem;
     }
 
@@ -267,7 +267,7 @@
         padding: 0.75rem;
         border: 1px solid $border-color;
         border-radius: 4px;
-        color: $text-primary;
+        color: $black;
 
         &:focus {
           outline: none;
@@ -290,7 +290,7 @@
 
         &.btn-cancel {
           background-color: $surface-secondary;
-          color: $text-primary;
+          color: $black;
           border: 1px solid $border-color;
 
           &:hover {

@@ -47,7 +47,7 @@
     margin-bottom: 1.5rem;
 
     p {
-      color: $text-primary;
+      color: $black;
       font-style: italic;
       margin: 0;
     }
@@ -62,7 +62,7 @@
     border-radius: 4px;
 
     span {
-      color: $text-primary;
+      color: $black;
       font-weight: 500;
     }
   }
@@ -136,7 +136,7 @@
             background: transparent;
             border: 1px solid $border-color;
             border-radius: 4px;
-            color: $text-primary;
+            color: $black;
             cursor: pointer;
             transition: all 0.2s ease;
 
@@ -322,7 +322,7 @@
     padding: 1rem 0;
 
     p {
-      color: $text-primary;
+      color: $black;
       margin-bottom: 1.5rem;
     }
 
@@ -340,7 +340,7 @@
 
         &.btn-cancel {
           background-color: $surface-secondary;
-          color: $text-primary;
+          color: $black;
           border: 1px solid $border-color;
 
           &:hover {

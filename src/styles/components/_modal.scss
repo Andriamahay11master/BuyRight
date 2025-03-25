@@ -4,18 +4,16 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background-color: rgba($black, 0.5);
+  @include flex-center;
   z-index: 1000;
   animation: fadeIn 0.2s ease-in-out;
 }
 
 .modal-content {
   background-color: $white;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: $border-radius-md;
+  box-shadow: $shadow-md;
   animation: slideIn 0.3s ease-in-out;
   max-height: 90vh;
   overflow-y: auto;
@@ -40,36 +38,16 @@
 }
 
 .modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  @include flex-between;
   padding: 1rem 1.5rem;
   border-bottom: 1px solid $border-color;
 
   h2 {
     margin: 0;
-    color: $text-primary;
+    color: $black;
     font-size: 1.25rem;
   }
 
-  .modal-close {
-    background: none;
-    border: none;
-    color: $text-secondary;
-    cursor: pointer;
-    padding: 0.5rem;
-    border-radius: 4px;
-    transition: all 0.2s;
-
-    &:hover {
-      background-color: $surface-hover;
-      color: $text-primary;
-    }
-
-    svg {
-      font-size: 1.1rem;
-    }
-  }
 }
 
 .modal-body {
@@ -78,7 +56,7 @@
     text-align: center;
 
     p {
-      color: $text-primary;
+      color: $black;
       margin-bottom: 1.5rem;
     }
   }
@@ -88,22 +66,3 @@
   }
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes slideIn {
-  from {
-    transform: translateY(-20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}

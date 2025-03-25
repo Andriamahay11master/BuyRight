@@ -31,7 +31,7 @@
 }
 .btn-cancel{
     background-color: $surface-secondary;
-    color: $text-primary;
+    color: $black;
     &:hover {
         background-color: rgba($surface-secondary, 0.8);
       }
@@ -50,6 +50,13 @@
           &:hover {
             background-color: $danger-color;
             color: $white;
+          }
+    }
+    &.btn-close{
+        background: rgba($black, 0.2);
+        color: $black;
+        &:hover {
+            background-color: $surface-hover;
           }
     }
 }
