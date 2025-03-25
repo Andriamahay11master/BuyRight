@@ -1,7 +1,5 @@
 .loader {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  @include flex-center;
   margin: 0 0.5rem;
 
   svg {
@@ -10,9 +8,7 @@
 }
 
 .loader-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flex-center;
   height: 100vh;
   width: 100vw;
   position: fixed;
@@ -22,11 +18,3 @@
   z-index: 1000;
 }
 
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} 
