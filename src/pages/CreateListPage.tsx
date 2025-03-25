@@ -115,7 +115,7 @@ const CreateListPage: React.FC = () => {
     <div className="create-list-page">
       <h1>Create New List</h1>
       {error && <div className="error-message">{error}</div>}
-      <form className="create-list-form" onSubmit={handleSubmit}>
+      <form className="form-model create-list-form" onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="name">List Name</label>
           <input

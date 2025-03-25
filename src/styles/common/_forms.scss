@@ -1,0 +1,46 @@
+.form-model{
+    .form-group {
+        margin-bottom: 1.5rem;
+        @include mobile{
+          margin-bottom: 0.7rem;
+        }
+      }
+    label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: $black;
+        font-weight: 500;
+        font-size: 0.9rem;
+        font-style: italic;
+      }
+  
+      input, textarea {
+        width: 100%;
+        padding: 0.7rem;
+        border: 1px solid $white-f5;
+        border-radius: 4px;
+        background: $white-f5;
+        color: $black;
+        font-size: 0.9rem;
+        transition: border-color $transition-fast;
+        letter-spacing: 0.1rem;
+        &:focus {
+          outline: none;
+          box-shadow: none;
+          border-color: $primary-color;
+        }
+  
+        &:disabled {
+          opacity: 0.7;
+          cursor: not-allowed;
+        }
+        &::placeholder{
+          color: $text-secondary;
+          opacity: 0.5;
+        }
+      }
+  
+      textarea {
+        min-height: 100px;
+      }
+}
