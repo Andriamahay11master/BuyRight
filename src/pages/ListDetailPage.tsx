@@ -340,7 +340,7 @@ const ListDetailPage: React.FC = () => {
               </div>
 
               {editingItem === item.id ? (
-                <div className="item-fields">
+                <div className="item-fields form-model form-edit">
                   <div className="form-group">
                     <label htmlFor={`edit-name-${item.id}`}>Item Name</label>
                     <input

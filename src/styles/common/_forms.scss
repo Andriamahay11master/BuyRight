@@ -43,4 +43,42 @@
       textarea {
         min-height: 100px;
       }
+      &.form-edit{
+        input{
+          background: $white;
+        }
+      }
+}
+
+input[type="checkbox"] {
+  width: 1.2rem;
+  height: 1.2rem;
+  cursor: pointer;
+  appearance: none;
+  background-color: $white;
+  border: 2px solid $border-color;
+  border-radius: $border-radius-sm;
+  transition: all $transition-fast;
+
+  &:checked {
+    background-color: $primary-color;
+    border-color: $primary-color;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 4px;
+      top: 1px;
+      width: 5px;
+      height: 10px;
+      border: solid $white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+  }
+
+  &:hover {
+    border-color: $primary-color;
+  }
 }
