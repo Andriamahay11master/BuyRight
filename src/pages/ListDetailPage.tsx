@@ -279,7 +279,7 @@ const ListDetailPage: React.FC = () => {
       <div className="list-header">
         <h1>{list.name}</h1>
         <div className="list-actions">
-          <button onClick={openDeleteModal} className="btn btn-delete">
+          <button onClick={openDeleteModal} className="btn btn-danger">
             Delete List
           </button>
         </div>
@@ -300,7 +300,7 @@ const ListDetailPage: React.FC = () => {
       <div className="items-section">
         <div className="section-header">
           <h2>Items</h2>
-          <button onClick={addItem} className="btn btn-add-item">
+          <button onClick={addItem} className="btn bnt-small btn-primary">
             <i className="icon-plus-circle"></i>
             <span>Add Item</span>
           </button>
@@ -329,7 +329,7 @@ const ListDetailPage: React.FC = () => {
                   </button>
                   <button
                     type="button"
-                    className="btn btn-icon btn-delete"
+                    className="btn btn-icon btn-danger"
                     onClick={() => openDeleteItemModal(item.id)}
                     disabled={item.completed}
                   >
@@ -413,13 +413,13 @@ const ListDetailPage: React.FC = () => {
                   </div>
 
                   <div className="edit-actions">
-                    <button onClick={saveEdit} className="btn btn-save">
+                    <button onClick={saveEdit} className="btn btn-success">
                       <i className="icon-save"></i>
-                      Save
+                      <span>Save</span>
                     </button>
                     <button onClick={cancelEditing} className="btn btn-cancel">
                       <i className="icon-clear"></i>
-                      Cancel
+                      <span>Cancel</span>
                     </button>
                   </div>
                 </div>
@@ -442,11 +442,11 @@ const ListDetailPage: React.FC = () => {
                   {item.notes && <div className="item-notes">{item.notes}</div>}
                   <button
                     onClick={() => startEditing(item)}
-                    className="btn btn-edit"
+                    className="btn btn-outline-primary"
                     disabled={item.completed}
                   >
                     <i className="icon-edit"></i>
-                    Edit
+                    <span>Edit</span>
                   </button>
                 </div>
               )}
@@ -462,13 +462,13 @@ const ListDetailPage: React.FC = () => {
         title="Delete List"
         size="small"
       >
-        <div className="delete-confirmation">
+        <div className="modal-delete">
           <p>Are you sure you want to delete this list? This action cannot be undone.</p>
           <div className="modal-actions">
             <button onClick={closeDeleteModal} className="btn btn-cancel">
               Cancel
             </button>
-            <button onClick={handleDeleteList} className="btn btn-delete">
+            <button onClick={handleDeleteList} className="btn btn-danger">
               Delete
             </button>
           </div>
@@ -482,13 +482,13 @@ const ListDetailPage: React.FC = () => {
         title="Delete Item"
         size="small"
       >
-        <div className="delete-confirmation">
+        <div className="modal-delete">
           <p>Are you sure you want to delete this item? This action cannot be undone.</p>
           <div className="modal-actions">
             <button onClick={closeDeleteItemModal} className="btn btn-cancel">
               Cancel
             </button>
-            <button onClick={handleDeleteItem} className="btn btn-delete">
+            <button onClick={handleDeleteItem} className="btn btn-danger">
               Delete
             </button>
           </div>

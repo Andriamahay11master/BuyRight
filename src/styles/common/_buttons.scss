@@ -44,6 +44,11 @@
         background-color: rgba($surface-secondary, 0.8);
       }
 }
+.btn-outline-primary{
+    background-color: transparent;
+    color: $primary-color;
+    border: 1px solid $primary-color;
+}
 .btn-icon{
     @include flex-center;
     font-size: 1.1rem;

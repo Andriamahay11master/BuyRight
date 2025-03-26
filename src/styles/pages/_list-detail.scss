@@ -6,9 +6,7 @@
     padding-bottom: 5rem;
   }
   .list-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    @include flex-between;
     margin-bottom: 1.5rem;
     @include mobile{
       align-items: flex-start;
@@ -23,20 +21,6 @@
     .list-actions {
       display: flex;
       gap: 1rem;
-
-      .btn-delete {
-        padding: 0.5rem 1rem;
-        background: $danger-color;
-        color: $white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background-color 0.2s ease;
-
-        &:hover {
-          background: $danger-color-light;
-        }
-      }
     }
   }
 
@@ -78,23 +62,6 @@
         color: $primary-color;
         margin: 0;
       }
-
-      .btn-add-item {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.5rem 1rem;
-        background: $primary-color;
-        color: $white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background-color 0.2s ease;
-
-        &:hover {
-          background: $secondary-color;
-        }
-      }
     }
 
     .items-container {
@@ -131,34 +98,6 @@
           display: flex;
           gap: 0.5rem;
 
-          .btn-icon {
-            padding: 0.5rem;
-            background: transparent;
-            border: 1px solid $border-color;
-            border-radius: 4px;
-            color: $black;
-            cursor: pointer;
-            transition: all 0.2s ease;
-
-            &:hover:not(:disabled) {
-              background: $surface-hover;
-            }
-
-            &:disabled {
-              opacity: 0.5;
-              cursor: not-allowed;
-            }
-
-            &.btn-delete {
-              color: $danger-color;
-              border-color: $danger-color;
-
-              &:hover:not(:disabled) {
-                background: $danger-color-light;
-                color: $white;
-              }
-            }
-          }
         }
 
         .item-number {
@@ -191,38 +130,6 @@
           justify-content: flex-end;
           gap: .5rem;
           margin-top: 1rem;
-          
-          button {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            i {
-              font-size: 1.2rem;
-            }
-            &.btn-save {
-              background: $success-color;
-              color: white;
-              border: none;
-
-              &:hover {
-                background: $success-color-dark;
-              }
-            }
-
-            &.btn-cancel {
-              background: $surface-secondary;
-              color: $primary-color;
-              border: 1px solid $border-color;
-
-              &:hover {
-                background: $surface-hover;
-              }
-            }
-          }
         }
       }
 
@@ -285,77 +192,10 @@
             }
           }
         }
-
         .item-notes {
           font-style: italic;
           font-size: 0.9rem;
           margin-bottom: 1rem;
-        }
-
-        .btn-edit {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          padding: 0.5rem 1rem;
-          background: transparent;
-          border: 1px solid $primary-color;
-          border-radius: 4px;
-          color: $primary-color;
-          cursor: pointer;
-          transition: all 0.2s ease;
-
-          &:hover {
-            background: $surface-hover;
-            border-color: $surface-hover;
-          }
-          &:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-          }
-        }
-      }
-    }
-  }
-
-  .delete-confirmation {
-    text-align: center;
-    padding: 1rem 0;
-
-    p {
-      color: $black;
-      margin-bottom: 1.5rem;
-    }
-
-    .modal-actions {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-
-      button {
-        padding: 0.75rem 1.5rem;
-        border-radius: 4px;
-        font-size: 1rem;
-        cursor: pointer;
-        transition: all 0.2s;
-
-        &.btn-cancel {
-          background-color: $surface-secondary;
-          color: $black;
-          border: 1px solid $border-color;
-
-          &:hover {
-            background-color: $surface-hover;
-          }
-        }
-
-        &.btn-delete {
-          background-color: $danger-color-light;
-          color: $white;
-          border: none;
-
-          &:hover {
-            background-color: scale-color($danger-color-light, $lightness: 5%);
-          }
         }
       }
     }
@@ -374,19 +214,5 @@
     padding: 1rem;
     border-radius: 4px;
     margin-bottom: 1rem;
-  }
-
-  .btn-primary {
-    padding: 0.75rem 1.5rem;
-    background: $primary-color;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-
-    &:hover {
-      background: $primary-color-dark;
-    }
   }
 }
