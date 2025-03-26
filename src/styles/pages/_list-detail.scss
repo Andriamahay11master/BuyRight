@@ -2,6 +2,9 @@
   max-width: 800px;
   margin: 2rem auto;
   padding: 2rem;
+  background: $white;
+  border-radius: $border-radius-md;
+  box-shadow: $shadow-md;
   @include mobile{
     padding-bottom: 5rem;
   }
