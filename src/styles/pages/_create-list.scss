@@ -1,7 +1,8 @@
 .create-list-page {
   max-width: 800px;
-  margin: 2rem auto;
-  padding: 2rem;
+  margin: $spacing-xl auto;
+  padding: $spacing-lg;
+  @include card;
   @include mobile{
     padding: 1rem;
   }

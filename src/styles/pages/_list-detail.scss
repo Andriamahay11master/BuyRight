@@ -1,12 +1,10 @@
 .list-detail-page {
   max-width: 800px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background: $white;
-  border-radius: $border-radius-md;
-  box-shadow: $shadow-md;
+  margin: $spacing-xl auto;
+  padding: $spacing-lg;
+  @include card;
   @include mobile{
-    padding-bottom: 5rem;
+    padding: 1rem;
   }
   .list-header {
     @include flex-between;
