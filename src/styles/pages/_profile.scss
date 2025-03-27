@@ -2,12 +2,20 @@
   max-width: 800px;
   margin: 2rem auto;
   padding: 0 1rem;
+  @include tablet{
+    margin: 1rem auto;
+  }
   @include mobile{
-    padding-bottom: 5rem;
+    padding-bottom: 1rem;
   }
   .profile-header {
     @include flex-between;
     margin-bottom: 2rem;
+    @include tablet{
+      @include flex-column;
+      gap: 1rem;
+      text-align: center;
+    }
     @include mobile{
       align-items: flex-start;
     }
@@ -90,7 +98,9 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1rem;
-
+    @include tablet{
+      grid-template-columns: 1fr;
+    }
     .stat-item {
       background-color: $white;
       border-radius: 8px;
@@ -147,19 +157,3 @@
   }
 
 }
-
-@media (max-width: 768px) {
-  .profile-page {
-    margin: 1rem auto;
-
-    .profile-header {
-      flex-direction: column;
-      gap: 1rem;
-      text-align: center;
-    }
-
-    .profile-stats {
-      grid-template-columns: 1fr;
-    }
-  }
-} 
