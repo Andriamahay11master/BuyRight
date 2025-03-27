@@ -274,7 +274,7 @@ const ProfilePage: React.FC = () => {
         title="Confirm Password"
         size="small"
       >
-        <div className="reauth-form">
+        <div className="modal-delete">
           <p>Please enter your password to confirm account deletion.</p>
           <div className="form-group">
             <input
