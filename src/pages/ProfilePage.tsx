@@ -161,13 +161,13 @@ const ProfilePage: React.FC = () => {
         <h1>Profile</h1>
         <div className="profile-actions">
           {!isEditing ? (
-            <button onClick={startEditing} className="btn btn-edit">
+            <button onClick={startEditing} className="btn btn-primary">
               <i className="icon-edit"></i>
               <span>Edit Profile</span>
             </button>
           ) : (
             <div className="edit-actions">
-              <button onClick={saveProfile} className="btn btn-save">
+              <button onClick={saveProfile} className="btn btn-success">
                 <i className="icon-save"></i>
                 <span>Save</span>
               </button>
@@ -240,7 +240,7 @@ const ProfilePage: React.FC = () => {
         <div className="danger-zone">
           <h2>Danger Zone</h2>
           <p>Once you delete your account, there is no going back. Please be certain.</p>
-          <button onClick={openDeleteModal} className="btn btn-delete">
+          <button onClick={openDeleteModal} className="btn btn-danger">
             <i className="icon-trash-2"></i>
             <span>Delete Account</span>
           </button>
@@ -254,13 +254,13 @@ const ProfilePage: React.FC = () => {
         title="Delete Account"
         size="small"
       >
-        <div className="delete-confirmation">
+        <div className="modal-delete">
           <p>Are you sure you want to delete your account? This action cannot be undone.</p>
           <div className="modal-actions">
             <button onClick={closeDeleteModal} className="btn btn-cancel">
               <span>Cancel</span>
             </button>
-            <button onClick={openReauthModal} className="btn btn-delete">
+            <button onClick={openReauthModal} className="btn btn-danger">
               <span>Delete Account</span>
             </button>
           </div>
@@ -274,7 +274,7 @@ const ProfilePage: React.FC = () => {
         title="Confirm Password"
         size="small"
       >
-        <div className="reauth-form">
+        <div className="modal-delete">
           <p>Please enter your password to confirm account deletion.</p>
           <div className="form-group">
             <input
@@ -289,7 +289,7 @@ const ProfilePage: React.FC = () => {
             <button onClick={closeReauthModal} className="btn btn-cancel">
               Cancel
             </button>
-            <button onClick={handleDeleteAccount} className="btn btn-delete">
+            <button onClick={handleDeleteAccount} className="btn btn-danger">
               Confirm Delete
             </button>
           </div>
