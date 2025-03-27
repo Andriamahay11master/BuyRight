@@ -169,18 +169,3 @@
     }
   }
 }
-
-.error-container {
-  max-width: 600px;
-  margin: 2rem auto;
-  padding: 2rem;
-  text-align: center;
-
-  .error-message {
-    background: $danger-color-light;
-    color: white;
-    padding: 1rem;
-    border-radius: 4px;
-    margin-bottom: 1rem;
-  }
-}
