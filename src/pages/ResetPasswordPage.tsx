@@ -54,7 +54,7 @@ const ResetPasswordPage: React.FC = () => {
               />
             </div>
           </div>
-          <button type="submit" disabled={loading}>
+          <button type="submit" disabled={loading} className='btn btn-primary'>
             {loading ? (
               <>
                 <Loader size="small" color="#ffffff" />

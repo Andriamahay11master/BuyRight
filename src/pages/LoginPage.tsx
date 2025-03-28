@@ -84,7 +84,7 @@ const LoginPage: React.FC = () => {
           </div>
         </div>
         <div className="form-actions">
-          <button type="submit" disabled={loading}>
+          <button type="submit" disabled={loading} className='btn btn-primary'>
             {loading ? (
               <>
                 <Loader size="small" color="#ffffff" />

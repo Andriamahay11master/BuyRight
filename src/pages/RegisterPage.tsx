@@ -138,7 +138,7 @@ const RegisterPage: React.FC = () => {
             <i className={showConfirmPassword ? 'icon-eye-slash' : 'icon-eye'}></i>
           </div>
         </div>
-        <button type="submit" disabled={loading}>
+        <button type="submit" disabled={loading} className='btn btn-primary'>
           {loading ? (
             <>
               <Loader size="small" color="#ffffff" />
