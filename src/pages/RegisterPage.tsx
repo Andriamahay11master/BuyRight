@@ -3,8 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import firebase from '../firebase';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import Loader from '../components/Loader';
 
 const RegisterPage: React.FC = () => {
@@ -121,7 +119,7 @@ const RegisterPage: React.FC = () => {
             disabled={loading}
           />
           <div className="password-toggle" onClick={() => togglePasswordVisibility('password')}>
-            <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+            <i className={showPassword ? 'icon-eye-off' : 'icon-eye'}></i>
           </div>
         </div>
         <div className="form-group form-group-password">
@@ -137,7 +135,7 @@ const RegisterPage: React.FC = () => {
             disabled={loading}
           />
           <div className="password-toggle" onClick={() => togglePasswordVisibility('confirmPassword')}>
-            <FontAwesomeIcon icon={showConfirmPassword ? faEyeSlash : faEye} />
+            <i className={showConfirmPassword ? 'icon-eye-slash' : 'icon-eye'}></i>
           </div>
         </div>
         <button type="submit" disabled={loading}>

@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { sendPasswordResetEmail } from 'firebase/auth';
 import firebase from '../firebase';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import Loader from '../components/Loader';
 
 const ResetPasswordPage: React.FC = () => {
@@ -44,7 +42,7 @@ const ResetPasswordPage: React.FC = () => {
           <div className="form-group">
             <label htmlFor="email">Email Address</label>
             <div className="input-group">
-              <FontAwesomeIcon icon={faEnvelope} className="input-icon" />
+              <i className="icon-mail input-icon"></i>
               <input
                 type="email"
                 id="email"

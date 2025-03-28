@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import firebase from '../firebase';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import Loader from '../components/Loader';
 
 const LoginPage: React.FC = () => {
@@ -82,7 +80,7 @@ const LoginPage: React.FC = () => {
             disabled={loading}
           />
           <div className="password-toggle" onClick={togglePasswordVisibility}>
-            <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+            <i className={showPassword ? 'icon-eye-off' : 'icon-eye'}></i>
           </div>
         </div>
         <div className="form-actions">
