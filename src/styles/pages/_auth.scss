@@ -2,15 +2,13 @@
 .register-page,
 .reset-password-page {
   min-height: 100vh;
-  display: flex;
+  @include flex-center;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   padding: 2rem;
   background-color: #f8f9fa;
 
   h1 {
-    color: #2c3e50;
+    color: $primary-color;
     margin-bottom: 2rem;
     text-align: center;
   }
@@ -18,10 +16,10 @@
   .login-form,
   .register-form,
   .reset-password-form {
-    background: white;
+    background: $white;
     padding: 2rem;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: $shadow-md;
     width: 100%;
     max-width: 400px;
 
@@ -31,8 +29,10 @@
       label {
         display: block;
         margin-bottom: 0.5rem;
-        color: #2c3e50;
+        color: $primary-color;
         font-weight: 500;
+        font-size: 0.9rem;
+        font-style: italic;
       }
 
       input {
@@ -45,7 +45,7 @@
 
         &:focus {
           outline: none;
-          border-color: #3498db;
+          border-color: $secondary-color;
         }
       }
 
@@ -57,11 +57,11 @@
           right: 1rem;
           bottom: 8px;
           cursor: pointer;
-          color: #666;
+          color: $text-secondary;
           transition: color 0.3s ease;
 
           &:hover {
-            color: #3498db;
+            color: $secondary-color;
           }
         }
         input {
@@ -78,7 +78,7 @@
         left: 1rem;
         top: 50%;
         transform: translateY(-50%);
-        color: #666;
+        color: $text-secondary;
       }
 
       input {
@@ -95,66 +95,39 @@
 
       .forgot-password {
         margin-top: 1rem;
-        color: #3498db;
+        color: $secondary-color;
         text-decoration: none;
-        font-size: 0.9rem;
+        font-size: 0.8rem;
         transition: color 0.3s ease;
 
         &:hover {
-          color: #2980b9;
+          color: $black;
+          text-decoration: underline;
         }
       }
     }
 
     button {
       width: 100%;
-      padding: 0.75rem;
-      background-color: #3498db;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      font-size: 1rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-
-      &:hover {
-        background-color: #2980b9;
-      }
-
-      &:disabled {
-        background-color: #bdc3c7;
-        cursor: not-allowed;
-      }
     }
 
     .form-footer {
       margin-top: 1.5rem;
       text-align: center;
-      color: #666;
-
+      color: $text-secondary;
+      font-size: 0.8rem;
       a {
-        color: #3498db;
+        color: $secondary-color;
         text-decoration: none;
         font-weight: 500;
         transition: color 0.3s ease;
 
         &:hover {
-          color: #2980b9;
+          color: $black;
+          text-decoration: underline;
         }
       }
     }
-  }
-
-  .error-message {
-    background-color: #fee2e2;
-    color: #dc2626;
-    padding: 0.75rem 1rem;
-    border-radius: 4px;
-    margin-bottom: 1.5rem;
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
   }
 
   .success-message {
