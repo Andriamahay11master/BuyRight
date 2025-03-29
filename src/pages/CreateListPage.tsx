@@ -6,6 +6,7 @@ import firebase from '../firebase';
 import Loader from '../components/Loader';
 import { ListItem } from '../models/ListItem';
 import { onlyLetters, onlyLettersNumbersSpace } from '../utils/regex';
+import { scrollToTop } from '../utils/common';
 
 const CreateListPage: React.FC = () => {
   const navigate = useNavigate();
@@ -63,9 +64,18 @@ const CreateListPage: React.FC = () => {
     setLoading(true);
 
     try {
+
+      //formdata Name
+      if (!formData.name.trim()) {
+        setError('Please enter a name for your list');
+        scrollToTop();
+        setLoading(false);
+        return;
+      }
       // Validate items
       if (items.length === 0) {
         setError('Please add at least one item to your list');
+        scrollToTop();
         setLoading(false);
         return;
       }
@@ -74,6 +84,7 @@ const CreateListPage: React.FC = () => {
       const invalidItems = items.filter(item => !item.name.trim());
       if (invalidItems.length > 0) {
         setError('All items must have a name');
+        scrollToTop();
         setLoading(false);
         return;
       }
@@ -106,6 +117,7 @@ const CreateListPage: React.FC = () => {
       navigate(`/list/${listRef.id}`);
     } catch (err: any) {
       setError(err.message || 'Failed to create list');
+      scrollToTop();
     } finally {
       setLoading(false);
     }
@@ -124,6 +136,7 @@ const CreateListPage: React.FC = () => {
             name="name"
             value={formData.name}
             onChange={(e) => {
+              setError('');
               const value = e.target.value.replace(onlyLettersNumbersSpace, '');
               handleChange({
                 ...e,
@@ -134,7 +147,6 @@ const CreateListPage: React.FC = () => {
                 }
               });
             }}
-            required
             placeholder="Fill in the name of the list"
             disabled={loading}
           />
@@ -217,10 +229,10 @@ const CreateListPage: React.FC = () => {
                       id={`item-name-${item.id}`}
                       value={item.name}
                       onChange={(e) => {
+                        setError('');
                         const alphanumericValue = e.target.value.replace(onlyLettersNumbersSpace, '');
                         updateItem(item.id, 'name', alphanumericValue);
                       }}
-                      required
                       placeholder="Write the name of the item (letters and numbers only)"
                       disabled={loading}
                     />
