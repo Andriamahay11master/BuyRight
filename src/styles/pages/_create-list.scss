@@ -26,7 +26,7 @@
     }
 
     .items-container {
-      @include flex-column;
+      @include flex-column-reverse;
       gap: 1rem;
     }
 

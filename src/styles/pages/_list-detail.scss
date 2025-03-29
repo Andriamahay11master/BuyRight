@@ -66,8 +66,7 @@
     }
 
     .items-container {
-      display: flex;
-      flex-direction: column;
+      @include flex-column-reverse;
       gap: 1rem;
     }
 

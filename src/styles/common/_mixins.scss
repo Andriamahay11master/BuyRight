@@ -41,6 +41,11 @@
   flex-direction: column;
 }
 
+@mixin flex-column-reverse {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
 //grid
 @mixin grid {
   display: grid;
