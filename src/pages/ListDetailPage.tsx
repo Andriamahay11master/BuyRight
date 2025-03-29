@@ -16,6 +16,7 @@ const ListDetailPage: React.FC = () => {
   const { user } = useAuth();
   const [list, setList] = useState<ListData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [addNewItem, setAddNewItem] = useState(false);
   const [error, setError] = useState('');
   const [editingItem, setEditingItem] = useState<string | null>(null);
   const [editForm, setEditForm] = useState<ListItem | null>(null);
@@ -101,6 +102,7 @@ const ListDetailPage: React.FC = () => {
   const cancelEditing = () => {
     setEditingItem(null);
     setEditForm(null);
+    setAddNewItem(false);
   };
 
   const handleEditChange = (field: keyof ListItem, value: string | number) => {
@@ -130,6 +132,9 @@ const ListDetailPage: React.FC = () => {
       setEditForm(null);
     } catch (err: any) {
       setError(err.message || 'Failed to update item');
+    }
+    finally {
+      setAddNewItem(false);
     }
   };
 
@@ -180,7 +185,7 @@ const ListDetailPage: React.FC = () => {
         totalItems: updatedItems.length,
         updatedAt: serverTimestamp()
       });
-
+      setAddNewItem(true);
       setList({
         ...list,
         items: updatedItems,
@@ -300,7 +305,7 @@ const ListDetailPage: React.FC = () => {
       <div className="items-section">
         <div className="section-header">
           <h2>Items</h2>
-          <button onClick={addItem} className="btn bnt-small btn-primary">
+          <button onClick={addItem} className="btn bnt-small btn-primary" disabled={addNewItem}>
             <i className="icon-plus-circle"></i>
             <span>Add Item</span>
           </button>
