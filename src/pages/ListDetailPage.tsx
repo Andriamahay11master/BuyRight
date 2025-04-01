@@ -362,6 +362,7 @@ const ListDetailPage: React.FC = () => {
                       id={`edit-name-${item.id}`}
                       value={editForm?.name || ''}
                       onChange={(e) => {
+                        setErrorAddI('');
                         const value = e.target.value.replace(onlyLettersNumbersSpace, '');
                         handleEditChange('name', value);
                       }}
