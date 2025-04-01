@@ -65,9 +65,9 @@ const ListDetailPage: React.FC = () => {
         setLoading(false);
       }
     };
-
     fetchList();
-  }, [listId, user]);
+    console.log(itemToDelete);
+  }, [listId, user, itemToDelete]);
 
   const handleItemComplete = async (itemId: string) => {
     if (!list || !listId) return;
@@ -101,10 +101,15 @@ const ListDetailPage: React.FC = () => {
     setEditForm(item);
   };
 
-  const cancelEditing = () => {
+  const cancelEditing = async () => {
     setEditingItem(null);
     setEditForm(null);
-    setAddNewItem(false);
+    if(addNewItem) {
+      setAddNewItem(false);
+      //get the id of the last item
+      const lastItemId = list?.items[list.items.length - 1]?.id;
+      setItemToDelete(lastItemId?.toString() || '');
+    }
   };
 
   const handleEditChange = (field: keyof ListItem, value: string | number) => {
