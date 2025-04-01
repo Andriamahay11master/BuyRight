@@ -8,6 +8,7 @@ import Modal from '../components/Modal';
 import { ListItem } from '../models/ListItem';
 import { ListData } from '../models/ListData';
 import { onlyLetters, onlyLettersNumbersSpace } from '../utils/regex';
+import { scrollToTop } from '../utils/common';
 
 
 const ListDetailPage: React.FC = () => {
@@ -18,6 +19,7 @@ const ListDetailPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [addNewItem, setAddNewItem] = useState(false);
   const [error, setError] = useState('');
+  const [errorAddI, setErrorAddI] = useState('');
   const [editingItem, setEditingItem] = useState<string | null>(null);
   const [editForm, setEditForm] = useState<ListItem | null>(null);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
@@ -116,6 +118,12 @@ const ListDetailPage: React.FC = () => {
     const updatedItems = list.items.map(item =>
       item.id === editForm.id ? editForm : item
     );
+
+    if(editForm.name === '') {
+      setErrorAddI('Item name is required');
+      scrollToTop();
+      return;
+    }
 
     try {
       const listRef = doc(firebase.db, 'lists', listId);
@@ -346,6 +354,7 @@ const ListDetailPage: React.FC = () => {
 
               {editingItem === item.id ? (
                 <div className="item-fields form-model form-edit">
+                  {errorAddI && <div className="error-message">{errorAddI}</div>}
                   <div className="form-group">
                     <label htmlFor={`edit-name-${item.id}`}>Item Name</label>
                     <input
