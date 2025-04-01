@@ -66,8 +66,7 @@ const ListDetailPage: React.FC = () => {
       }
     };
     fetchList();
-    console.log(itemToDelete);
-  }, [listId, user, itemToDelete]);
+  }, [listId, user]);
 
   const handleItemComplete = async (itemId: string) => {
     if (!list || !listId) return;
@@ -99,17 +98,20 @@ const ListDetailPage: React.FC = () => {
   const startEditing = (item: ListItem) => {
     setEditingItem(item.id);
     setEditForm(item);
+    if(!addNewItem) setAddNewItem(true);
+    
   };
 
-  const cancelEditing = async () => {
+  const cancelEditing = () => {
     setEditingItem(null);
     setEditForm(null);
+    setAddNewItem(false);
     if(addNewItem) {
-      setAddNewItem(false);
       //get the id of the last item
       const lastItemId = list?.items[list.items.length - 1]?.id;
       setItemToDelete(lastItemId?.toString() || '');
     }
+
   };
 
   const handleEditChange = (field: keyof ListItem, value: string | number) => {
@@ -437,7 +439,7 @@ const ListDetailPage: React.FC = () => {
                       <i className="icon-save"></i>
                       <span>Save</span>
                     </button>
-                    <button onClick={cancelEditing} className="btn btn-cancel">
+                    <button type="button" onClick={cancelEditing} className="btn btn-cancel">
                       <i className="icon-clear"></i>
                       <span>Cancel</span>
                     </button>
