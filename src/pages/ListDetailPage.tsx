@@ -103,15 +103,15 @@ const ListDetailPage: React.FC = () => {
   };
 
   const cancelEditing = () => {
+
     setEditingItem(null);
     setEditForm(null);
     setAddNewItem(false);
     if(addNewItem) {
       //get the id of the last item
       const lastItemId = list?.items[list.items.length - 1]?.id;
-      setItemToDelete(lastItemId?.toString() || '');
+      openDeleteItemModal(lastItemId?.toString() || '');
     }
-
   };
 
   const handleEditChange = (field: keyof ListItem, value: string | number) => {
@@ -261,8 +261,7 @@ const ListDetailPage: React.FC = () => {
         totalItems: updatedItems.length,
         completedItems: completedCount,
         updatedAt: serverTimestamp()
-      });
-
+      }); 
       setList({
         ...list,
         items: updatedItems,
