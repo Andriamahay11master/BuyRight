@@ -25,6 +25,7 @@ const ListDetailPage: React.FC = () => {
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [deleteItemModalOpen, setDeleteItemModalOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState<string | null>(null);
+  const [modeEdit, setModeEdit] = useState(false);
 
   useEffect(() => {
     const fetchList = async () => {
@@ -98,7 +99,7 @@ const ListDetailPage: React.FC = () => {
   const startEditing = (item: ListItem) => {
     setEditingItem(item.id);
     setEditForm(item);
-    if(!addNewItem) setAddNewItem(true);
+    if(!addNewItem) setModeEdit(true);
     
   };
 
@@ -107,6 +108,7 @@ const ListDetailPage: React.FC = () => {
     setEditingItem(null);
     setEditForm(null);
     setAddNewItem(false);
+    setModeEdit(false);
     if(addNewItem) {
       //get the id of the last item
       const lastItemId = list?.items[list.items.length - 1]?.id;
@@ -319,7 +321,7 @@ const ListDetailPage: React.FC = () => {
       <div className="items-section">
         <div className="section-header">
           <h2>Items</h2>
-          <button onClick={addItem} className="btn bnt-small btn-primary" disabled={addNewItem}>
+          <button onClick={addItem} className="btn bnt-small btn-primary" disabled={addNewItem || modeEdit}>
             <i className="icon-plus-circle"></i>
             <span>Add Item</span>
           </button>
