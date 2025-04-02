@@ -13,6 +13,7 @@ import ProfilePage from './pages/ProfilePage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import SplashScreen from './components/SplashScreen';
 import './styles/main.scss';
+import WelcomePage from './pages/WelcomePage';
 
 const App: React.FC = () => {
   const [showSplash, setShowSplash] = useState(true);
@@ -29,6 +30,13 @@ const App: React.FC = () => {
         ) : (
             <Routes>
               {/* Public routes - only accessible when not authenticated */}
+              <Route
+                path="/welcome"
+                element={
+                  <PublicRoute>
+                    <WelcomePage />
+                  </PublicRoute>
+                }/>
               <Route
                 path="/login"
                 element={

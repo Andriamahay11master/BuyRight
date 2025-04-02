@@ -1,0 +1,28 @@
+.welcome-page{
+    width: 100vw;
+    height: 100vh;
+    @include flex-center;
+    text-align: center;
+    @include mobile{
+        background: $white;
+    }
+    .welcome-body{
+        max-width: 50rem;
+        box-shadow: $shadow-md;
+        background: $white;
+        padding: 5rem 2rem;
+        border-radius: $border-radius-md;
+        @include mobile{
+            max-width: auto;
+            box-shadow: unset;
+        }
+    }
+    p{
+        margin-bottom: 2rem;
+    }
+    img{
+        width: 15rem;
+        margin-bottom: 2rem;
+        filter: grayscale(1);
+    }
+}
