@@ -152,6 +152,7 @@ const ListDetailPage: React.FC = () => {
     }
     finally {
       setAddNewItem(false);
+      setModeEdit(false)
     }
   };
 
@@ -202,7 +203,6 @@ const ListDetailPage: React.FC = () => {
         totalItems: updatedItems.length,
         updatedAt: serverTimestamp()
       });
-      setAddNewItem(true);
       setList({
         ...list,
         items: updatedItems,
@@ -211,6 +211,9 @@ const ListDetailPage: React.FC = () => {
       startEditing(newItem);
     } catch (err: any) {
       setError(err.message || 'Failed to add item');
+    }
+    finally{
+      setAddNewItem(true);
     }
   };
 
