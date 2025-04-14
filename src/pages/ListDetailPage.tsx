@@ -8,7 +8,7 @@ import Modal from '../components/Modal';
 import { ListItem } from '../models/ListItem';
 import { ListData } from '../models/ListData';
 import { onlyLetters, onlyLettersNumbersSpace } from '../utils/regex';
-import { scrollToTop } from '../utils/common';
+import { scrollToBottom, scrollToTop } from '../utils/common';
 
 
 const ListDetailPage: React.FC = () => {
@@ -195,7 +195,8 @@ const ListDetailPage: React.FC = () => {
     };
 
     const updatedItems = [...list.items, newItem];
-
+    
+    
     try {
       const listRef = doc(firebase.db, 'lists', listId);
       await updateDoc(listRef, {
@@ -209,6 +210,9 @@ const ListDetailPage: React.FC = () => {
         totalItems: updatedItems.length
       });
       startEditing(newItem);
+      setTimeout(() => {
+        scrollToBottom();
+      }, 100);
     } catch (err: any) {
       setError(err.message || 'Failed to add item');
     }
@@ -274,6 +278,7 @@ const ListDetailPage: React.FC = () => {
         completedItems: completedCount
       });
       closeDeleteItemModal();
+      scrollToTop();
     } catch (err: any) {
       setError(err.message || 'Failed to delete item');
     }
