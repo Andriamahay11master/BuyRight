@@ -212,6 +212,9 @@ const ListDetailPage: React.FC = () => {
       startEditing(newItem);
       setTimeout(() => {
         scrollToBottom();
+        //focus the last input item name
+        const lastInputName = document.getElementById(`edit-name-${updatedItems.length - 1}`) as HTMLInputElement;
+        lastInputName.focus();
       }, 100);
     } catch (err: any) {
       setError(err.message || 'Failed to add item');
