@@ -12,6 +12,7 @@ const HomePage: React.FC = () => {
   const navigate = useNavigate();
   const [lists, setLists] = useState<ListData[]>([]);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('All');
   const [error, setError] = useState<string | null>(null);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [listToDelete, setListToDelete] = useState<string | null>(null);
@@ -92,6 +93,10 @@ const HomePage: React.FC = () => {
     }
   };
 
+  const handleChangeFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
   if (loading) {
     return (
       <div className="loader-container">
@@ -104,6 +109,11 @@ const HomePage: React.FC = () => {
     <div className="home-page">
       <div className="page-header">
         <h1>My Shopping Lists</h1>
+        <select name="completed" id="completed-state" value={searchQuery} onChange={handleChangeFilter}>
+          <option value="All">All</option>
+          <option value="Completed">Completed</option>
+          <option value="Uncompleted">Uncompleted</option>
+        </select>
         <button onClick={handleCreateList} className="btn btn-primary btn-create">
           <i className="icon-plus-circle"></i>
           <span>Create New List</span>
@@ -126,7 +136,7 @@ const HomePage: React.FC = () => {
         </div>
       ) : (
         <div className="lists-container">
-          {lists.map((list) => (
+          {lists.filter(list => searchQuery === 'All' || (searchQuery === 'Completed' && list.completedItems === list.items.length) || (searchQuery === 'Uncompleted' && list.completedItems !== list.items.length)).map((list) => (
             <div key={list.id} className="list-card">
               <div className="list-card-header">
                 <h2>{list.name}</h2>
