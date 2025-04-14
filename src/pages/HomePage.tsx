@@ -109,15 +109,17 @@ const HomePage: React.FC = () => {
     <div className="home-page">
       <div className="page-header">
         <h1>My Shopping Lists</h1>
-        <select name="completed" id="completed-state" value={searchQuery} onChange={handleChangeFilter}>
-          <option value="All">All</option>
-          <option value="Completed">Completed</option>
-          <option value="Uncompleted">Uncompleted</option>
-        </select>
-        <button onClick={handleCreateList} className="btn btn-primary btn-create">
-          <i className="icon-plus-circle"></i>
-          <span>Create New List</span>
-        </button>
+        <div className='page-header-right'>
+          <select name="completed" id="completed-state" value={searchQuery} onChange={handleChangeFilter}>
+            <option value="All">All</option>
+            <option value="Completed">Completed</option>
+            <option value="Uncompleted">Uncompleted</option>
+          </select>
+          <button onClick={handleCreateList} className="btn btn-primary btn-create">
+            <i className="icon-plus-circle"></i>
+            <span>Create New List</span>
+          </button>
+        </div>
       </div>
 
       {error && (
