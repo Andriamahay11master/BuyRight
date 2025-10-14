@@ -1,13 +1,14 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Loader from "../components/Loader";
 import { useAuth } from "../contexts/AuthContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { onlyLettersNumbersSpace } from "../utils/regex";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import firebase from "../firebase";
 
 const EditListPage: React.FC = () => {
   const navigate = useNavigate();
+  const { listId } = useParams<{ listId: string }>();
   const { user } = useAuth();
   const [formData, setFormData] = useState({
     name: "",
@@ -15,6 +16,40 @@ const EditListPage: React.FC = () => {
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchList = async () => {
+      if (!listId || !user) return;
+
+      try {
+        const listRef = doc(firebase.db, "lists", listId);
+        const listDoc = await getDoc(listRef);
+
+        if (!listDoc.exists()) {
+          setError("List not found");
+          setLoading(false);
+          return;
+        }
+
+        const listData = listDoc.data();
+        if (!listData) {
+          setError("List data is empty");
+          setLoading(false);
+          return;
+        }
+
+        setFormData({
+          name: listData.name || "",
+          description: listData.description || "",
+        });
+      } catch (err: any) {
+        setError(err.message || "Failed to fetch list");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchList();
+  }, [listId, user]);
 
   const handleEdit = async (e: React.FormEvent) => {
     e.preventDefault();
