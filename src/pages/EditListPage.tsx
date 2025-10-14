@@ -3,7 +3,7 @@ import Loader from "../components/Loader";
 import { useAuth } from "../contexts/AuthContext";
 import { useEffect, useState } from "react";
 import { onlyLettersNumbersSpace } from "../utils/regex";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, serverTimestamp, updateDoc } from "firebase/firestore";
 import firebase from "../firebase";
 
 const EditListPage: React.FC = () => {
@@ -57,14 +57,13 @@ const EditListPage: React.FC = () => {
     setLoading(true);
 
     try {
-      await setDoc(
-        doc(firebase.db, "lists", user?.uid || ""),
-        {
-          name: formData.name,
-          description: formData.description,
-        },
-        { merge: true }
-      );
+      if (!listId || !user) return;
+      const listRef = doc(firebase.db, "lists", listId);
+      await updateDoc(listRef, {
+        name: formData.name,
+        description: formData.description,
+        updatedAt: serverTimestamp(),
+      });
       navigate("/home");
     } catch (err: any) {
       setError(err.message || "Failed to update profile");
