@@ -23,6 +23,8 @@
     .page-header-right {
       @include flex-center;
       gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: flex-end;
     }
     select {
       padding: 0.8rem;

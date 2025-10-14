@@ -23,6 +23,7 @@ const HomePage: React.FC = () => {
   const [lists, setLists] = useState<ListData[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("All");
+  const [searchQueryMonth, setSearchQueryMonth] = useState("All");
   const [error, setError] = useState<string | null>(null);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [listToDelete, setListToDelete] = useState<string | null>(null);
@@ -107,6 +108,10 @@ const HomePage: React.FC = () => {
     setSearchQuery(e.target.value);
   };
 
+  const handleChangeFilterMonth = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSearchQueryMonth(e.target.value);
+  };
+
   if (loading) {
     return (
       <div className="loader-container">
@@ -120,6 +125,26 @@ const HomePage: React.FC = () => {
       <div className="page-header">
         <h1>My Shopping Lists</h1>
         <div className="page-header-right">
+          <select
+            name="month"
+            id="month"
+            value={searchQueryMonth}
+            onChange={handleChangeFilterMonth}
+          >
+            <option value="All">All</option>
+            <option value="January">January</option>
+            <option value="February">February</option>
+            <option value="March">March</option>
+            <option value="April">April</option>
+            <option value="May">May</option>
+            <option value="June">June</option>
+            <option value="July">July</option>
+            <option value="August">August</option>
+            <option value="September">September</option>
+            <option value="October">October</option>
+            <option value="November">November</option>
+            <option value="December">December</option>
+          </select>
           <select
             name="completed"
             id="completed-state"
@@ -156,6 +181,16 @@ const HomePage: React.FC = () => {
       ) : (
         <div className="lists-container">
           {lists
+            .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
+            .filter((list) => {
+              if (searchQueryMonth === "All") return true;
+
+              const listMonth = list.createdAt.toLocaleString("en-US", {
+                month: "long",
+              });
+
+              return listMonth.toLowerCase() === searchQueryMonth.toLowerCase();
+            })
             .filter(
               (list) =>
                 searchQuery === "All" ||
