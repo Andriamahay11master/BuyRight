@@ -20,7 +20,7 @@
       margin: 0;
       color: $black;
     }
-    .page-header-right{
+    .page-header-right {
       @include flex-center;
       gap: 1rem;
     }
@@ -31,11 +31,11 @@
       background-color: $white-f5;
       font-size: 0.8rem;
       cursor: pointer;
-      &:focus{
+      &:focus {
         outline: none;
         box-shadow: $shadow-md;
       }
-      option{
+      option {
         padding: 1rem;
         background-color: $white-f5;
         font-size: 0.8rem;
@@ -63,7 +63,6 @@
     .btn-create {
       margin: auto;
     }
-
   }
 
   .lists-container {
@@ -71,7 +70,7 @@
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1.5rem;
     margin-top: 1rem;
-    @include tablet{
+    @include tablet {
       grid-template-columns: 1fr;
     }
     .list-card {
@@ -96,7 +95,10 @@
           color: $black;
           font-size: 1.25rem;
         }
-
+        .list-col {
+          display: flex;
+          gap: 0.5rem;
+        }
       }
 
       .list-description {
@@ -123,6 +125,4 @@
       }
     }
   }
-
-  
 }
