@@ -239,7 +239,7 @@ const HomePage: React.FC = () => {
                     onClick={() => navigate(`/list/${list.id}`)}
                     className="btn btn-small btn-primary"
                   >
-                    View List
+                    <i className="icon-eye"></i>
                   </button>
                 </div>
               </div>

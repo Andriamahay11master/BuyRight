@@ -318,7 +318,7 @@ const ListDetailPage: React.FC = () => {
         <h1>{list.name}</h1>
         <div className="list-actions">
           <button onClick={openDeleteModal} className="btn btn-danger">
-            Delete List
+            Delete List <i className="icon-trash-2"></i>
           </button>
         </div>
       </div>
@@ -364,7 +364,7 @@ const ListDetailPage: React.FC = () => {
                     onClick={() => moveItem(index, "up")}
                     disabled={index === 0 || item.completed}
                   >
-                    <i className="icon-arrow-up"></i>
+                    <i className="icon-chevron-up"></i>
                   </button>
                   <button
                     type="button"
@@ -372,7 +372,7 @@ const ListDetailPage: React.FC = () => {
                     onClick={() => moveItem(index, "down")}
                     disabled={index === list.items.length - 1 || item.completed}
                   >
-                    <i className="icon-arrow-down"></i>
+                    <i className="icon-chevron-down"></i>
                   </button>
                   <button
                     type="button"
