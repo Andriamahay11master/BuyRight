@@ -1,80 +1,91 @@
-.btn{
-    @include flex-center;
-    border: none;
-    gap: 0.5rem;
-    padding: 0.75rem 1rem;
-    cursor: pointer;
-    border-radius: 0.25rem;
-    transition: background-color 0.2s;
-    letter-spacing: 0.05rem;
-    text-decoration: none;
-    i {
-        font-size: 1.1rem;
-      }
+.btn {
+  @include flex-center;
+  border: none;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s;
+  letter-spacing: 0.05rem;
+  text-decoration: none;
+  i {
+    font-size: 1.1rem;
+  }
 
-    &:disabled {
-        opacity: 0.7;
-        background: $text-secondary;
-        cursor: not-allowed;
-        &:hover {
-            background: $text-secondary;
-        }
-    }
-    &.btn-small{
-        padding: 0.5rem 1rem;
-    }
-}
-.btn-primary{
-    background-color: $primary-color;
-    color: $white;
+  &:disabled {
+    opacity: 0.7;
+    background: $text-secondary;
+    cursor: not-allowed;
     &:hover {
-        background-color: $secondary-color;
-      }
-}
-.btn-danger{
-    background-color: $danger-color;
-    color: $white;
+      background: $text-secondary;
+    }
+  }
+  &.btn-small {
+    padding: 0.5rem 1rem;
+  }
+  &.btn-logout {
+    background: none;
+    color: $danger-color;
+    .nav-icon {
+      font-size: 1.2rem;
+    }
     &:hover {
-        background-color: rgba($danger-color, 0.8);
-      }
+      background-color: $danger-color;
+      color: $white;
+    }
+  }
 }
-.btn-success{
-    background-color: $success-color;
-    color: $white;
+.btn-primary {
+  background-color: $primary-color;
+  color: $white;
+  &:hover {
+    background-color: $secondary-color;
+  }
 }
-.btn-cancel{
-    background-color: $surface-secondary;
+.btn-danger {
+  background-color: $danger-color;
+  color: $white;
+  &:hover {
+    background-color: rgba($danger-color, 0.8);
+  }
+}
+.btn-success {
+  background-color: $success-color;
+  color: $white;
+}
+.btn-cancel {
+  background-color: $surface-secondary;
+  color: $black;
+  &:hover {
+    background-color: rgba($surface-secondary, 0.8);
+  }
+}
+.btn-outline-primary {
+  background-color: transparent;
+  color: $primary-color;
+  border: 1px solid $primary-color;
+}
+.btn-icon {
+  @include flex-center;
+  font-size: 1.1rem;
+  padding: 0.3rem;
+  i {
+    font-size: 1rem;
+  }
+  &.btn-danger {
+    background: rgba($danger-color, 0.2);
+    color: $danger-color;
+
+    &:hover {
+      background-color: $danger-color;
+      color: $white;
+    }
+  }
+  &.btn-close {
+    background: rgba($black, 0.2);
     color: $black;
     &:hover {
-        background-color: rgba($surface-secondary, 0.8);
-      }
-}
-.btn-outline-primary{
-    background-color: transparent;
-    color: $primary-color;
-    border: 1px solid $primary-color;
-}
-.btn-icon{
-    @include flex-center;
-    font-size: 1.1rem;
-    padding: 0.3rem;
-    i {
-        font-size: 1rem;
+      background-color: $surface-hover;
     }
-    &.btn-danger{
-        background: rgba($danger-color, 0.2);
-          color: $danger-color;
-
-          &:hover {
-            background-color: $danger-color;
-            color: $white;
-          }
-    }
-    &.btn-close{
-        background: rgba($black, 0.2);
-        color: $black;
-        &:hover {
-            background-color: $surface-hover;
-          }
-    }
+  }
 }
