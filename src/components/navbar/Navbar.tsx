@@ -49,7 +49,7 @@ const Navbar: React.FC = () => {
               onClick={() => handleLinkClick("/create")}
             >
               <i className="icon-plus-circle"></i>
-              <span>Create List</span>
+              <span>Add List</span>
             </Link>
             <Link
               to="/profile"
@@ -59,7 +59,7 @@ const Navbar: React.FC = () => {
               onClick={() => handleLinkClick("/profile")}
             >
               <i className="icon-user"></i>
-              <span>Profile</span>
+              <span>Me</span>
             </Link>
           </div>
 
