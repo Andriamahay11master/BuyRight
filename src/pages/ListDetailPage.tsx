@@ -1,15 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { doc, getDoc, updateDoc, deleteDoc, serverTimestamp, increment } from 'firebase/firestore';
-import { useAuth } from '../contexts/AuthContext';
-import firebase from '../firebase';
-import Loader from '../components/Loader';
-import Modal from '../components/Modal';
-import { ListItem } from '../models/ListItem';
-import { ListData } from '../models/ListData';
-import { onlyLetters, onlyLettersNumbersSpace } from '../utils/regex';
-import { scrollToBottom, scrollToTop } from '../utils/common';
-
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import {
+  doc,
+  getDoc,
+  updateDoc,
+  deleteDoc,
+  serverTimestamp,
+  increment,
+} from "firebase/firestore";
+import { useAuth } from "../contexts/AuthContext";
+import firebase from "../firebase";
+import Loader from "../components/loader/Loader";
+import Modal from "../components/modal/Modal";
+import { ListItem } from "../models/ListItem";
+import { ListData } from "../models/ListData";
+import { onlyLetters, onlyLettersNumbersSpace } from "../utils/regex";
+import { scrollToBottom, scrollToTop } from "../utils/common";
 
 const ListDetailPage: React.FC = () => {
   const { listId } = useParams<{ listId: string }>();
@@ -18,8 +24,8 @@ const ListDetailPage: React.FC = () => {
   const [list, setList] = useState<ListData | null>(null);
   const [loading, setLoading] = useState(true);
   const [addNewItem, setAddNewItem] = useState(false);
-  const [error, setError] = useState('');
-  const [errorAddI, setErrorAddI] = useState('');
+  const [error, setError] = useState("");
+  const [errorAddI, setErrorAddI] = useState("");
   const [editingItem, setEditingItem] = useState<string | null>(null);
   const [editForm, setEditForm] = useState<ListItem | null>(null);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
@@ -32,36 +38,36 @@ const ListDetailPage: React.FC = () => {
       if (!listId || !user) return;
 
       try {
-        const listRef = doc(firebase.db, 'lists', listId);
+        const listRef = doc(firebase.db, "lists", listId);
         const listDoc = await getDoc(listRef);
 
         if (!listDoc.exists()) {
-          setError('List not found');
+          setError("List not found");
           setLoading(false);
           return;
         }
 
         const listData = listDoc.data();
         if (!listData) {
-          setError('List data is empty');
+          setError("List data is empty");
           setLoading(false);
           return;
         }
 
         setList({
-          name: listData.name || '',
-          description: listData.description || '',
+          name: listData.name || "",
+          description: listData.description || "",
           items: (listData.items || []).map((item: any, index: number) => ({
             ...item,
-            id: index.toString()
+            id: index.toString(),
           })),
           totalItems: listData.totalItems || 0,
           completedItems: listData.completedItems || 0,
           createdAt: listData.createdAt?.toDate() || new Date(),
-          updatedAt: listData.updatedAt?.toDate() || new Date()
+          updatedAt: listData.updatedAt?.toDate() || new Date(),
         });
       } catch (err: any) {
-        setError(err.message || 'Failed to fetch list');
+        setError(err.message || "Failed to fetch list");
       } finally {
         setLoading(false);
       }
@@ -72,47 +78,45 @@ const ListDetailPage: React.FC = () => {
   const handleItemComplete = async (itemId: string) => {
     if (!list || !listId) return;
 
-    const updatedItems = list.items.map(item => 
+    const updatedItems = list.items.map((item) =>
       item.id === itemId ? { ...item, completed: !item.completed } : item
     );
 
-    const completedCount = updatedItems.filter(item => item.completed).length;
+    const completedCount = updatedItems.filter((item) => item.completed).length;
 
     try {
-      const listRef = doc(firebase.db, 'lists', listId);
+      const listRef = doc(firebase.db, "lists", listId);
       await updateDoc(listRef, {
         items: updatedItems,
         completedItems: completedCount,
-        updatedAt: serverTimestamp()
+        updatedAt: serverTimestamp(),
       });
 
       setList({
         ...list,
         items: updatedItems,
-        completedItems: completedCount
+        completedItems: completedCount,
       });
     } catch (err: any) {
-      setError(err.message || 'Failed to update item');
+      setError(err.message || "Failed to update item");
     }
   };
 
   const startEditing = (item: ListItem) => {
     setEditingItem(item.id);
     setEditForm(item);
-    if(!addNewItem) setModeEdit(true);
-    
+    if (!addNewItem) setModeEdit(true);
   };
 
   const cancelEditing = () => {
-
     setEditingItem(null);
     setEditForm(null);
     setAddNewItem(false);
     setModeEdit(false);
-    if(addNewItem) {
+    if (addNewItem) {
       //get the id of the last item
       const lastItemId = list?.items[list.items.length - 1]?.id;
-      openDeleteItemModal(lastItemId?.toString() || '');
+      openDeleteItemModal(lastItemId?.toString() || "");
     }
   };
 
@@ -124,60 +128,62 @@ const ListDetailPage: React.FC = () => {
   const saveEdit = async () => {
     if (!list || !listId || !editForm) return;
 
-    const updatedItems = list.items.map(item =>
+    const updatedItems = list.items.map((item) =>
       item.id === editForm.id ? editForm : item
     );
 
-    if(editForm.name === '') {
-      setErrorAddI('Item name is required');
+    if (editForm.name === "") {
+      setErrorAddI("Item name is required");
       scrollToTop();
       return;
     }
 
     try {
-      const listRef = doc(firebase.db, 'lists', listId);
+      const listRef = doc(firebase.db, "lists", listId);
       await updateDoc(listRef, {
         items: updatedItems,
-        updatedAt: serverTimestamp()
+        updatedAt: serverTimestamp(),
       });
 
       setList({
         ...list,
-        items: updatedItems
+        items: updatedItems,
       });
       setEditingItem(null);
       setEditForm(null);
     } catch (err: any) {
-      setError(err.message || 'Failed to update item');
-    }
-    finally {
+      setError(err.message || "Failed to update item");
+    } finally {
       setAddNewItem(false);
-      setModeEdit(false)
+      setModeEdit(false);
     }
   };
 
-  const moveItem = async (index: number, direction: 'up' | 'down') => {
+  const moveItem = async (index: number, direction: "up" | "down") => {
     if (!list || !listId) return;
 
     const newItems = [...list.items];
-    const newIndex = direction === 'up' ? index - 1 : index + 1;
-    
+    const newIndex = direction === "up" ? index - 1 : index + 1;
+
     if (newIndex >= 0 && newIndex < list.items.length) {
-      [newItems[index], newItems[newIndex]] = [newItems[newIndex], newItems[index]];
-      
+      [newItems[index], newItems[newIndex]] = [
+        newItems[newIndex],
+        newItems[index],
+      ];
+
       try {
-        const listRef = doc(firebase.db, 'lists', listId);
+        const listRef = doc(firebase.db, "lists", listId);
         await updateDoc(listRef, {
           items: newItems,
-          updatedAt: serverTimestamp()
+          updatedAt: serverTimestamp(),
         });
 
         setList({
           ...list,
-          items: newItems
+          items: newItems,
         });
       } catch (err: any) {
-        setError(err.message || 'Failed to reorder items');
+        setError(err.message || "Failed to reorder items");
       }
     }
   };
@@ -187,39 +193,39 @@ const ListDetailPage: React.FC = () => {
 
     const newItem: ListItem = {
       id: list.items.length.toString(),
-      name: '',
+      name: "",
       quantity: 1,
-      unit: '',
-      notes: '',
-      completed: false
+      unit: "",
+      notes: "",
+      completed: false,
     };
 
     const updatedItems = [...list.items, newItem];
-    
-    
+
     try {
-      const listRef = doc(firebase.db, 'lists', listId);
+      const listRef = doc(firebase.db, "lists", listId);
       await updateDoc(listRef, {
         items: updatedItems,
         totalItems: updatedItems.length,
-        updatedAt: serverTimestamp()
+        updatedAt: serverTimestamp(),
       });
       setList({
         ...list,
         items: updatedItems,
-        totalItems: updatedItems.length
+        totalItems: updatedItems.length,
       });
       startEditing(newItem);
       setTimeout(() => {
         scrollToBottom();
         //focus the last input item name
-        const lastInputName = document.getElementById(`edit-name-${updatedItems.length - 1}`) as HTMLInputElement;
+        const lastInputName = document.getElementById(
+          `edit-name-${updatedItems.length - 1}`
+        ) as HTMLInputElement;
         lastInputName.focus();
       }, 100);
     } catch (err: any) {
-      setError(err.message || 'Failed to add item');
-    }
-    finally{
+      setError(err.message || "Failed to add item");
+    } finally {
       setAddNewItem(true);
     }
   };
@@ -246,44 +252,44 @@ const ListDetailPage: React.FC = () => {
     if (!listId || !user) return;
 
     try {
-      const listRef = doc(firebase.db, 'lists', listId);
+      const listRef = doc(firebase.db, "lists", listId);
       await deleteDoc(listRef);
 
-      const userRef = doc(firebase.db, 'users', user.uid);
+      const userRef = doc(firebase.db, "users", user.uid);
       await updateDoc(userRef, {
-        totalLists: increment(-1)
+        totalLists: increment(-1),
       });
 
-      navigate('/');
+      navigate("/");
     } catch (err: any) {
-      setError(err.message || 'Failed to delete list');
+      setError(err.message || "Failed to delete list");
     }
   };
 
   const handleDeleteItem = async () => {
     if (!list || !listId || !itemToDelete) return;
 
-    const updatedItems = list.items.filter(item => item.id !== itemToDelete);
-    const completedCount = updatedItems.filter(item => item.completed).length;
+    const updatedItems = list.items.filter((item) => item.id !== itemToDelete);
+    const completedCount = updatedItems.filter((item) => item.completed).length;
 
     try {
-      const listRef = doc(firebase.db, 'lists', listId);
+      const listRef = doc(firebase.db, "lists", listId);
       await updateDoc(listRef, {
         items: updatedItems,
         totalItems: updatedItems.length,
         completedItems: completedCount,
-        updatedAt: serverTimestamp()
-      }); 
+        updatedAt: serverTimestamp(),
+      });
       setList({
         ...list,
         items: updatedItems,
         totalItems: updatedItems.length,
-        completedItems: completedCount
+        completedItems: completedCount,
       });
       closeDeleteItemModal();
       scrollToTop();
     } catch (err: any) {
-      setError(err.message || 'Failed to delete item');
+      setError(err.message || "Failed to delete item");
     }
   };
 
@@ -298,8 +304,8 @@ const ListDetailPage: React.FC = () => {
   if (error || !list) {
     return (
       <div className="error-container">
-        <div className="error-message">{error || 'List not found'}</div>
-        <button onClick={() => navigate('/')} className="btn btn-primary">
+        <div className="error-message">{error || "List not found"}</div>
+        <button onClick={() => navigate("/")} className="btn btn-primary">
           Return to Home
         </button>
       </div>
@@ -326,13 +332,19 @@ const ListDetailPage: React.FC = () => {
       <div className="list-stats">
         <span>Total Items: {list.totalItems}</span>
         <span>Completed: {list.completedItems}</span>
-        <span>Progress: {Math.round((list.completedItems / list.totalItems) * 100)}%</span>
+        <span>
+          Progress: {Math.round((list.completedItems / list.totalItems) * 100)}%
+        </span>
       </div>
 
       <div className="items-section">
         <div className="section-header">
           <h2>Items</h2>
-          <button onClick={addItem} className="btn bnt-small btn-primary" disabled={addNewItem || modeEdit}>
+          <button
+            onClick={addItem}
+            className="btn bnt-small btn-primary"
+            disabled={addNewItem || modeEdit}
+          >
             <i className="icon-plus-circle"></i>
             <span>Add Item</span>
           </button>
@@ -340,13 +352,16 @@ const ListDetailPage: React.FC = () => {
 
         <div className="items-container">
           {list.items.map((item, index) => (
-            <div key={item.id} className={`item-card ${item.completed ? 'completed' : ''}`}>
+            <div
+              key={item.id}
+              className={`item-card ${item.completed ? "completed" : ""}`}
+            >
               <div className="item-header">
                 <div className="item-controls">
                   <button
                     type="button"
                     className="btn btn-icon"
-                    onClick={() => moveItem(index, 'up')}
+                    onClick={() => moveItem(index, "up")}
                     disabled={index === 0 || item.completed}
                   >
                     <i className="icon-arrow-up"></i>
@@ -354,7 +369,7 @@ const ListDetailPage: React.FC = () => {
                   <button
                     type="button"
                     className="btn btn-icon"
-                    onClick={() => moveItem(index, 'down')}
+                    onClick={() => moveItem(index, "down")}
                     disabled={index === list.items.length - 1 || item.completed}
                   >
                     <i className="icon-arrow-down"></i>
@@ -373,17 +388,22 @@ const ListDetailPage: React.FC = () => {
 
               {editingItem === item.id ? (
                 <div className="item-fields form-model form-edit">
-                  {errorAddI && <div className="error-message">{errorAddI}</div>}
+                  {errorAddI && (
+                    <div className="error-message">{errorAddI}</div>
+                  )}
                   <div className="form-group">
                     <label htmlFor={`edit-name-${item.id}`}>Item Name</label>
                     <input
                       type="text"
                       id={`edit-name-${item.id}`}
-                      value={editForm?.name || ''}
+                      value={editForm?.name || ""}
                       onChange={(e) => {
-                        setErrorAddI('');
-                        const value = e.target.value.replace(onlyLettersNumbersSpace, '');
-                        handleEditChange('name', value);
+                        setErrorAddI("");
+                        const value = e.target.value.replace(
+                          onlyLettersNumbersSpace,
+                          ""
+                        );
+                        handleEditChange("name", value);
                       }}
                       required
                     />
@@ -391,27 +411,44 @@ const ListDetailPage: React.FC = () => {
 
                   <div className="item-quantity">
                     <div className="form-group">
-                      <label htmlFor={`edit-quantity-${item.id}`}>Quantity</label>
+                      <label htmlFor={`edit-quantity-${item.id}`}>
+                        Quantity
+                      </label>
                       <div className="quantity-controls">
                         <input
                           type="number"
                           id={`edit-quantity-${item.id}`}
                           value={editForm?.quantity || 1}
-                          onChange={(e) => handleEditChange('quantity', parseInt(e.target.value) || 1)}
+                          onChange={(e) =>
+                            handleEditChange(
+                              "quantity",
+                              parseInt(e.target.value) || 1
+                            )
+                          }
                           min="1"
                           required
                         />
                         <button
                           type="button"
                           className="btn btn-icon btn-minus"
-                          onClick={() => handleEditChange('quantity', Math.max(1, (editForm?.quantity || 1) - 1))}
+                          onClick={() =>
+                            handleEditChange(
+                              "quantity",
+                              Math.max(1, (editForm?.quantity || 1) - 1)
+                            )
+                          }
                         >
                           <i className="icon-minus"></i>
                         </button>
-                        <button 
+                        <button
                           type="button"
                           className="btn btn-icon btn-plus"
-                          onClick={() => handleEditChange('quantity', (editForm?.quantity || 1) + 1)}
+                          onClick={() =>
+                            handleEditChange(
+                              "quantity",
+                              (editForm?.quantity || 1) + 1
+                            )
+                          }
                         >
                           <i className="icon-plus"></i>
                         </button>
@@ -423,10 +460,10 @@ const ListDetailPage: React.FC = () => {
                       <input
                         type="text"
                         id={`edit-unit-${item.id}`}
-                        value={editForm?.unit || ''}
+                        value={editForm?.unit || ""}
                         onChange={(e) => {
-                          const value = e.target.value.replace(onlyLetters, '');
-                          handleEditChange('unit', value);
+                          const value = e.target.value.replace(onlyLetters, "");
+                          handleEditChange("unit", value);
                         }}
                         placeholder="e.g., kg, pcs, l, ml, etc."
                       />
@@ -438,10 +475,13 @@ const ListDetailPage: React.FC = () => {
                     <input
                       type="text"
                       id={`edit-notes-${item.id}`}
-                      value={editForm?.notes || ''}
+                      value={editForm?.notes || ""}
                       onChange={(e) => {
-                        const value = e.target.value.replace(onlyLettersNumbersSpace, '');
-                        handleEditChange('notes', value)
+                        const value = e.target.value.replace(
+                          onlyLettersNumbersSpace,
+                          ""
+                        );
+                        handleEditChange("notes", value);
                       }}
                     />
                   </div>
@@ -451,7 +491,11 @@ const ListDetailPage: React.FC = () => {
                       <i className="icon-save"></i>
                       <span>Save</span>
                     </button>
-                    <button type="button" onClick={cancelEditing} className="btn btn-cancel">
+                    <button
+                      type="button"
+                      onClick={cancelEditing}
+                      className="btn btn-cancel"
+                    >
                       <i className="icon-clear"></i>
                       <span>Cancel</span>
                     </button>
@@ -497,7 +541,10 @@ const ListDetailPage: React.FC = () => {
         size="small"
       >
         <div className="modal-delete">
-          <p>Are you sure you want to delete this list? This action cannot be undone.</p>
+          <p>
+            Are you sure you want to delete this list? This action cannot be
+            undone.
+          </p>
           <div className="modal-actions">
             <button onClick={closeDeleteModal} className="btn btn-cancel">
               Cancel
@@ -517,7 +564,10 @@ const ListDetailPage: React.FC = () => {
         size="small"
       >
         <div className="modal-delete">
-          <p>Are you sure you want to delete this item? This action cannot be undone.</p>
+          <p>
+            Are you sure you want to delete this item? This action cannot be
+            undone.
+          </p>
           <div className="modal-actions">
             <button onClick={closeDeleteItemModal} className="btn btn-cancel">
               Cancel
@@ -532,4 +582,4 @@ const ListDetailPage: React.FC = () => {
   );
 };
 
-export default ListDetailPage; 
+export default ListDetailPage;

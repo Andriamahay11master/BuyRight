@@ -1,11 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
-import { deleteDoc, doc, getDoc, updateDoc } from 'firebase/firestore';
-import { updateProfile, deleteUser, reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth';
-import firebase from '../firebase';
-import Loader from '../components/Loader';
-import Modal from '../components/Modal';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
+import { deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
+import {
+  updateProfile,
+  deleteUser,
+  reauthenticateWithCredential,
+  EmailAuthProvider,
+} from "firebase/auth";
+import firebase from "../firebase";
+import Loader from "../components/loader/Loader";
+import Modal from "../components/modal/Modal";
 
 interface UserData {
   displayName: string;
@@ -20,22 +25,22 @@ const ProfilePage: React.FC = () => {
   const { user } = useAuth();
   const [userData, setUserData] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [editForm, setEditForm] = useState({
-    displayName: '',
-    email: ''
+    displayName: "",
+    email: "",
   });
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [reauthModalOpen, setReauthModalOpen] = useState(false);
-  const [reauthPassword, setReauthPassword] = useState('');
+  const [reauthPassword, setReauthPassword] = useState("");
 
   useEffect(() => {
     const fetchUserData = async () => {
       if (!user) return;
 
       try {
-        const userRef = doc(firebase.db, 'users', user.uid);
+        const userRef = doc(firebase.db, "users", user.uid);
         const userDoc = await getDoc(userRef);
 
         if (userDoc.exists()) {
@@ -44,7 +49,7 @@ const ProfilePage: React.FC = () => {
           setEditForm({ displayName: data.displayName, email: data.email });
         }
       } catch (err: any) {
-        setError(err.message || 'Failed to fetch user data');
+        setError(err.message || "Failed to fetch user data");
       } finally {
         setLoading(false);
       }
@@ -55,9 +60,9 @@ const ProfilePage: React.FC = () => {
 
   const handleEditChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setEditForm(prev => ({
+    setEditForm((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -78,21 +83,29 @@ const ProfilePage: React.FC = () => {
     try {
       // Update Firebase Auth profile
       await updateProfile(user, {
-        displayName: editForm.displayName
+        displayName: editForm.displayName,
       });
 
       // Update Firestore document
-      const userRef = doc(firebase.db, 'users', user.uid);
+      const userRef = doc(firebase.db, "users", user.uid);
       await updateDoc(userRef, {
         displayName: editForm.displayName,
         email: editForm.email,
-        updatedAt: new Date().toISOString()
+        updatedAt: new Date().toISOString(),
       });
 
-      setUserData(prev => prev ? { ...prev, displayName: editForm.displayName, email: editForm.email } : null);
+      setUserData((prev) =>
+        prev
+          ? {
+              ...prev,
+              displayName: editForm.displayName,
+              email: editForm.email,
+            }
+          : null
+      );
       setIsEditing(false);
     } catch (err: any) {
-      setError(err.message || 'Failed to update profile');
+      setError(err.message || "Failed to update profile");
     }
   };
 
@@ -110,7 +123,7 @@ const ProfilePage: React.FC = () => {
 
   const closeReauthModal = () => {
     setReauthModalOpen(false);
-    setReauthPassword('');
+    setReauthPassword("");
   };
 
   const handleDeleteAccount = async () => {
@@ -118,20 +131,23 @@ const ProfilePage: React.FC = () => {
 
     try {
       // Reauthenticate user
-      const credential = EmailAuthProvider.credential(user.email!, reauthPassword);
+      const credential = EmailAuthProvider.credential(
+        user.email!,
+        reauthPassword
+      );
       await reauthenticateWithCredential(user, credential);
 
       // Delete user document from Firestore
-      const userRef = doc(firebase.db, 'users', user.uid);
+      const userRef = doc(firebase.db, "users", user.uid);
       await deleteDoc(userRef);
 
       // Delete user account
       await deleteUser(user);
 
       // Navigate to login page
-      navigate('/login');
+      navigate("/login");
     } catch (err: any) {
-      setError(err.message || 'Failed to delete account');
+      setError(err.message || "Failed to delete account");
       closeReauthModal();
     }
   };
@@ -147,8 +163,8 @@ const ProfilePage: React.FC = () => {
   if (error || !userData) {
     return (
       <div className="error-container">
-        <div className="error-message">{error || 'Failed to load profile'}</div>
-        <button onClick={() => navigate('/')} className="btn btn-primary">
+        <div className="error-message">{error || "Failed to load profile"}</div>
+        <button onClick={() => navigate("/")} className="btn btn-primary">
           Return to Home
         </button>
       </div>
@@ -239,7 +255,10 @@ const ProfilePage: React.FC = () => {
 
         <div className="danger-zone">
           <h2>Danger Zone</h2>
-          <p>Once you delete your account, there is no going back. Please be certain.</p>
+          <p>
+            Once you delete your account, there is no going back. Please be
+            certain.
+          </p>
           <button onClick={openDeleteModal} className="btn btn-danger">
             <i className="icon-trash-2"></i>
             <span>Delete Account</span>
@@ -255,7 +274,10 @@ const ProfilePage: React.FC = () => {
         size="small"
       >
         <div className="modal-delete">
-          <p>Are you sure you want to delete your account? This action cannot be undone.</p>
+          <p>
+            Are you sure you want to delete your account? This action cannot be
+            undone.
+          </p>
           <div className="modal-actions">
             <button onClick={closeDeleteModal} className="btn btn-cancel">
               <span>Cancel</span>
@@ -299,4 +321,4 @@ const ProfilePage: React.FC = () => {
   );
 };
 
-export default ProfilePage; 
+export default ProfilePage;

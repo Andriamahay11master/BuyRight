@@ -1,28 +1,28 @@
-import React, { useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import firebase from '../firebase';
-import Loader from '../components/Loader';
+import React, { useState } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import firebase from "../firebase";
+import Loader from "../components/loader/Loader";
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [formData, setFormData] = useState({
-    email: '',
-    password: ''
+    email: "",
+    password: "",
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
   // Get the redirect path from location state or default to home
-  const from = (location.state as any)?.from?.pathname || '/';
+  const from = (location.state as any)?.from?.pathname || "/";
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -32,7 +32,7 @@ const LoginPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setLoading(true);
 
     try {
@@ -45,7 +45,7 @@ const LoginPage: React.FC = () => {
       // Redirect to the page user tried to visit or home
       navigate(from, { replace: true });
     } catch (err: any) {
-      setError(err.message || 'Failed to login');
+      setError(err.message || "Failed to login");
     } finally {
       setLoading(false);
     }
@@ -80,30 +80,40 @@ const LoginPage: React.FC = () => {
             disabled={loading}
           />
           <div className="password-toggle" onClick={togglePasswordVisibility}>
-            <i className={showPassword ? 'icon-eye-off' : 'icon-eye'}></i>
+            <i className={showPassword ? "icon-eye-off" : "icon-eye"}></i>
           </div>
         </div>
         <div className="form-actions">
-          <button type="submit" disabled={loading} className='btn btn-primary'>
+          <button type="submit" disabled={loading} className="btn btn-primary">
             {loading ? (
               <>
                 <Loader size="small" color="#ffffff" />
                 Logging in...
               </>
             ) : (
-              'Login'
+              "Login"
             )}
           </button>
-          <Link to="/reset-password" className="forgot-password" style={{ pointerEvents: loading ? 'none' : 'auto' }}>
+          <Link
+            to="/reset-password"
+            className="forgot-password"
+            style={{ pointerEvents: loading ? "none" : "auto" }}
+          >
             Forgot Password?
           </Link>
         </div>
         <div className="form-footer">
-          Don't have an account? <Link to="/register" style={{ pointerEvents: loading ? 'none' : 'auto' }}>Register here</Link>
+          Don't have an account?{" "}
+          <Link
+            to="/register"
+            style={{ pointerEvents: loading ? "none" : "auto" }}
+          >
+            Register here
+          </Link>
         </div>
       </form>
     </div>
   );
 };
 
-export default LoginPage; 
+export default LoginPage;

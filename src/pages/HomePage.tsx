@@ -13,8 +13,8 @@ import {
   updateDoc,
   increment,
 } from "firebase/firestore";
-import Loader from "../components/Loader";
-import Modal from "../components/Modal";
+import Loader from "../components/loader/Loader";
+import Modal from "../components/modal/Modal";
 import { ListData } from "../models/ListData";
 
 const HomePage: React.FC = () => {

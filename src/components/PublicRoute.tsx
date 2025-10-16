@@ -1,7 +1,7 @@
-import React from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
-import Loader from './Loader';
+import React from "react";
+import { Navigate, useLocation } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
+import Loader from "./loader/Loader";
 
 interface PublicRouteProps {
   children: React.ReactNode;
@@ -23,11 +23,11 @@ const PublicRoute: React.FC<PublicRouteProps> = ({ children }) => {
     // If user is authenticated, redirect to home page
     // Use replace to prevent adding to browser history
     // If there's a 'from' state, use that instead of home
-    const from = (location.state as any)?.from?.pathname || '/';
+    const from = (location.state as any)?.from?.pathname || "/";
     return <Navigate to={from} replace />;
   }
 
   return <>{children}</>;
 };
 
-export default PublicRoute; 
+export default PublicRoute;

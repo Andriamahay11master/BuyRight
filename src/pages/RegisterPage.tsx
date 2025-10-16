@@ -1,33 +1,33 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { doc, setDoc } from 'firebase/firestore';
-import firebase from '../firebase';
-import Loader from '../components/Loader';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import firebase from "../firebase";
+import Loader from "../components/loader/Loader";
 
 const RegisterPage: React.FC = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    displayName: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
+    displayName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
-  const togglePasswordVisibility = (field: 'password' | 'confirmPassword') => {
-    if (field === 'password') {
+  const togglePasswordVisibility = (field: "password" | "confirmPassword") => {
+    if (field === "password") {
       setShowPassword(!showPassword);
     } else {
       setShowConfirmPassword(!showConfirmPassword);
@@ -36,12 +36,12 @@ const RegisterPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setLoading(true);
 
     // Validate passwords match
     if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
+      setError("Passwords do not match");
       setLoading(false);
       return;
     }
@@ -56,22 +56,22 @@ const RegisterPage: React.FC = () => {
 
       // Update user profile with display name
       await updateProfile(userCredential.user, {
-        displayName: formData.displayName
+        displayName: formData.displayName,
       });
 
       // Create user document in Firestore
-      await setDoc(doc(firebase.db, 'users', userCredential.user.uid), {
+      await setDoc(doc(firebase.db, "users", userCredential.user.uid), {
         displayName: formData.displayName,
         email: formData.email,
         createdAt: new Date().toISOString(),
         totalLists: 0,
-        sharedLists: 0
+        sharedLists: 0,
       });
 
       // Redirect to login page
-      navigate('/login');
+      navigate("/login");
     } catch (err: any) {
-      setError(err.message || 'Failed to create account');
+      setError(err.message || "Failed to create account");
     } finally {
       setLoading(false);
     }
@@ -118,8 +118,11 @@ const RegisterPage: React.FC = () => {
             minLength={6}
             disabled={loading}
           />
-          <div className="password-toggle" onClick={() => togglePasswordVisibility('password')}>
-            <i className={showPassword ? 'icon-eye-off' : 'icon-eye'}></i>
+          <div
+            className="password-toggle"
+            onClick={() => togglePasswordVisibility("password")}
+          >
+            <i className={showPassword ? "icon-eye-off" : "icon-eye"}></i>
           </div>
         </div>
         <div className="form-group form-group-password">
@@ -134,26 +137,37 @@ const RegisterPage: React.FC = () => {
             minLength={6}
             disabled={loading}
           />
-          <div className="password-toggle" onClick={() => togglePasswordVisibility('confirmPassword')}>
-            <i className={showConfirmPassword ? 'icon-eye-slash' : 'icon-eye'}></i>
+          <div
+            className="password-toggle"
+            onClick={() => togglePasswordVisibility("confirmPassword")}
+          >
+            <i
+              className={showConfirmPassword ? "icon-eye-slash" : "icon-eye"}
+            ></i>
           </div>
         </div>
-        <button type="submit" disabled={loading} className='btn btn-primary'>
+        <button type="submit" disabled={loading} className="btn btn-primary">
           {loading ? (
             <>
               <Loader size="small" color="#ffffff" />
               Creating Account...
             </>
           ) : (
-            'Create Account'
+            "Create Account"
           )}
         </button>
         <div className="form-footer">
-          Already have an account? <Link to="/login" style={{ pointerEvents: loading ? 'none' : 'auto' }}>Login here</Link>
+          Already have an account?{" "}
+          <Link
+            to="/login"
+            style={{ pointerEvents: loading ? "none" : "auto" }}
+          >
+            Login here
+          </Link>
         </div>
       </form>
     </div>
   );
 };
 
-export default RegisterPage; 
+export default RegisterPage;

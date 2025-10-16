@@ -6,7 +6,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
-import AuthenticatedLayout from "./components/AuthenticatedLayout";
+import AuthenticatedLayout from "./components/connected/AuthenticatedLayout";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute";
 import HomePage from "./pages/HomePage";
@@ -16,7 +16,7 @@ import CreateListPage from "./pages/CreateListPage";
 import ListDetailPage from "./pages/ListDetailPage";
 import ProfilePage from "./pages/ProfilePage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
-import SplashScreen from "./components/SplashScreen";
+import SplashScreen from "./components/splashscreen/SplashScreen";
 import "./styles/main.scss";
 import WelcomePage from "./pages/WelcomePage";
 import EditListPage from "./pages/EditListPage";

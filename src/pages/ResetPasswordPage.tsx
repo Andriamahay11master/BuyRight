@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { sendPasswordResetEmail } from 'firebase/auth';
-import firebase from '../firebase';
-import Loader from '../components/Loader';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { sendPasswordResetEmail } from "firebase/auth";
+import firebase from "../firebase";
+import Loader from "../components/loader/Loader";
 
 const ResetPasswordPage: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setLoading(true);
     setSuccess(false);
 
@@ -20,7 +20,7 @@ const ResetPasswordPage: React.FC = () => {
       await sendPasswordResetEmail(firebase.auth, email);
       setSuccess(true);
     } catch (err: any) {
-      setError(err.message || 'Failed to send reset email');
+      setError(err.message || "Failed to send reset email");
     } finally {
       setLoading(false);
     }
@@ -54,18 +54,24 @@ const ResetPasswordPage: React.FC = () => {
               />
             </div>
           </div>
-          <button type="submit" disabled={loading} className='btn btn-primary'>
+          <button type="submit" disabled={loading} className="btn btn-primary">
             {loading ? (
               <>
                 <Loader size="small" color="#ffffff" />
                 Sending...
               </>
             ) : (
-              'Send Reset Link'
+              "Send Reset Link"
             )}
           </button>
           <div className="form-footer">
-            Remember your password? <Link to="/login" style={{ pointerEvents: loading ? 'none' : 'auto' }}>Login here</Link>
+            Remember your password?{" "}
+            <Link
+              to="/login"
+              style={{ pointerEvents: loading ? "none" : "auto" }}
+            >
+              Login here
+            </Link>
           </div>
         </form>
       )}
@@ -73,4 +79,4 @@ const ResetPasswordPage: React.FC = () => {
   );
 };
 
-export default ResetPasswordPage; 
+export default ResetPasswordPage;
