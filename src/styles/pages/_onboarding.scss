@@ -3,9 +3,14 @@
   @include flex-column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  min-height: 100vh;
+  padding: 1rem 0;
+  @include mobile {
+    padding: 1rem;
+    margin: auto;
+  }
   .onboarding-top {
-    padding: 2rem 0;
+    padding: 1rem 0;
     .title-h1 {
       margin-bottom: 1rem;
       font-weight: 800;
@@ -16,6 +21,28 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 2rem;
+    @include mobile {
+      grid-template-columns: 1fr;
+    }
+    .onboarding-item {
+      padding: 1.5rem;
+      background: $white;
+      border-radius: 0.5rem;
+    }
+    img {
+      width: 25rem;
+      height: auto;
+      @include mobile {
+        width: 20rem;
+      }
+    }
+    .title-h3 {
+      margin-bottom: 0.5rem;
+    }
+    p {
+      margin: auto;
+      max-width: 90%;
+    }
   }
   .onboarding-footer {
     @include flex-center;
