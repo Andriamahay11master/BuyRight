@@ -53,14 +53,6 @@ const App: React.FC = () => {
               }
             />
             <Route
-              path="/register"
-              element={
-                <PublicRoute>
-                  <RegisterPage />
-                </PublicRoute>
-              }
-            />
-            <Route
               path="/reset-password"
               element={
                 <PublicRoute>

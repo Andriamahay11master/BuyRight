@@ -1,4 +1,4 @@
-export default function Onboarding() {
+export default function OnboardingPage() {
   return (
     <div className="onboarding-body">
       <div className="onboarding-top">
@@ -23,7 +23,9 @@ export default function Onboarding() {
           </p>
         </div>
       </div>
-      <div className="onboarding-footer"></div>
+      <div className="onboarding-footer">
+        <button className="btn btn-primary">Get Started</button>
+      </div>
     </div>
   );
 }
