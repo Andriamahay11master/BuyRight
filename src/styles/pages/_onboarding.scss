@@ -1,4 +1,23 @@
 .onboarding-body {
+  text-align: center;
+  @include flex-column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
   .onboarding-top {
+    padding: 2rem 0;
+    .title-h1 {
+      margin-bottom: 1rem;
+      font-weight: 800;
+    }
+  }
+  .onboarding-content {
+    padding: 1rem 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 2rem;
+  }
+  .onboarding-footer {
+    @include flex-center;
   }
 }
