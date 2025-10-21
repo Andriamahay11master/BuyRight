@@ -20,6 +20,7 @@ import SplashScreen from "./components/splashscreen/SplashScreen";
 import "./styles/main.scss";
 import WelcomePage from "./pages/WelcomePage";
 import EditListPage from "./pages/EditListPage";
+import OnboardingPage from "./pages/OnboardingPage";
 
 const App: React.FC = () => {
   const [showSplash, setShowSplash] = useState(true);
@@ -41,6 +42,14 @@ const App: React.FC = () => {
               element={
                 <PublicRoute>
                   <WelcomePage />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/onboarding"
+              element={
+                <PublicRoute>
+                  <OnboardingPage />
                 </PublicRoute>
               }
             />
