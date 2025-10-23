@@ -152,8 +152,9 @@ const HomePage: React.FC = () => {
             onChange={handleChangeFilter}
           >
             <option value="All">All</option>
-            <option value="Completed">Completed</option>
-            <option value="Uncompleted">Uncompleted</option>
+            <option value="Done">Done</option>
+            <option value="Ongoing">On-going</option>
+            <option value="New">New</option>
           </select>
           <button
             onClick={handleCreateList}
@@ -194,10 +195,12 @@ const HomePage: React.FC = () => {
             .filter(
               (list) =>
                 searchQuery === "All" ||
-                (searchQuery === "Completed" &&
+                (searchQuery === "Done" &&
                   list.completedItems === list.items.length) ||
-                (searchQuery === "Uncompleted" &&
-                  list.completedItems !== list.items.length)
+                (searchQuery === "Ongoing" &&
+                  list.completedItems !== list.items.length &&
+                  list.completedItems !== 0) ||
+                (searchQuery === "New" && list.completedItems === 0)
             )
             .map((list) => (
               <div
