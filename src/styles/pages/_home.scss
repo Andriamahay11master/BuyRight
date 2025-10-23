@@ -3,7 +3,7 @@
   margin: 0 auto;
   padding: 2rem;
   @include mobile {
-    padding: 0 0 5.5rem;
+    padding: 0 0 3rem;
   }
 
   .page-header {
@@ -21,7 +21,7 @@
       background: rgba($white-f5, 0.8);
       z-index: 100;
       margin-bottom: 0;
-      padding: 1rem 0;
+      padding: 1rem;
       width: 100%;
     }
     h1 {
@@ -98,6 +98,7 @@
     }
     @include mobile {
       margin-top: 0;
+      padding: 0 1rem;
     }
     .list-card {
       background-color: $white;
