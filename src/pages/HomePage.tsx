@@ -137,37 +137,39 @@ const HomePage: React.FC = () => {
       <div className="page-header">
         <h1>Grocery Lists</h1>
         <div className="page-header-right">
-          <select
-            name="month"
-            id="month"
-            value={searchQueryMonth}
-            onChange={handleChangeFilterMonth}
-          >
-            <option value="All">All</option>
-            <option value="January">January</option>
-            <option value="February">February</option>
-            <option value="March">March</option>
-            <option value="April">April</option>
-            <option value="May">May</option>
-            <option value="June">June</option>
-            <option value="July">July</option>
-            <option value="August">August</option>
-            <option value="September">September</option>
-            <option value="October">October</option>
-            <option value="November">November</option>
-            <option value="December">December</option>
-          </select>
-          <select
-            name="completed"
-            id="completed-state"
-            value={searchQuery}
-            onChange={handleChangeFilter}
-          >
-            <option value="All">All</option>
-            <option value="Done">Done</option>
-            <option value="Ongoing">On-going</option>
-            <option value="New">New</option>
-          </select>
+          <div className="filter-box">
+            <select
+              name="month"
+              id="month"
+              value={searchQueryMonth}
+              onChange={handleChangeFilterMonth}
+            >
+              <option value="All">All</option>
+              <option value="January">January</option>
+              <option value="February">February</option>
+              <option value="March">March</option>
+              <option value="April">April</option>
+              <option value="May">May</option>
+              <option value="June">June</option>
+              <option value="July">July</option>
+              <option value="August">August</option>
+              <option value="September">September</option>
+              <option value="October">October</option>
+              <option value="November">November</option>
+              <option value="December">December</option>
+            </select>
+            <select
+              name="completed"
+              id="completed-state"
+              value={searchQuery}
+              onChange={handleChangeFilter}
+            >
+              <option value="All">All</option>
+              <option value="Done">Done</option>
+              <option value="Ongoing">On-going</option>
+              <option value="New">New</option>
+            </select>
+          </div>
           <button
             onClick={handleCreateList}
             className="btn btn-primary btn-create"

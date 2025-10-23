@@ -30,9 +30,22 @@
     }
     .page-header-right {
       @include flex-center;
-      gap: 1rem;
+      gap: 0.5rem;
       flex-wrap: wrap;
       justify-content: flex-end;
+      .filter-box {
+        @include flex-center;
+        gap: 0.5rem;
+      }
+      @include mobile {
+        align-items: start;
+        flex-direction: column-reverse;
+        width: 100%;
+        gap: 1rem;
+        button {
+          align-self: end;
+        }
+      }
     }
     select {
       padding: 0.8rem;
@@ -82,6 +95,9 @@
     margin-top: 1rem;
     @include tablet {
       grid-template-columns: 1fr;
+    }
+    @include mobile {
+      margin-top: 0;
     }
     .list-card {
       background-color: $white;
