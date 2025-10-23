@@ -107,6 +107,9 @@
       padding: 1.3rem;
       transition: transform 0.4s, box-shadow 0.2s;
       @include flex-between;
+      @include mobile {
+        padding: 1rem;
+      }
       cursor: pointer;
       &:hover {
         transform: translateY(-2px);
