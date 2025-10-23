@@ -77,51 +77,37 @@
     }
     .list-card {
       background-color: $white;
-      border-radius: 8px;
+      border-radius: 0.8rem;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      padding: 1.5rem;
-      transition: transform 0.2s, box-shadow 0.2s;
+      padding: 1.3rem;
+      transition: transform 0.4s, box-shadow 0.2s;
+      cursor: pointer;
       &:hover {
         transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 4px 10px rgba($primary-color, 0.3);
       }
 
-      .list-card-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 1rem;
-
-        h2 {
-          margin: 0;
-          color: $black;
-          font-size: 1.25rem;
+      .status {
+        position: relative;
+        &:after {
+          content: "";
+          display: inline-block;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 0.5rem;
+          height: 0.5rem;
         }
-        .list-col {
-          display: flex;
-          gap: 0.5rem;
+        &.completed {
+          color: $state-done;
         }
-      }
-
-      .list-description {
-        color: $text-secondary;
-        margin-bottom: 1rem;
-        font-size: 0.9rem;
-      }
-
-      .list-stats {
-        display: flex;
-        gap: 1rem;
-        margin-bottom: 1.5rem;
-        color: $text-secondary;
-        font-size: 0.9rem;
-
-        span {
-          display: flex;
-          align-items: center;
+        &.ongoing {
+          color: $state-on;
+        }
+        &.new {
+          color: $state-new;
         }
       }
-
       .list-actions {
         @include flex-end;
       }

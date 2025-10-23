@@ -206,7 +206,7 @@ const HomePage: React.FC = () => {
                 onClick={() => navigate(`/list/${list.id}`)}
               >
                 <div className="list-col">
-                  <h2>{list.name}</h2>
+                  <h2 className="title-h2">{list.name}</h2>
                   <p>Created on {list.createdAt.toLocaleDateString()}</p>
                 </div>
                 <div className="list-col">
