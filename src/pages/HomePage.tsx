@@ -20,10 +20,27 @@ import { ListData } from "../models/ListData";
 const HomePage: React.FC = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  const currentMonth = new Date().getMonth() + 1;
   const [lists, setLists] = useState<ListData[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("All");
-  const [searchQueryMonth, setSearchQueryMonth] = useState("All");
+  const [searchQueryMonth, setSearchQueryMonth] = useState(
+    monthNames[currentMonth - 1]
+  );
   const [error, setError] = useState<string | null>(null);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [listToDelete, setListToDelete] = useState<string | null>(null);
@@ -75,11 +92,6 @@ const HomePage: React.FC = () => {
     navigate("/create");
   };
 
-  const openDeleteModal = (listId: string) => {
-    setListToDelete(listId);
-    setDeleteModalOpen(true);
-  };
-
   const closeDeleteModal = () => {
     setDeleteModalOpen(false);
     setListToDelete(null);
@@ -123,7 +135,7 @@ const HomePage: React.FC = () => {
   return (
     <div className="home-page">
       <div className="page-header">
-        <h1>My Shopping Lists</h1>
+        <h1>Grocery Lists</h1>
         <div className="page-header-right">
           <select
             name="month"
