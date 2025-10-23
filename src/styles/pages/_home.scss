@@ -94,6 +94,8 @@
       .status {
         position: relative;
         padding-right: 1rem;
+        font-size: 0.9rem;
+        text-wrap: nowrap;
         &:after {
           content: "";
           display: inline-block;

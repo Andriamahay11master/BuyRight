@@ -1,14 +1,20 @@
 // Responsive breakpoints
 @mixin mobile {
-  @media (max-width: $mobile) { @content; }
+  @media (max-width: $mobile) {
+    @content;
+  }
 }
 
 @mixin tablet {
-  @media (min-width: $mobile) and (max-width: $tablet) { @content; }
+  @media (min-width: $mobile) and (max-width: $tablet) {
+    @content;
+  }
 }
 
 @mixin desktop {
-  @media (min-width: $tablet) { @content; }
+  @media (min-width: $tablet) {
+    @content;
+  }
 }
 
 // Flexbox mixins
@@ -107,4 +113,15 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 $spacing-md;
-} 
+}
+
+// one line ellipsis
+@mixin ellipsis-1 {
+  width: 75%;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
