@@ -14,12 +14,17 @@
   @include mobile {
     padding: $spacing-sm $spacing-md;
     flex-wrap: wrap;
+    box-shadow: none;
+    background-color: transparent;
   }
 
   .navbar-brand {
     font-size: 1.5rem;
     font-weight: bold;
     color: $primary-color;
+    @include mobile {
+      display: none;
+    }
     a {
       text-decoration: none;
       color: inherit;
@@ -101,6 +106,9 @@
       @media (max-width: 768px) {
         flex-direction: column;
         width: 100%;
+      }
+      @include mobile {
+        display: none;
       }
     }
   }
