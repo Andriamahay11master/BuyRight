@@ -200,47 +200,25 @@ const HomePage: React.FC = () => {
                   list.completedItems !== list.items.length)
             )
             .map((list) => (
-              <div key={list.id} className="list-card">
-                <div className="list-card-header">
-                  <div className="list-col">
-                    <h2>{list.name}</h2>
-                  </div>
-                  <div className="list-col">
-                    <button
-                      onClick={() => navigate(`/edit/${list.id}`)}
-                      className="btn btn-icon btn-primary"
-                    >
-                      <i className="icon-edit"></i>
-                    </button>
-                    <button
-                      onClick={() => openDeleteModal(list.id || "")}
-                      className="btn btn-icon btn-danger"
-                    >
-                      <i className="icon-trash-2"></i>
-                    </button>
-                  </div>
+              <div
+                key={list.id}
+                className="list-card"
+                onClick={() => navigate(`/list/${list.id}`)}
+              >
+                <div className="list-col">
+                  <h2>{list.name}</h2>
+                  <p>Created on {list.createdAt.toLocaleDateString()}</p>
                 </div>
-
-                {list.description && (
-                  <p className="list-description">{list.description}</p>
-                )}
-
-                <div className="list-stats">
-                  <span>Items: {list.totalItems}</span>
-                  <span>Completed: {list.completedItems}</span>
-                  <span>
-                    Progress:{" "}
-                    {Math.round((list.completedItems / list.totalItems) * 100)}%
-                  </span>
-                </div>
-
-                <div className="list-actions">
-                  <button
-                    onClick={() => navigate(`/list/${list.id}`)}
-                    className="btn btn-small btn-primary"
-                  >
-                    <i className="icon-eye"></i>
-                  </button>
+                <div className="list-col">
+                  <div className="list-stats">
+                    {list.completedItems === list.items.length ? (
+                      <p className="status completed">Done</p>
+                    ) : list.completedItems === 0 ? (
+                      <p className="status new">New</p>
+                    ) : (
+                      <p className="status ongoing">On Going </p>
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
