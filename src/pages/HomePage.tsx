@@ -212,11 +212,11 @@ const HomePage: React.FC = () => {
                 <div className="list-col">
                   <div className="list-stats">
                     {list.completedItems === list.items.length ? (
-                      <p className="status completed">Done</p>
+                      <span className="status completed">Done</span>
                     ) : list.completedItems === 0 ? (
-                      <p className="status new">New</p>
+                      <span className="status new">New</span>
                     ) : (
-                      <p className="status ongoing">On Going </p>
+                      <span className="status ongoing">On Going </span>
                     )}
                   </div>
                 </div>

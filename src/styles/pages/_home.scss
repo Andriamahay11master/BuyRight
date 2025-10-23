@@ -70,42 +70,58 @@
   .lists-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
+    grid-gap: 1.5rem;
     margin-top: 1rem;
     @include tablet {
       grid-template-columns: 1fr;
     }
     .list-card {
       background-color: $white;
-      border-radius: 0.8rem;
+      border-radius: 0.4rem;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       padding: 1.3rem;
       transition: transform 0.4s, box-shadow 0.2s;
+      @include flex-between;
       cursor: pointer;
       &:hover {
         transform: translateY(-2px);
         box-shadow: 0 4px 10px rgba($primary-color, 0.3);
       }
-
+      p {
+        font-size: 0.8rem;
+        color: $grey;
+      }
       .status {
         position: relative;
+        padding-right: 1rem;
         &:after {
           content: "";
           display: inline-block;
           position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 0.5rem;
-          height: 0.5rem;
+          top: 50%;
+          right: 0;
+          width: 0.7rem;
+          height: 0.7rem;
+          border-radius: 50%;
+          transform: translateY(-50%);
         }
         &.completed {
           color: $state-done;
+          &:after {
+            background-color: $state-done;
+          }
         }
         &.ongoing {
           color: $state-on;
+          &:after {
+            background-color: $state-on;
+          }
         }
         &.new {
           color: $state-new;
+          &:after {
+            background-color: $state-new;
+          }
         }
       }
       .list-actions {
