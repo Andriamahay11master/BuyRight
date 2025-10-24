@@ -16,6 +16,7 @@ import {
 import Loader from "../components/loader/Loader";
 import Modal from "../components/modal/Modal";
 import { ListData } from "../models/ListData";
+import Dropdown from "../components/dropdown/Dropdown";
 
 const HomePage: React.FC = () => {
   const { user } = useAuth();
@@ -34,6 +35,7 @@ const HomePage: React.FC = () => {
     "November",
     "December",
   ];
+  const status = ["All", "New", "Ongoing", "Done"];
   const currentMonth = new Date().getMonth() + 1;
   const [lists, setLists] = useState<ListData[]>([]);
   const [loading, setLoading] = useState(true);
@@ -138,6 +140,7 @@ const HomePage: React.FC = () => {
         <h1>Grocery Lists</h1>
         <div className="page-header-right">
           <div className="filter-box">
+            <Dropdown valueBtn="Month" listItems={monthNames} />
             <select
               name="month"
               id="month"
@@ -158,6 +161,8 @@ const HomePage: React.FC = () => {
               <option value="November">November</option>
               <option value="December">December</option>
             </select>
+
+            <Dropdown valueBtn="Status" listItems={status} />
             <select
               name="completed"
               id="completed-state"
