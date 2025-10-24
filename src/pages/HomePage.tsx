@@ -22,6 +22,7 @@ const HomePage: React.FC = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const monthNames = [
+    "All",
     "January",
     "February",
     "March",
@@ -41,7 +42,7 @@ const HomePage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("All");
   const [searchQueryMonth, setSearchQueryMonth] = useState(
-    monthNames[currentMonth - 1]
+    monthNames[currentMonth]
   );
   const [error, setError] = useState<string | null>(null);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
@@ -118,12 +119,12 @@ const HomePage: React.FC = () => {
     }
   };
 
-  const handleChangeFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSearchQuery(e.target.value);
+  const handleChangeFilterStatus = (selectedStatus: string) => {
+    setSearchQuery(selectedStatus);
   };
 
-  const handleChangeFilterMonth = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSearchQueryMonth(e.target.value);
+  const handleChangeFilterMonth = (selectedMonth: string) => {
+    setSearchQueryMonth(selectedMonth);
   };
 
   if (loading) {
@@ -140,40 +141,16 @@ const HomePage: React.FC = () => {
         <h1>Grocery Lists</h1>
         <div className="page-header-right">
           <div className="filter-box">
-            <Dropdown valueBtn="Month" listItems={monthNames} />
-            <select
-              name="month"
-              id="month"
-              value={searchQueryMonth}
+            <Dropdown
+              valueBtn={searchQueryMonth || "Month"}
+              listItems={monthNames}
               onChange={handleChangeFilterMonth}
-            >
-              <option value="All">All</option>
-              <option value="January">January</option>
-              <option value="February">February</option>
-              <option value="March">March</option>
-              <option value="April">April</option>
-              <option value="May">May</option>
-              <option value="June">June</option>
-              <option value="July">July</option>
-              <option value="August">August</option>
-              <option value="September">September</option>
-              <option value="October">October</option>
-              <option value="November">November</option>
-              <option value="December">December</option>
-            </select>
-
-            <Dropdown valueBtn="Status" listItems={status} />
-            <select
-              name="completed"
-              id="completed-state"
-              value={searchQuery}
-              onChange={handleChangeFilter}
-            >
-              <option value="All">All</option>
-              <option value="Done">Done</option>
-              <option value="Ongoing">On-going</option>
-              <option value="New">New</option>
-            </select>
+            />
+            <Dropdown
+              valueBtn={searchQuery || "Status"}
+              listItems={status}
+              onChange={handleChangeFilterStatus}
+            />
           </div>
           <button
             onClick={handleCreateList}

@@ -56,13 +56,10 @@
     }
   }
 
-  // Show the list when hovering over the main .dropdown container
-  &:hover {
+  &.open {
     .dropdown-list {
       display: block;
     }
-
-    // Optional: change arrow direction on hover
     .dropdown-button::after {
       content: "▲";
     }
