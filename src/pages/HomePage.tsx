@@ -47,6 +47,7 @@ const HomePage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [listToDelete, setListToDelete] = useState<string | null>(null);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
   useEffect(() => {
     if (!user) return;
@@ -127,6 +128,17 @@ const HomePage: React.FC = () => {
     setSearchQueryMonth(selectedMonth);
   };
 
+  // ADD THESE:
+  const handleToggleDropdown = (dropdownId: string) => {
+    // If the one clicked is already open, close it.
+    // Otherwise, open the one clicked (which closes any other).
+    setOpenDropdown(openDropdown === dropdownId ? null : dropdownId);
+  };
+
+  const handleCloseDropdowns = () => {
+    setOpenDropdown(null);
+  };
+
   if (loading) {
     return (
       <div className="loader-container">
@@ -145,11 +157,17 @@ const HomePage: React.FC = () => {
               valueBtn={searchQueryMonth || "Month"}
               listItems={monthNames}
               onChange={handleChangeFilterMonth}
+              isOpen={openDropdown === "month"}
+              onToggle={() => handleToggleDropdown("month")}
+              onClose={handleCloseDropdowns}
             />
             <Dropdown
               valueBtn={searchQuery || "Status"}
               listItems={status}
               onChange={handleChangeFilterStatus}
+              isOpen={openDropdown === "status"}
+              onToggle={() => handleToggleDropdown("status")}
+              onClose={handleCloseDropdowns}
             />
           </div>
           <button
