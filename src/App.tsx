@@ -21,6 +21,8 @@ import "./styles/main.scss";
 import WelcomePage from "./pages/WelcomePage";
 import EditListPage from "./pages/EditListPage";
 import OnboardingPage from "./pages/OnboardingPage";
+import ListItem from "./pages/ListItemPage";
+import ListItemPage from "./pages/ListItemPage";
 
 const App: React.FC = () => {
   const [showSplash, setShowSplash] = useState(true);
@@ -117,6 +119,16 @@ const App: React.FC = () => {
                 <ProtectedRoute>
                   <AuthenticatedLayout>
                     <ProfilePage />
+                  </AuthenticatedLayout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/items"
+              element={
+                <ProtectedRoute>
+                  <AuthenticatedLayout>
+                    <ListItemPage />
                   </AuthenticatedLayout>
                 </ProtectedRoute>
               }

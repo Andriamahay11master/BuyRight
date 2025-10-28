@@ -62,9 +62,9 @@ const Navbar: React.FC = () => {
               <span>Profile</span>
             </Link>
             <Link
-              to="/item"
-              className={`nav-item ${activeLink === "/item" ? "active" : ""}`}
-              onClick={() => handleLinkClick("/item")}
+              to="/items"
+              className={`nav-item ${activeLink === "/items" ? "active" : ""}`}
+              onClick={() => handleLinkClick("/items")}
             >
               <i className="icon-list"></i>
               <span>Items</span>

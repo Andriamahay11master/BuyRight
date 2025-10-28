@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function ListItem() {
+export default function ListItemPage() {
   return (
     <div className="gabarit-page">
       <div className="gabarit-top">
