@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import category from "../data/category";
 
 export default function AddItemPage() {
   return (
@@ -18,11 +19,11 @@ export default function AddItemPage() {
           <div className="form-group">
             <label htmlFor="category">Category</label>
             <select name="category" id="category">
-              <option value="Grocery">Grocery</option>
-              <option value="Dairy">Dairy</option>
-              <option value="Meat">Meat</option>
-              <option value="Fruits">Fruits</option>
-              <option value="Vegetables">Vegetables</option>
+              {category.map((item, index) => (
+                <option key={index} value={item}>
+                  {item}
+                </option>
+              ))}
             </select>
           </div>
           <div className="form-group">
