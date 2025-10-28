@@ -23,6 +23,7 @@ import EditListPage from "./pages/EditListPage";
 import OnboardingPage from "./pages/OnboardingPage";
 import ListItem from "./pages/ListItemPage";
 import ListItemPage from "./pages/ListItemPage";
+import AddItemPage from "./pages/AddItemPage";
 
 const App: React.FC = () => {
   const [showSplash, setShowSplash] = useState(true);
@@ -129,6 +130,16 @@ const App: React.FC = () => {
                 <ProtectedRoute>
                   <AuthenticatedLayout>
                     <ListItemPage />
+                  </AuthenticatedLayout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/add-item"
+              element={
+                <ProtectedRoute>
+                  <AuthenticatedLayout>
+                    <AddItemPage />
                   </AuthenticatedLayout>
                 </ProtectedRoute>
               }
