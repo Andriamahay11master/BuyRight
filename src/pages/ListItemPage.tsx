@@ -1,6 +1,28 @@
 import { Link } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
+import { useEffect, useState } from "react";
+import { Item } from "../models/Item";
+import firebase from "../firebase";
+import { collection, getDocs } from "firebase/firestore";
 
 export default function ListItemPage() {
+  const { user } = useAuth();
+  const [listItem, setListItem] = useState<Item[]>([] as Item[]);
+
+  const getItems = async () => {
+    try {
+      const itemsCollection = collection(firebase.db, "items");
+      const itemsSnapshot = await getDocs(itemsCollection);
+      const items = itemsSnapshot.docs.map((doc) => doc.data() as Item);
+      setListItem(items);
+    } catch (error) {
+      console.error("Error fetching items:", error);
+    }
+  };
+
+  useEffect(() => {
+    getItems();
+  }, [user]);
   return (
     <div className="gabarit-page">
       <div className="gabarit-top">
@@ -15,7 +37,16 @@ export default function ListItemPage() {
       <div className="gabarit-content">
         <h2 className="title-h2">My items</h2>
         <div className="gabarit-list">
-          <div className="list-tem"></div>
+          {listItem.map((item) => (
+            <div className="gabarit-item" key={item.id}>
+              <img src={item.image} alt={item.name} title={item.name} />
+              <div className="gabarit-item-info">
+                <h3 className="title-h3">{item.name}</h3>
+                <p>{item.category}</p>
+                <p>{item.unit}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
