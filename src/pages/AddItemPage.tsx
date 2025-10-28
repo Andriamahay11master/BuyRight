@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import category from "../data/category";
 import unit from "../data/unit";
 
@@ -9,7 +9,14 @@ import { addDoc, collection } from "firebase/firestore";
 
 export default function AddItemPage() {
   const { user } = useAuth();
-  const [formData, setFormData] = useState({
+  const navigate = useNavigate();
+  interface FormDataType {
+    name: string;
+    category: string;
+    unit: string;
+    image: File | null;
+  }
+  const [formData, setFormData] = useState<FormDataType>({
     name: "",
     category: "",
     unit: "",
@@ -21,10 +28,16 @@ export default function AddItemPage() {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-    const { name, value, files } = e.target as HTMLInputElement;
-    if (files) {
-      setFormData((prev) => ({ ...prev, image: files[0] }));
+    const { name, value } = e.target;
+
+    // For file input
+    if (e.target instanceof HTMLInputElement && e.target.type === "file") {
+      const files = e.target.files;
+      if (files && files.length > 0) {
+        setFormData((prev) => ({ ...prev, image: files[0] }));
+      }
     } else {
+      // For text/select inputs
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
   };
@@ -71,6 +84,7 @@ export default function AddItemPage() {
         unit: "",
         image: null,
       });
+      navigate("/items");
     } catch (err: any) {
       setError(err.message || "Failed to add item");
     }
@@ -87,11 +101,11 @@ export default function AddItemPage() {
       <div className="gabarit-content">
         <form className="add-item-form" onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="item-name">Item Name</label>
+            <label htmlFor="name">Item Name</label>
             <input
               type="text"
-              name="item-name"
-              id="item-name"
+              name="name"
+              id="name"
               onChange={handleChange}
               value={formData.name}
             />
@@ -135,6 +149,13 @@ export default function AddItemPage() {
               accept="image/*"
               onChange={handleChange}
             />
+            {formData.image && (
+              <img
+                src={URL.createObjectURL(formData.image)}
+                alt="Preview"
+                className="image-preview"
+              />
+            )}
           </div>
           <div className="form-group form-group-button">
             <button type="reset" className="btn btn-cancel">
