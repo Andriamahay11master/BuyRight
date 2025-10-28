@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import category from "../data/category";
+import unit from "../data/unit";
 
 export default function AddItemPage() {
   return (
@@ -29,9 +30,11 @@ export default function AddItemPage() {
           <div className="form-group">
             <label htmlFor="unit">Unit</label>
             <select name="unit" id="unit">
-              <option value="pcs">pcs</option>
-              <option value="kg">kg</option>
-              <option value="liters">liters</option>
+              {unit.map((item, index) => (
+                <option key={index} value={item}>
+                  {item}
+                </option>
+              ))}
             </select>
           </div>
           <div className="form-group">
