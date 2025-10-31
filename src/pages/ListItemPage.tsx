@@ -39,7 +39,9 @@ export default function ListItemPage() {
         <div className="gabarit-list">
           {listItem.map((item) => (
             <div className="gabarit-item" key={item.id}>
-              <img src={item.image} alt={item.name} title={item.name} />
+              <figure className="gabarit-item-img">
+                <img src={item.image} alt={item.name} title={item.name} />
+              </figure>
               <div className="gabarit-item-info">
                 <h3 className="title-h3">{item.name}</h3>
                 <p>{item.category}</p>
