@@ -3,10 +3,16 @@
     display: grid;
     grid-template-columns: 1fr;
     grid-gap: 1rem;
+    @include mobile {
+      grid-gap: 0.8rem;
+    }
   }
   .gabarit-item {
     @include flex-start;
     gap: 1.5rem;
+    @include mobile {
+      gap: 1rem;
+    }
     .gabarit-item-img {
       width: 10rem;
       height: 10rem;
