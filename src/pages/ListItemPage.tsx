@@ -37,18 +37,20 @@ export default function ListItemPage() {
       <div className="gabarit-content">
         <h2 className="title-h2">My items</h2>
         <div className="gabarit-list">
-          {listItem.map((item) => (
-            <div className="gabarit-item" key={item.id}>
-              <figure className="gabarit-item-img">
-                <img src={item.image} alt={item.name} title={item.name} />
-              </figure>
-              <div className="gabarit-item-info">
-                <h3 className="title-h3">{item.name}</h3>
-                <p>{item.category}</p>
-                <p>{item.unit}</p>
+          {listItem
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .map((item) => (
+              <div className="gabarit-item" key={item.id}>
+                <figure className="gabarit-item-img">
+                  <img src={item.image} alt={item.name} title={item.name} />
+                </figure>
+                <div className="gabarit-item-info">
+                  <h3 className="title-h3">{item.name}</h3>
+                  <p>{item.category}</p>
+                  <p>{item.unit}</p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
         </div>
       </div>
     </div>

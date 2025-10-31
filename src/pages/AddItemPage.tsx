@@ -18,8 +18,8 @@ export default function AddItemPage() {
   }
   const [formData, setFormData] = useState<FormDataType>({
     name: "",
-    category: "",
-    unit: "",
+    category: category[0],
+    unit: unit[0],
     image: null,
   });
   const [error, setError] = useState("");
