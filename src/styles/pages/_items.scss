@@ -1,0 +1,11 @@
+.gabarit-page {
+  .gabarit-item {
+    @include flex-start;
+    gap: 1.5rem;
+    img {
+      width: 20rem;
+      height: auto;
+      border-radius: 3rem;
+    }
+  }
+}
