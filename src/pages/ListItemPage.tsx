@@ -32,7 +32,12 @@ export default function ListItemPage() {
         </Link>
       </div>
       <div className="gabarit-search">
-        <input type="search" name="search-item" id="search-item" />
+        <input
+          type="search"
+          name="search-item"
+          id="search-item"
+          placeholder="Search items"
+        />
       </div>
       <div className="gabarit-content">
         <h2 className="title-h2">My items</h2>
