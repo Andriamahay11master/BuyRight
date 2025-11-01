@@ -1,4 +1,19 @@
 .gabarit-page {
+  .gabarit-top {
+    display: grid;
+    grid-template-columns: 75% 25%;
+    grid-gap: 1rem;
+    .btn-primary {
+      span {
+        @include mobile {
+          display: none;
+        }
+      }
+    }
+  }
+  .title-h2 {
+    margin-bottom: 1.5rem;
+  }
   .gabarit-list {
     display: grid;
     grid-template-columns: 1fr;

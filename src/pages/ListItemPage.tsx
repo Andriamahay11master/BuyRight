@@ -28,7 +28,7 @@ export default function ListItemPage() {
       <div className="gabarit-top">
         <h1 className="title-h1">Items</h1>
         <Link to="/add-item" className="btn btn-primary">
-          Add Item <i className="icon-plus"></i>
+          <span>Add Item</span> <i className="icon-plus"></i>
         </Link>
       </div>
       <div className="gabarit-search">
@@ -46,8 +46,8 @@ export default function ListItemPage() {
                 </figure>
                 <div className="gabarit-item-info">
                   <h3 className="title-h3">{item.name}</h3>
-                  <p>{item.category}</p>
-                  <p>{item.unit}</p>
+                  <p className="gabarit-category">{item.category}</p>
+                  <p className="gabarit-unit">Unit : {item.unit}</p>
                 </div>
               </div>
             ))}
