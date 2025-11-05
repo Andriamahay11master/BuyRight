@@ -75,7 +75,8 @@ label {
 }
 
 input,
-textarea {
+textarea,
+select {
   @include form-input;
 }
 

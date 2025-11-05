@@ -99,7 +99,7 @@ export default function AddItemPage() {
         <h1 className="title-h1">Add New Item</h1>
       </div>
       <div className="gabarit-content">
-        <form className="add-item-form" onSubmit={handleSubmit}>
+        <form className="gabarit-form" onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="name">Item Name</label>
             <input

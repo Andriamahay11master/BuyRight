@@ -95,8 +95,9 @@
 @mixin form-input {
   width: 100%;
   padding: $spacing-sm;
-  border: 1px solid scale-color($black, $lightness: 60%);
+  border: none;
   border-radius: $border-radius-sm;
+  background: rgba($primary-color, 0.3);
   font-size: 1rem;
   transition: $transition-fast;
 
@@ -106,7 +107,6 @@
     box-shadow: 0 0 0 2px rgba($primary-color, 0.2);
   }
 }
-
 // Container
 @mixin container {
   width: 100%;
