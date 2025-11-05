@@ -57,6 +57,9 @@ export default function ListItemPage() {
       <div className="gabarit-content">
         <h2 className="title-h2">My items</h2>
         <div className="gabarit-list">
+          {listItem.length === 0 && (
+            <p className="gabarit-null">No items found</p>
+          )}
           {listItem
             .sort((a, b) => a.name.localeCompare(b.name))
             .map((item) => (
