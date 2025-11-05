@@ -150,11 +150,13 @@ export default function AddItemPage() {
               onChange={handleChange}
             />
             {formData.image && (
-              <img
-                src={URL.createObjectURL(formData.image)}
-                alt="Preview"
-                className="image-preview"
-              />
+              <div className="preview-img">
+                <img
+                  src={URL.createObjectURL(formData.image)}
+                  alt="Preview"
+                  className="image-preview"
+                />
+              </div>
             )}
           </div>
           <div className="form-group form-group-button">
