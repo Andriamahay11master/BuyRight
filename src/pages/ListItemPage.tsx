@@ -20,9 +20,15 @@ export default function ListItemPage() {
     }
   };
 
-  const simulateAutoCompleteResearch = () => {
+  const simulateAutoCompleteResearch = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    e.preventDefault();
+    const value = e.target.value;
+    if (value === "") getItems();
+    setSearchValue(value);
     const filteredItems = listItem.filter((item) =>
-      item.name.toLowerCase().includes(searchValue.toLowerCase())
+      item.name.toLowerCase().startsWith(value.toLowerCase())
     );
     setListItem(filteredItems);
   };
