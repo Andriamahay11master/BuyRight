@@ -42,6 +42,13 @@
     background-color: $secondary-color;
   }
 }
+.btn-secondary {
+  background-color: $secondary-color;
+  color: $white;
+  &:hover {
+    background-color: rgba($secondary-color, 0.8);
+  }
+}
 .btn-danger {
   background-color: $danger-color;
   color: $white;
@@ -89,6 +96,5 @@
     }
   }
 }
-.btn-nav{
-  
+.btn-nav {
 }

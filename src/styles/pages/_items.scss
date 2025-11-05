@@ -7,7 +7,20 @@
     grid-template-columns: calc(75% - 1rem) 25%;
     grid-gap: 1rem;
     margin-bottom: 2rem;
-    .btn-primary {
+    @include mobile {
+      grid-template-columns: 1fr auto;
+      margin-bottom: 1.5rem;
+    }
+    .btn {
+      @include mobile {
+        padding: 0rem;
+        border-radius: 50%;
+        width: 3rem;
+        height: 3rem;
+        i {
+          font-size: 2rem;
+        }
+      }
       span {
         @include mobile {
           display: none;

@@ -40,7 +40,7 @@ export default function ListItemPage() {
     <div className="gabarit-page">
       <div className="gabarit-top">
         <h1 className="title-h1">Items</h1>
-        <Link to="/add-item" className="btn btn-primary">
+        <Link to="/add-item" className="btn btn-secondary">
           <span>Add Item</span> <i className="icon-plus"></i>
         </Link>
       </div>
