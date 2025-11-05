@@ -98,22 +98,23 @@
       margin-bottom: 1rem;
     }
     .form-group-button {
-      margin-top: 3rem;
       display: grid;
       justify-content: flex-end;
       grid-template-columns: repeat(2, 20rem);
       grid-gap: 1rem;
+      position: sticky;
+      bottom: 0;
+      padding: 1rem 0;
       @include mobile {
+        background: $white-f5;
         grid-template-columns: repeat(2, 1fr);
-        /*position: fixed;
-        bottom: 5.5rem;
+        bottom: 4.7rem;
         left: 0;
-        width: 100%;
-        padding: 0 1rem;*/
       }
     }
     .preview-img {
-      width: 50rem;
+      width: 20rem;
+      height: 20rem;
       margin-top: 1rem;
       @include mobile {
         width: 100%;
