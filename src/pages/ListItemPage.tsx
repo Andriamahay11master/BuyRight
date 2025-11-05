@@ -8,7 +8,7 @@ import { collection, getDocs } from "firebase/firestore";
 export default function ListItemPage() {
   const { user } = useAuth();
   const [listItem, setListItem] = useState<Item[]>([] as Item[]);
-
+  const [searchValue, setSearchValue] = useState<string>("");
   const getItems = async () => {
     try {
       const itemsCollection = collection(firebase.db, "items");
@@ -18,6 +18,13 @@ export default function ListItemPage() {
     } catch (error) {
       console.error("Error fetching items:", error);
     }
+  };
+
+  const simulateAutoCompleteResearch = () => {
+    const filteredItems = listItem.filter((item) =>
+      item.name.toLowerCase().includes(searchValue.toLowerCase())
+    );
+    setListItem(filteredItems);
   };
 
   useEffect(() => {
@@ -37,6 +44,8 @@ export default function ListItemPage() {
           name="search-item"
           id="search-item"
           placeholder="Search items"
+          value={searchValue}
+          onChange={simulateAutoCompleteResearch}
         />
       </div>
       <div className="gabarit-content">
