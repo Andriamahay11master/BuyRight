@@ -147,6 +147,11 @@
         // z-index: 1; // Ensures it's on top of text (if needed)
       }
 
+      .dropzone-file-value {
+        font-size: 0.9rem;
+        color: $secondary-color;
+        margin-bottom: 0.2rem;
+      }
       // Text inside the dropzone
       .dropzone-text {
         font-size: 0.9rem;

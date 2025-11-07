@@ -151,6 +151,11 @@ export default function AddItemPage() {
                 onChange={handleChange}
               />
               <div className="dropzone-content">
+                {formData.image && (
+                  <p className="dropzone-file-value">
+                    File <strong>{formData.image?.name}</strong> is selected
+                  </p>
+                )}
                 <p className="dropzone-text">
                   <strong>Upload a file</strong> or drag and drop
                 </p>
