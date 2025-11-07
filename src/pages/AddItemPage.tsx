@@ -23,7 +23,13 @@ export default function AddItemPage() {
     image: null,
   });
   const [error, setError] = useState("");
+  const [errorFile, setErrorFile] = useState(false);
   const [alert, setAlert] = useState(false);
+
+  const checkFormatFile = (file: File) => {
+    const allowedTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
+    return allowedTypes.includes(file.type);
+  };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -33,10 +39,11 @@ export default function AddItemPage() {
     // For file input
     if (e.target instanceof HTMLInputElement && e.target.type === "file") {
       const files = e.target.files;
-      if (files && files.length > 0) {
+      if (files && files.length > 0 && checkFormatFile(files[0])) {
         setFormData((prev) => ({ ...prev, image: files[0] }));
       }
     } else {
+      setErrorFile(true);
       // For text/select inputs
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
@@ -44,7 +51,6 @@ export default function AddItemPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
 
     try {
       // Upload image to Cloudinary
@@ -162,6 +168,7 @@ export default function AddItemPage() {
                 <p className="dropzone-format">PNG, JPG, GIF up to 10MB</p>
               </div>
             </div>
+            {errorFile && <p className="error-message">Invalid file format</p>}
 
             {formData.image && (
               <div className="preview-img">
