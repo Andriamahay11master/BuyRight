@@ -1,14 +1,14 @@
 .error-container {
-    max-width: 600px;
-    margin: 2rem auto;
-    padding: 2rem;
-    text-align: center;
-  }
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  text-align: center;
+}
 
-  .error-message {
-    background: $danger-color;
-    color: $white;
-    padding: 1rem;
-    border-radius: 4px;
-    margin-bottom: 1rem;
-  }
+.error-message {
+  background: $danger-color;
+  color: $white;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}

@@ -31,21 +31,33 @@ export default function AddItemPage() {
     return allowedTypes.includes(file.type);
   };
 
+  // Handler for text, select, etc.
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
-    // For file input
-    if (e.target instanceof HTMLInputElement && e.target.type === "file") {
-      const files = e.target.files;
-      if (files && files.length > 0 && checkFormatFile(files[0])) {
-        setFormData((prev) => ({ ...prev, image: files[0] }));
+  // A separate, dedicated handler for the file input
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+
+    // Check if files exist
+    if (files && files.length > 0) {
+      const file = files[0];
+
+      // Validate the file
+      if (checkFormatFile(file)) {
+        // Valid file
+        setFormData((prev) => ({ ...prev, image: file }));
+        setErrorFile(false); // Clear any previous error
+      } else {
+        // Invalid file
+        setErrorFile(true);
+        setFormData((prev) => ({ ...prev, image: null })); // Clear invalid file from state
+        e.target.value = ""; // Reset the input field
       }
-    } else {
-      setErrorFile(true);
-      // For text/select inputs
-      setFormData((prev) => ({ ...prev, [name]: value }));
     }
   };
 
@@ -154,7 +166,7 @@ export default function AddItemPage() {
                 name="image"
                 id="image"
                 accept="image/*"
-                onChange={handleChange}
+                onChange={handleFileChange}
               />
               <div className="dropzone-content">
                 {formData.image && (
