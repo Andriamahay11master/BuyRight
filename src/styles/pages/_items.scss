@@ -4,11 +4,12 @@
   }
   .gabarit-header {
     @include mobile {
-      padding-top: 1rem;
+      padding: 1rem 0;
       position: sticky;
       top: 0;
       left: 0;
       background: $white-f5;
+      z-index: 5;
     }
   }
   .gabarit-top {
@@ -18,7 +19,8 @@
     margin-bottom: 2rem;
     @include mobile {
       grid-template-columns: 1fr auto;
-      margin-bottom: 1.5rem;
+      margin-bottom: 0;
+      background: $white-f5;
     }
     .btn {
       @include mobile {
@@ -41,7 +43,7 @@
     margin-bottom: 2rem;
     @include mobile {
       margin-bottom: 0;
-      padding-bottom: 1rem;
+      margin-top: 1.5rem;
     }
     input {
       padding: 0.7rem 1rem;
@@ -163,8 +165,8 @@
         font-size: 0.9rem;
         color: $secondary-color;
         margin-bottom: 0.2rem;
+        word-break: break-word;
       }
-      // Text inside the dropzone
       .dropzone-text {
         font-size: 0.9rem;
         color: $text-color;
