@@ -142,13 +142,20 @@ export default function AddItemPage() {
           </div>
           <div className="form-group">
             <label htmlFor="item-image">Item Image</label>
-            <input
-              type="file"
-              name="image"
-              id="image"
-              accept="image/*"
-              onChange={handleChange}
-            />
+            <div className="dropzone">
+              <input
+                type="file"
+                name="image"
+                id="image"
+                accept="image/*"
+                onChange={handleChange}
+              />
+              <p className="dropzone-text">
+                <strong>Upload a file</strong>or drag and drop
+              </p>
+              <p className="dropzone-format">PNG, JPG, GIF up to 10MB</p>
+            </div>
+
             {formData.image && (
               <div className="preview-img">
                 <img
