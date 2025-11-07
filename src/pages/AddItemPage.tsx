@@ -150,10 +150,12 @@ export default function AddItemPage() {
                 accept="image/*"
                 onChange={handleChange}
               />
-              <p className="dropzone-text">
-                <strong>Upload a file</strong>or drag and drop
-              </p>
-              <p className="dropzone-format">PNG, JPG, GIF up to 10MB</p>
+              <div className="dropzone-content">
+                <p className="dropzone-text">
+                  <strong>Upload a file</strong>or drag and drop
+                </p>
+                <p className="dropzone-format">PNG, JPG, GIF up to 10MB</p>
+              </div>
             </div>
 
             {formData.image && (
