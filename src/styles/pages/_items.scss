@@ -149,9 +149,9 @@
 
       // Text inside the dropzone
       .dropzone-text {
-        margin: 0;
-        font-size: 1.1rem;
-        color: $text-color-main;
+        font-size: 0.9rem;
+        color: $text-color;
+        margin-bottom: 0.3rem;
 
         strong {
           color: $secondary-color;
@@ -159,24 +159,19 @@
       }
 
       .dropzone-format {
-        margin: 0.5rem 0 0;
-        font-size: 0.9rem;
-        color: $text-color-light;
+        font-size: 0.7rem;
+        color: $text-secondary;
       }
 
-      // --- States ---
-
-      // Hover state
       &:hover {
-        border-color: $border-color-hover;
-        background-color: $background-hover;
+        border-color: $secondary-color;
+        background-color: rgba($grey, 0.5);
       }
 
-      // Optional: Add a class with JS for drag-and-drop visual feedback
       &.is-dragging {
         border-style: solid;
         border-color: $primary-color;
-        background-color: $background-hover;
+        background-color: rgba($grey, 0.5);
       }
     }
   }

@@ -152,7 +152,7 @@ export default function AddItemPage() {
               />
               <div className="dropzone-content">
                 <p className="dropzone-text">
-                  <strong>Upload a file</strong>or drag and drop
+                  <strong>Upload a file</strong> or drag and drop
                 </p>
                 <p className="dropzone-format">PNG, JPG, GIF up to 10MB</p>
               </div>
