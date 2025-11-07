@@ -38,21 +38,23 @@ export default function ListItemPage() {
   }, [user]);
   return (
     <div className="gabarit-page">
-      <div className="gabarit-top">
-        <h1 className="title-h1">Items</h1>
-        <Link to="/add-item" className="btn btn-secondary">
-          <span>Add Item</span> <i className="icon-plus"></i>
-        </Link>
-      </div>
-      <div className="gabarit-search">
-        <input
-          type="search"
-          name="search-item"
-          id="search-item"
-          placeholder="Search items"
-          value={searchValue}
-          onChange={simulateAutoCompleteResearch}
-        />
+      <div className="gabarit-header">
+        <div className="gabarit-top">
+          <h1 className="title-h1">Items</h1>
+          <Link to="/add-item" className="btn btn-secondary">
+            <span>Add Item</span> <i className="icon-plus"></i>
+          </Link>
+        </div>
+        <div className="gabarit-search">
+          <input
+            type="search"
+            name="search-item"
+            id="search-item"
+            placeholder="Search items"
+            value={searchValue}
+            onChange={simulateAutoCompleteResearch}
+          />
+        </div>
       </div>
       <div className="gabarit-content">
         <h2 className="title-h2">My items</h2>

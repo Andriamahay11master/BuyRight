@@ -1,6 +1,15 @@
 .gabarit-page {
   @include mobile {
-    padding: 1rem;
+    padding: 0 1rem 1rem;
+  }
+  .gabarit-header {
+    @include mobile {
+      padding-top: 1rem;
+      position: sticky;
+      top: 0;
+      left: 0;
+      background: $white-f5;
+    }
   }
   .gabarit-top {
     display: grid;
@@ -30,6 +39,10 @@
   }
   .gabarit-search {
     margin-bottom: 2rem;
+    @include mobile {
+      margin-bottom: 0;
+      padding-bottom: 1rem;
+    }
     input {
       padding: 0.7rem 1rem;
       width: 100%;
@@ -182,10 +195,32 @@
   &.gabarit-add {
     .gabarit-top {
       @include flex-between;
+      @include mobile {
+        align-items: start;
+      }
       .icon-clear {
         display: none;
         @include mobile {
           display: block;
+        }
+      }
+      .icon-arrow-left {
+        @include mobile {
+          display: none;
+        }
+      }
+      span {
+        @include mobile {
+          display: none;
+        }
+      }
+      .btn {
+        @include mobile {
+          width: auto;
+          height: auto;
+          i {
+            font-size: 1.5rem;
+          }
         }
       }
     }

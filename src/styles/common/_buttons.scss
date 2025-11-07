@@ -39,6 +39,7 @@
     padding: 0;
     color: $text-secondary;
     position: relative;
+    @include flex-center;
     &::after {
       content: "";
       position: absolute;
