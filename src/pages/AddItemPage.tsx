@@ -109,10 +109,12 @@ export default function AddItemPage() {
   };
 
   return (
-    <div className="gabarit-page">
+    <div className="gabarit-page gabarit-add">
       <div className="gabarit-top">
         <Link to="/items" className="btn btn-nav">
+          <i className="icon-arrow-left"></i>
           <i className="icon-clear"></i>
+          <span>Return to list</span>
         </Link>
         <h1 className="title-h1">Add New Item</h1>
       </div>

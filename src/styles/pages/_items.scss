@@ -179,4 +179,15 @@
       }
     }
   }
+  &.gabarit-add {
+    .gabarit-top {
+      @include flex-between;
+      .icon-clear {
+        display: none;
+        @include mobile {
+          display: block;
+        }
+      }
+    }
+  }
 }

@@ -34,6 +34,30 @@
       color: $white;
     }
   }
+  &.btn-nav {
+    background: none;
+    padding: 0;
+    color: $text-secondary;
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 2px;
+      background: $text-secondary;
+      bottom: 0;
+      left: 0;
+      transition: all 0.4s ease;
+    }
+    .nav-icon {
+      font-size: 1.2rem;
+    }
+    &:hover {
+      &::after {
+        width: 100%;
+      }
+    }
+  }
 }
 .btn-primary {
   background-color: $primary-color;
