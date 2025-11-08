@@ -66,6 +66,7 @@ export default function AddItemPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    setLoading(true);
     try {
       // Upload image to Cloudinary
       let imageUrl = "";
@@ -98,13 +99,12 @@ export default function AddItemPage() {
       });
 
       setAlert(true);
-      setLoading(true);
+      resetForm();
+      navigate("/items");
     } catch (err: any) {
       setError(err.message || "Failed to add item");
     } finally {
       setLoading(false);
-      resetForm();
-      navigate("/items");
     }
   };
 
