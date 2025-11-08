@@ -108,6 +108,15 @@ export default function AddItemPage() {
     }
   };
 
+  const resetForm = () => {
+    setFormData({
+      name: "",
+      category: "",
+      unit: "",
+      image: null,
+    });
+  };
+
   return (
     <div className="gabarit-page gabarit-add">
       <div className="gabarit-header">
@@ -197,7 +206,7 @@ export default function AddItemPage() {
             )}
           </div>
           <div className="form-group form-group-button">
-            <button type="reset" className="btn btn-cancel">
+            <button type="reset" className="btn btn-cancel" onClick={resetForm}>
               Cancel
             </button>
             <button type="submit" className="btn btn-primary">
