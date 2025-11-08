@@ -25,7 +25,6 @@ export default function AddItemPage() {
   });
   const [error, setError] = useState("");
   const [errorFile, setErrorFile] = useState(false);
-  const [alert, setAlert] = useState(false);
   const [loading, setLoading] = useState(false); // Add loader
 
   const checkFormatFile = (file: File) => {
@@ -98,7 +97,6 @@ export default function AddItemPage() {
         createdAt: new Date(),
       });
 
-      setAlert(true);
       resetForm();
       navigate("/items");
     } catch (err: any) {
@@ -117,15 +115,13 @@ export default function AddItemPage() {
     });
   };
 
-  if (loading) {
-    return (
-      <div className="loader-container">
-        <Loader size="large" color="#17cf17" />
-      </div>
-    );
-  }
   return (
     <div className="gabarit-page gabarit-add">
+      {loading && (
+        <div className="loader-container">
+          <Loader size="large" color="#17cf17" />
+        </div>
+      )}
       <div className="gabarit-header">
         <div className="gabarit-top">
           <Link to="/items" className="btn btn-nav">
@@ -222,6 +218,7 @@ export default function AddItemPage() {
           </div>
         </form>
       </div>
+      {error && <div className="error-message">{error}</div>}
     </div>
   );
 }
