@@ -11,7 +11,6 @@ import ProtectedRoute from "./components/protected/ProtectedRoute";
 import PublicRoute from "./components/public/PublicRoute";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
 import CreateListPage from "./pages/CreateListPage";
 import ListDetailPage from "./pages/ListDetailPage";
 import ProfilePage from "./pages/ProfilePage";
@@ -21,7 +20,6 @@ import "./styles/main.scss";
 import WelcomePage from "./pages/WelcomePage";
 import EditListPage from "./pages/EditListPage";
 import OnboardingPage from "./pages/OnboardingPage";
-import ListItem from "./pages/ListItemPage";
 import ListItemPage from "./pages/ListItemPage";
 import AddItemPage from "./pages/AddItemPage";
 
