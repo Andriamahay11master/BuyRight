@@ -6,6 +6,7 @@ import { useAuth } from "../contexts/AuthContext";
 import firebase from "../firebase";
 import { useState } from "react";
 import { addDoc, collection } from "firebase/firestore";
+import Loader from "../components/loader/Loader";
 
 export default function AddItemPage() {
   const { user } = useAuth();
@@ -25,6 +26,7 @@ export default function AddItemPage() {
   const [error, setError] = useState("");
   const [errorFile, setErrorFile] = useState(false);
   const [alert, setAlert] = useState(false);
+  const [loading, setLoading] = useState(false); // Add loader
 
   const checkFormatFile = (file: File) => {
     const allowedTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
@@ -96,15 +98,13 @@ export default function AddItemPage() {
       });
 
       setAlert(true);
-      setFormData({
-        name: "",
-        category: "",
-        unit: "",
-        image: null,
-      });
-      navigate("/items");
+      setLoading(true);
     } catch (err: any) {
       setError(err.message || "Failed to add item");
+    } finally {
+      setLoading(false);
+      resetForm();
+      navigate("/items");
     }
   };
 
@@ -117,6 +117,13 @@ export default function AddItemPage() {
     });
   };
 
+  if (loading) {
+    return (
+      <div className="loader-container">
+        <Loader size="large" color="#17cf17" />
+      </div>
+    );
+  }
   return (
     <div className="gabarit-page gabarit-add">
       <div className="gabarit-header">
