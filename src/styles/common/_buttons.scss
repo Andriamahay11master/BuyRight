@@ -59,67 +59,74 @@
       }
     }
   }
-}
-.btn-primary {
-  background-color: $primary-color;
-  color: $white;
-  &:hover {
-    background-color: $secondary-color;
-  }
-}
-.btn-secondary {
-  background-color: $secondary-color;
-  color: $white;
-  &:hover {
-    background-color: rgba($secondary-color, 0.8);
-  }
-}
-.btn-danger {
-  background-color: $danger-color;
-  color: $white;
-  &:hover {
-    background-color: rgba($danger-color, 0.8);
-  }
-}
-.btn-success {
-  background-color: $success-color;
-  color: $white;
-}
-.btn-cancel {
-  background-color: $surface-secondary;
-  color: $black;
-  &:hover {
-    background-color: rgba($surface-secondary, 0.8);
-  }
-}
-.btn-outline-primary {
-  background-color: transparent;
-  color: $primary-color;
-  border: 1px solid $primary-color;
-}
-.btn-icon {
-  @include flex-center;
-  font-size: 1.1rem;
-  padding: 0.3rem;
-  i {
-    font-size: 1rem;
-  }
-  &.btn-danger {
-    background: rgba($danger-color, 0.2);
-    color: $danger-color;
-
+  &.btn-dashed {
+    border: 2px dashed $secondary-color;
+    background: transparent;
+    color: $secondary-color;
     &:hover {
-      background-color: $danger-color;
+      background-color: $secondary-color;
       color: $white;
     }
   }
-  &.btn-close {
-    background: rgba($black, 0.2);
-    color: $black;
+  &.btn-primary {
+    background-color: $primary-color;
+    color: $white;
     &:hover {
-      background-color: $surface-hover;
+      background-color: $secondary-color;
     }
   }
-}
-.btn-nav {
+  &.btn-secondary {
+    background-color: $secondary-color;
+    color: $white;
+    &:hover {
+      background-color: rgba($secondary-color, 0.8);
+    }
+  }
+  &.btn-danger {
+    background-color: $danger-color;
+    color: $white;
+    &:hover {
+      background-color: rgba($danger-color, 0.8);
+    }
+  }
+  &.btn-success {
+    background-color: $success-color;
+    color: $white;
+  }
+  &.btn-cancel {
+    background-color: $surface-secondary;
+    color: $black;
+    &:hover {
+      background-color: rgba($surface-secondary, 0.8);
+    }
+  }
+  &.btn-outline-primary {
+    background-color: transparent;
+    color: $primary-color;
+    border: 1px solid $primary-color;
+  }
+  &.btn-icon {
+    @include flex-center;
+    font-size: 1.1rem;
+    padding: 0.3rem;
+    i {
+      font-size: 1rem;
+    }
+    &.btn-danger {
+      background: rgba($danger-color, 0.2);
+      color: $danger-color;
+
+      &:hover {
+        background-color: $danger-color;
+        color: $white;
+      }
+    }
+    &.btn-close {
+      background: rgba($black, 0.2);
+      color: $black;
+      &:hover {
+        background-color: $surface-hover;
+      }
+    }
+  }
 }
