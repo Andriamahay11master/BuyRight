@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   collection,
   addDoc,
@@ -139,237 +139,256 @@ const CreateListPage: React.FC = () => {
   };
 
   return (
-    <div className="create-list-page">
-      <h1>Create New List</h1>
-      {error && <div className="error-message">{error}</div>}
-      <form className="form-model create-list-form" onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="name">List Name</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={(e) => {
-              setError("");
-              const value = e.target.value.replace(onlyLettersNumbersSpace, "");
-              handleChange({
-                ...e,
-                target: {
-                  ...e.target,
-                  value,
-                  name: e.target.name,
-                },
-              });
-            }}
-            placeholder="Fill in the name of the list"
-            disabled={loading}
-          />
+    <div className="gabarit-page gabarit-add">
+      <div className="gabarit-header">
+        <div className="gabarit-top">
+          <Link to="/items" className="btn btn-nav">
+            <i className="icon-clear"></i>
+            <span>Return to list</span>
+          </Link>
+          <h1 className="title-h1">New List</h1>
         </div>
-        <div className="form-group">
-          <label htmlFor="description">Description (Optional)</label>
-          <textarea
-            id="description"
-            name="description"
-            value={formData.description}
-            onChange={(e) => {
-              const value = e.target.value.replace(onlyLettersNumbersSpace, "");
-              handleChange({
-                ...e,
-                target: {
-                  ...e.target,
-                  value,
-                  name: e.target.name,
-                },
-              });
-            }}
-            placeholder="Fill in the description of the list"
-            rows={4}
-            disabled={loading}
-          />
-        </div>
-
-        <div className="items-section">
-          <div className="section-header">
-            <h3>Fill in the items</h3>
-            <button
-              type="button"
-              className="btn btn-small btn-primary"
-              onClick={addItem}
+      </div>
+      <div className="gabarit-content">
+        {error && <div className="error-message">{error}</div>}
+        <form className="form-model create-list-form" onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="name">List Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={(e) => {
+                setError("");
+                const value = e.target.value.replace(
+                  onlyLettersNumbersSpace,
+                  ""
+                );
+                handleChange({
+                  ...e,
+                  target: {
+                    ...e.target,
+                    value,
+                    name: e.target.name,
+                  },
+                });
+              }}
+              placeholder="Fill in the name of the list"
               disabled={loading}
-            >
-              <i className="icon-plus-circle"></i>
-              <span>Add Item</span>
-            </button>
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="description">Description (Optional)</label>
+            <textarea
+              id="description"
+              name="description"
+              value={formData.description}
+              onChange={(e) => {
+                const value = e.target.value.replace(
+                  onlyLettersNumbersSpace,
+                  ""
+                );
+                handleChange({
+                  ...e,
+                  target: {
+                    ...e.target,
+                    value,
+                    name: e.target.name,
+                  },
+                });
+              }}
+              placeholder="Fill in the description of the list"
+              rows={4}
+              disabled={loading}
+            />
           </div>
 
-          <div className="items-container">
-            {items.map((item, index) => (
-              <div key={item.id} className="item-card">
-                <div className="item-header">
-                  <div className="item-controls">
-                    <button
-                      type="button"
-                      className="btn btn-icon"
-                      onClick={() => moveItem(index, "up")}
-                      disabled={index === 0 || loading}
-                    >
-                      <i className="icon-arrow-up"></i>
-                    </button>
-                    <button
-                      type="button"
-                      className="btn btn-icon"
-                      onClick={() => moveItem(index, "down")}
-                      disabled={index === items.length - 1 || loading}
-                    >
-                      <i className="icon-arrow-down"></i>
-                    </button>
-                    <button
-                      type="button"
-                      className="btn btn-icon btn-danger"
-                      onClick={() => removeItem(item.id)}
-                      disabled={loading}
-                    >
-                      <i className="icon-trash-2"></i>
-                    </button>
-                  </div>
-                  <span className="item-number">#{index + 1}</span>
-                </div>
+          <div className="items-section">
+            <div className="section-header">
+              <h3>Fill in the items</h3>
+              <button
+                type="button"
+                className="btn btn-small btn-primary"
+                onClick={addItem}
+                disabled={loading}
+              >
+                <i className="icon-plus-circle"></i>
+                <span>Add Item</span>
+              </button>
+            </div>
 
-                <div className="item-fields">
-                  <div className="form-group">
-                    <label htmlFor={`item-name-${item.id}`}>Item Name</label>
-                    <input
-                      type="text"
-                      id={`item-name-${item.id}`}
-                      value={item.name}
-                      onChange={(e) => {
-                        setError("");
-                        const alphanumericValue = e.target.value.replace(
-                          onlyLettersNumbersSpace,
-                          ""
-                        );
-                        updateItem(item.id, "name", alphanumericValue);
-                      }}
-                      placeholder="Write the name of the item (letters and numbers only)"
-                      disabled={loading}
-                    />
+            <div className="items-container">
+              {items.map((item, index) => (
+                <div key={item.id} className="item-card">
+                  <div className="item-header">
+                    <div className="item-controls">
+                      <button
+                        type="button"
+                        className="btn btn-icon"
+                        onClick={() => moveItem(index, "up")}
+                        disabled={index === 0 || loading}
+                      >
+                        <i className="icon-arrow-up"></i>
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-icon"
+                        onClick={() => moveItem(index, "down")}
+                        disabled={index === items.length - 1 || loading}
+                      >
+                        <i className="icon-arrow-down"></i>
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-icon btn-danger"
+                        onClick={() => removeItem(item.id)}
+                        disabled={loading}
+                      >
+                        <i className="icon-trash-2"></i>
+                      </button>
+                    </div>
+                    <span className="item-number">#{index + 1}</span>
                   </div>
 
-                  <div className="item-quantity">
+                  <div className="item-fields">
                     <div className="form-group">
-                      <label htmlFor={`item-quantity-${item.id}`}>
-                        Quantity
-                      </label>
-                      <div className="quantity-controls">
+                      <label htmlFor={`item-name-${item.id}`}>Item Name</label>
+                      <input
+                        type="text"
+                        id={`item-name-${item.id}`}
+                        value={item.name}
+                        onChange={(e) => {
+                          setError("");
+                          const alphanumericValue = e.target.value.replace(
+                            onlyLettersNumbersSpace,
+                            ""
+                          );
+                          updateItem(item.id, "name", alphanumericValue);
+                        }}
+                        placeholder="Write the name of the item (letters and numbers only)"
+                        disabled={loading}
+                      />
+                    </div>
+
+                    <div className="item-quantity">
+                      <div className="form-group">
+                        <label htmlFor={`item-quantity-${item.id}`}>
+                          Quantity
+                        </label>
+                        <div className="quantity-controls">
+                          <input
+                            type="number"
+                            id={`item-quantity-${item.id}`}
+                            value={item.quantity}
+                            onChange={(e) =>
+                              updateItem(
+                                item.id,
+                                "quantity",
+                                parseInt(e.target.value) || 1
+                              )
+                            }
+                            min="1"
+                            required
+                            disabled={loading}
+                          />
+                          <button
+                            type="button"
+                            className="btn btn-icon"
+                            onClick={() =>
+                              updateItem(
+                                item.id,
+                                "quantity",
+                                Math.max(1, item.quantity - 1)
+                              )
+                            }
+                            disabled={loading || item.quantity <= 1}
+                          >
+                            <i className="icon-minus"></i>
+                          </button>
+                          <button
+                            type="button"
+                            className="btn btn-icon"
+                            onClick={() =>
+                              updateItem(item.id, "quantity", item.quantity + 1)
+                            }
+                            disabled={loading}
+                          >
+                            <i className="icon-plus"></i>
+                          </button>
+                        </div>
+                      </div>
+
+                      <div className="form-group">
+                        <label htmlFor={`item-unit-${item.id}`}>Unit</label>
                         <input
-                          type="number"
-                          id={`item-quantity-${item.id}`}
-                          value={item.quantity}
-                          onChange={(e) =>
-                            updateItem(
-                              item.id,
-                              "quantity",
-                              parseInt(e.target.value) || 1
-                            )
-                          }
-                          min="1"
-                          required
+                          type="text"
+                          id={`item-unit-${item.id}`}
+                          value={item.unit}
+                          onChange={(e) => {
+                            const value = e.target.value.replace(
+                              onlyLetters,
+                              ""
+                            );
+                            updateItem(item.id, "unit", value);
+                          }}
+                          placeholder="e.g., kg, pcs, l, ml, etc."
                           disabled={loading}
                         />
-                        <button
-                          type="button"
-                          className="btn btn-icon"
-                          onClick={() =>
-                            updateItem(
-                              item.id,
-                              "quantity",
-                              Math.max(1, item.quantity - 1)
-                            )
-                          }
-                          disabled={loading || item.quantity <= 1}
-                        >
-                          <i className="icon-minus"></i>
-                        </button>
-                        <button
-                          type="button"
-                          className="btn btn-icon"
-                          onClick={() =>
-                            updateItem(item.id, "quantity", item.quantity + 1)
-                          }
-                          disabled={loading}
-                        >
-                          <i className="icon-plus"></i>
-                        </button>
                       </div>
                     </div>
 
                     <div className="form-group">
-                      <label htmlFor={`item-unit-${item.id}`}>Unit</label>
+                      <label htmlFor={`item-notes-${item.id}`}>
+                        Notes (Optional)
+                      </label>
                       <input
                         type="text"
-                        id={`item-unit-${item.id}`}
-                        value={item.unit}
+                        id={`item-notes-${item.id}`}
+                        value={item.notes}
                         onChange={(e) => {
-                          const value = e.target.value.replace(onlyLetters, "");
-                          updateItem(item.id, "unit", value);
+                          const value = e.target.value.replace(
+                            onlyLettersNumbersSpace,
+                            ""
+                          );
+                          updateItem(item.id, "notes", value);
                         }}
-                        placeholder="e.g., kg, pcs, l, ml, etc."
+                        placeholder="Additional details"
                         disabled={loading}
                       />
                     </div>
                   </div>
-
-                  <div className="form-group">
-                    <label htmlFor={`item-notes-${item.id}`}>
-                      Notes (Optional)
-                    </label>
-                    <input
-                      type="text"
-                      id={`item-notes-${item.id}`}
-                      value={item.notes}
-                      onChange={(e) => {
-                        const value = e.target.value.replace(
-                          onlyLettersNumbersSpace,
-                          ""
-                        );
-                        updateItem(item.id, "notes", value);
-                      }}
-                      placeholder="Additional details"
-                      disabled={loading}
-                    />
-                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
 
-        <div className="form-actions">
-          <button
-            type="button"
-            className="btn btn-cancel"
-            onClick={() => navigate(-1)}
-            disabled={loading}
-          >
-            Cancel
-          </button>
-          <button
-            className="btn btn-primary"
-            type="submit"
-            disabled={loading || items.length === 0}
-          >
-            {loading ? (
-              <>
-                <Loader size="small" color="#ffffff" />
-                Creating List...
-              </>
-            ) : (
-              "Create List"
-            )}
-          </button>
-        </div>
-      </form>
+          <div className="form-actions">
+            <button
+              type="button"
+              className="btn btn-cancel"
+              onClick={() => navigate(-1)}
+              disabled={loading}
+            >
+              Cancel
+            </button>
+            <button
+              className="btn btn-primary"
+              type="submit"
+              disabled={loading || items.length === 0}
+            >
+              {loading ? (
+                <>
+                  <Loader size="small" color="#ffffff" />
+                  Creating List...
+                </>
+              ) : (
+                "Create List"
+              )}
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
