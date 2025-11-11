@@ -204,162 +204,170 @@ const CreateListPage: React.FC = () => {
             />
           </div>
 
-          <div className="items-section">
-            <div className="section-header">
-              <h3 className="title-h3">Items</h3>
-              <button
-                type="button"
-                className="btn btn-small btn-dashed"
-                onClick={addItem}
-                disabled={loading}
-              >
-                <i className="icon-plus-circle"></i>
-                <span>Add Item from Repository</span>
-              </button>
-            </div>
+          <div className="create-list-page">
+            <div className="items-section">
+              <div className="section-header">
+                <h3 className="title-h3">Items</h3>
+                <button
+                  type="button"
+                  className="btn btn-small btn-dashed"
+                  onClick={addItem}
+                  disabled={loading}
+                >
+                  <i className="icon-plus-circle"></i>
+                  <span>Add Item from Repository</span>
+                </button>
+              </div>
 
-            <div className="items-container">
-              {items.map((item, index) => (
-                <div key={item.id} className="item-card">
-                  <div className="item-header">
-                    <div className="item-controls">
-                      <button
-                        type="button"
-                        className="btn btn-icon"
-                        onClick={() => moveItem(index, "up")}
-                        disabled={index === 0 || loading}
-                      >
-                        <i className="icon-arrow-up"></i>
-                      </button>
-                      <button
-                        type="button"
-                        className="btn btn-icon"
-                        onClick={() => moveItem(index, "down")}
-                        disabled={index === items.length - 1 || loading}
-                      >
-                        <i className="icon-arrow-down"></i>
-                      </button>
-                      <button
-                        type="button"
-                        className="btn btn-icon btn-danger"
-                        onClick={() => removeItem(item.id)}
-                        disabled={loading}
-                      >
-                        <i className="icon-trash-2"></i>
-                      </button>
-                    </div>
-                    <span className="item-number">#{index + 1}</span>
-                  </div>
-
-                  <div className="item-fields">
-                    <div className="form-group">
-                      <label htmlFor={`item-name-${item.id}`}>Item Name</label>
-                      <input
-                        type="text"
-                        id={`item-name-${item.id}`}
-                        value={item.name}
-                        onChange={(e) => {
-                          setError("");
-                          const alphanumericValue = e.target.value.replace(
-                            onlyLettersNumbersSpace,
-                            ""
-                          );
-                          updateItem(item.id, "name", alphanumericValue);
-                        }}
-                        placeholder="Write the name of the item (letters and numbers only)"
-                        disabled={loading}
-                      />
+              <div className="items-container">
+                {items.map((item, index) => (
+                  <div key={item.id} className="item-card">
+                    <div className="item-header">
+                      <div className="item-controls">
+                        <button
+                          type="button"
+                          className="btn btn-icon"
+                          onClick={() => moveItem(index, "up")}
+                          disabled={index === 0 || loading}
+                        >
+                          <i className="icon-arrow-up"></i>
+                        </button>
+                        <button
+                          type="button"
+                          className="btn btn-icon"
+                          onClick={() => moveItem(index, "down")}
+                          disabled={index === items.length - 1 || loading}
+                        >
+                          <i className="icon-arrow-down"></i>
+                        </button>
+                        <button
+                          type="button"
+                          className="btn btn-icon btn-danger"
+                          onClick={() => removeItem(item.id)}
+                          disabled={loading}
+                        >
+                          <i className="icon-trash-2"></i>
+                        </button>
+                      </div>
+                      <span className="item-number">#{index + 1}</span>
                     </div>
 
-                    <div className="item-quantity">
+                    <div className="item-fields">
                       <div className="form-group">
-                        <label htmlFor={`item-quantity-${item.id}`}>
-                          Quantity
+                        <label htmlFor={`item-name-${item.id}`}>
+                          Item Name
                         </label>
-                        <div className="quantity-controls">
+                        <input
+                          type="text"
+                          id={`item-name-${item.id}`}
+                          value={item.name}
+                          onChange={(e) => {
+                            setError("");
+                            const alphanumericValue = e.target.value.replace(
+                              onlyLettersNumbersSpace,
+                              ""
+                            );
+                            updateItem(item.id, "name", alphanumericValue);
+                          }}
+                          placeholder="Write the name of the item (letters and numbers only)"
+                          disabled={loading}
+                        />
+                      </div>
+
+                      <div className="item-quantity">
+                        <div className="form-group">
+                          <label htmlFor={`item-quantity-${item.id}`}>
+                            Quantity
+                          </label>
+                          <div className="quantity-controls">
+                            <input
+                              type="number"
+                              id={`item-quantity-${item.id}`}
+                              value={item.quantity}
+                              onChange={(e) =>
+                                updateItem(
+                                  item.id,
+                                  "quantity",
+                                  parseInt(e.target.value) || 1
+                                )
+                              }
+                              min="1"
+                              required
+                              disabled={loading}
+                            />
+                            <button
+                              type="button"
+                              className="btn btn-icon"
+                              onClick={() =>
+                                updateItem(
+                                  item.id,
+                                  "quantity",
+                                  Math.max(1, item.quantity - 1)
+                                )
+                              }
+                              disabled={loading || item.quantity <= 1}
+                            >
+                              <i className="icon-minus"></i>
+                            </button>
+                            <button
+                              type="button"
+                              className="btn btn-icon"
+                              onClick={() =>
+                                updateItem(
+                                  item.id,
+                                  "quantity",
+                                  item.quantity + 1
+                                )
+                              }
+                              disabled={loading}
+                            >
+                              <i className="icon-plus"></i>
+                            </button>
+                          </div>
+                        </div>
+
+                        <div className="form-group">
+                          <label htmlFor={`item-unit-${item.id}`}>Unit</label>
                           <input
-                            type="number"
-                            id={`item-quantity-${item.id}`}
-                            value={item.quantity}
-                            onChange={(e) =>
-                              updateItem(
-                                item.id,
-                                "quantity",
-                                parseInt(e.target.value) || 1
-                              )
-                            }
-                            min="1"
-                            required
+                            type="text"
+                            id={`item-unit-${item.id}`}
+                            value={item.unit}
+                            onChange={(e) => {
+                              const value = e.target.value.replace(
+                                onlyLetters,
+                                ""
+                              );
+                              updateItem(item.id, "unit", value);
+                            }}
+                            placeholder="e.g., kg, pcs, l, ml, etc."
                             disabled={loading}
                           />
-                          <button
-                            type="button"
-                            className="btn btn-icon"
-                            onClick={() =>
-                              updateItem(
-                                item.id,
-                                "quantity",
-                                Math.max(1, item.quantity - 1)
-                              )
-                            }
-                            disabled={loading || item.quantity <= 1}
-                          >
-                            <i className="icon-minus"></i>
-                          </button>
-                          <button
-                            type="button"
-                            className="btn btn-icon"
-                            onClick={() =>
-                              updateItem(item.id, "quantity", item.quantity + 1)
-                            }
-                            disabled={loading}
-                          >
-                            <i className="icon-plus"></i>
-                          </button>
                         </div>
                       </div>
 
                       <div className="form-group">
-                        <label htmlFor={`item-unit-${item.id}`}>Unit</label>
+                        <label htmlFor={`item-notes-${item.id}`}>
+                          Notes (Optional)
+                        </label>
                         <input
                           type="text"
-                          id={`item-unit-${item.id}`}
-                          value={item.unit}
+                          id={`item-notes-${item.id}`}
+                          value={item.notes}
                           onChange={(e) => {
                             const value = e.target.value.replace(
-                              onlyLetters,
+                              onlyLettersNumbersSpace,
                               ""
                             );
-                            updateItem(item.id, "unit", value);
+                            updateItem(item.id, "notes", value);
                           }}
-                          placeholder="e.g., kg, pcs, l, ml, etc."
+                          placeholder="Additional details"
                           disabled={loading}
                         />
                       </div>
                     </div>
-
-                    <div className="form-group">
-                      <label htmlFor={`item-notes-${item.id}`}>
-                        Notes (Optional)
-                      </label>
-                      <input
-                        type="text"
-                        id={`item-notes-${item.id}`}
-                        value={item.notes}
-                        onChange={(e) => {
-                          const value = e.target.value.replace(
-                            onlyLettersNumbersSpace,
-                            ""
-                          );
-                          updateItem(item.id, "notes", value);
-                        }}
-                        placeholder="Additional details"
-                        disabled={loading}
-                      />
-                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
 

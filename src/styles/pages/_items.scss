@@ -193,6 +193,60 @@
         background-color: rgba($grey, 0.5);
       }
     }
+    .create-list-form {
+      background: $white;
+      border-radius: 8px;
+    }
+    .items-section {
+      margin-top: 2rem;
+
+      .section-header {
+        @include flex-between;
+        margin-bottom: 1rem;
+      }
+
+      .items-container {
+        @include flex-column-reverse;
+        gap: 1rem;
+      }
+
+      .item-card {
+        border-radius: 8px;
+        padding: 1rem 1.5rem;
+        position: relative;
+        @include mobile {
+          padding: 0.5rem;
+        }
+        .item-header {
+          @include flex-between;
+          margin-bottom: 1rem;
+
+          .item-controls {
+            display: flex;
+            gap: 0.5rem;
+          }
+
+          .item-number {
+            font-weight: 500;
+            color: $black;
+          }
+        }
+
+        .item-fields {
+          @include flex-column;
+
+          .item-quantity {
+            @include grid;
+            gap: 1rem;
+          }
+          .quantity-controls {
+            display: grid;
+            grid-template-columns: auto auto auto;
+            grid-gap: 0.3rem;
+          }
+        }
+      }
+    }
   }
   &.gabarit-add {
     .gabarit-top {
