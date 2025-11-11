@@ -151,7 +151,7 @@ const CreateListPage: React.FC = () => {
       </div>
       <div className="gabarit-content">
         {error && <div className="error-message">{error}</div>}
-        <form className="form-model create-list-form" onSubmit={handleSubmit}>
+        <form className="gabarit-form" onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="name">List Name</label>
             <input
@@ -206,15 +206,15 @@ const CreateListPage: React.FC = () => {
 
           <div className="items-section">
             <div className="section-header">
-              <h3>Fill in the items</h3>
+              <h3 className="title-h3">Items</h3>
               <button
                 type="button"
-                className="btn btn-small btn-primary"
+                className="btn btn-small btn-dashed"
                 onClick={addItem}
                 disabled={loading}
               >
                 <i className="icon-plus-circle"></i>
-                <span>Add Item</span>
+                <span>Add Item from Repository</span>
               </button>
             </div>
 
