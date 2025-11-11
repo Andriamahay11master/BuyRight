@@ -363,9 +363,8 @@ const CreateListPage: React.FC = () => {
             </div>
           </div>
 
-          <div className="form-actions">
+          <div className="form-group form-group-button">
             <button
-              type="button"
               className="btn btn-cancel"
               onClick={() => navigate(-1)}
               disabled={loading}
@@ -383,7 +382,7 @@ const CreateListPage: React.FC = () => {
                   Creating List...
                 </>
               ) : (
-                "Create List"
+                "Save List"
               )}
             </button>
           </div>
