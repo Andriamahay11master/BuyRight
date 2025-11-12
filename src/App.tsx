@@ -22,6 +22,7 @@ import EditListPage from "./pages/EditListPage";
 import OnboardingPage from "./pages/OnboardingPage";
 import ListItemPage from "./pages/ListItemPage";
 import AddItemPage from "./pages/AddItemPage";
+import ChoiceItemPage from "./pages/ChoiceItemsPage";
 
 const App: React.FC = () => {
   const [showSplash, setShowSplash] = useState(true);
@@ -88,6 +89,16 @@ const App: React.FC = () => {
                 <ProtectedRoute>
                   <AuthenticatedLayout>
                     <CreateListPage />
+                  </AuthenticatedLayout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/selectItem"
+              element={
+                <ProtectedRoute>
+                  <AuthenticatedLayout>
+                    <ChoiceItemPage />
                   </AuthenticatedLayout>
                 </ProtectedRoute>
               }

@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Item } from "../models/Item";
 import firebase from "../firebase";
 import { collection, getDocs } from "firebase/firestore";
+import { useAuth } from "../contexts/AuthContext";
 
 function ChoiceItemPage() {
+  const { user } = useAuth();
   const [searchValue, setSearchValue] = useState<string>("");
   const [listItem, setListItem] = useState<Item[]>([] as Item[]);
   const getItems = async () => {
@@ -29,6 +31,9 @@ function ChoiceItemPage() {
     );
     setListItem(filteredItems);
   };
+  useEffect(() => {
+    getItems();
+  }, [user]);
   return (
     <div className="gabarit-page gabarit-add">
       <div className="gabarit-header">
