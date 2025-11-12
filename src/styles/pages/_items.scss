@@ -85,8 +85,16 @@
       font-size: 1.1rem;
       color: $text-secondary;
     }
+    &.gabarit-choice {
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: 1rem;
+      @include mobile {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
   }
   .gabarit-item {
+    position: relative;
     @include flex-start;
     gap: 1.5rem;
     @include mobile {
@@ -105,6 +113,35 @@
       height: 100%;
       object-fit: cover;
       border-radius: 1rem;
+    }
+    &.styleImg {
+      width: auto;
+      height: 10rem;
+      box-shadow: $shadow-md;
+      border-radius: 1rem;
+      .gabarit-item-img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+      }
+      .gabarit-item-info {
+        z-index: 2;
+        @include flex-center;
+        align-self: end;
+        padding: 1rem;
+        .title-h2 {
+          color: $text-secondary;
+        }
+      }
+      input[type="checkbox"] {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        z-index: 2;
+      }
     }
   }
 

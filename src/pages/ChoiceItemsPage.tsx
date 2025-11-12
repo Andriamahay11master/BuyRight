@@ -56,7 +56,7 @@ function ChoiceItemPage() {
         </div>
 
         <div className="gabarit-content">
-          <div className="gabarit-list">
+          <div className="gabarit-list gabarit-choice">
             {listItem.length === 0 && (
               <p className="gabarit-null">No items found</p>
             )}
@@ -64,6 +64,11 @@ function ChoiceItemPage() {
               .sort((a, b) => a.name.localeCompare(b.name))
               .map((item) => (
                 <div className="gabarit-item styleImg" key={item.id}>
+                  <input
+                    type="checkbox"
+                    id={"checkboxItem" + item.id}
+                    className="checkbox-item"
+                  />
                   <figure className="gabarit-item-img">
                     <img src={item.image} alt={item.name} title={item.name} />
                   </figure>
