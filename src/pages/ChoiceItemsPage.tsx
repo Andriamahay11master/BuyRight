@@ -9,6 +9,8 @@ function ChoiceItemPage() {
   const { user } = useAuth();
   const [searchValue, setSearchValue] = useState<string>("");
   const [listItem, setListItem] = useState<Item[]>([] as Item[]);
+  const [selectedItemName, setselectedItemName] = useState<string[] | null>([]);
+
   const getItems = async () => {
     try {
       const itemsCollection = collection(firebase.db, "items");
@@ -19,6 +21,7 @@ function ChoiceItemPage() {
       console.error("Error fetching items:", error);
     }
   };
+
   const simulateAutoCompleteResearch = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -31,6 +34,34 @@ function ChoiceItemPage() {
     );
     setListItem(filteredItems);
   };
+
+  const selectItem = (item: Item) => {
+    setselectedItemName((prevSelected) => {
+      // Toggle selection
+      if (prevSelected === null) {
+        return [item.name];
+      }
+      if (prevSelected.includes(item.name)) {
+        return prevSelected.filter((id) => id !== item.name);
+      } else {
+        return [...prevSelected, item.name];
+      }
+    });
+
+    // Save the updated list to localStorage if user is logged in
+    if (user) {
+      if (!selectedItemName) {
+        localStorage.setItem("selectedItems", JSON.stringify([item.name]));
+        return;
+      }
+      const updatedSelection = selectedItemName.includes(item.name)
+        ? selectedItemName.filter((id) => id !== item.name)
+        : [...selectedItemName, item.name];
+      localStorage.setItem("selectedItems", JSON.stringify(updatedSelection));
+    }
+    console.log("selectedItemName", selectedItemName);
+  };
+
   useEffect(() => {
     getItems();
   }, [user]);
@@ -63,11 +94,17 @@ function ChoiceItemPage() {
             {listItem
               .sort((a, b) => a.name.localeCompare(b.name))
               .map((item) => (
-                <div className="gabarit-item styleImg" key={item.id}>
+                <div
+                  className="gabarit-item styleImg"
+                  key={item.name}
+                  onClick={() => selectItem(item)}
+                >
                   <input
                     type="checkbox"
-                    id={"checkboxItem" + item.id}
+                    id={"checkboxItem" + item.name}
                     className="checkbox-item"
+                    checked={selectedItemName?.includes(item.name)}
+                    readOnly
                   />
                   <figure className="gabarit-item-img">
                     <img src={item.image} alt={item.name} title={item.name} />
