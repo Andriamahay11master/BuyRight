@@ -85,8 +85,9 @@ function ChoiceItemPage() {
             onChange={simulateAutoCompleteResearch}
           />
         </div>
-
-        <div className="gabarit-content">
+      </div>
+      <div className="gabarit-content">
+        <form className="gabarit-form single-button">
           <div className="gabarit-list gabarit-choice">
             {listItem.length === 0 && (
               <p className="gabarit-null">No items found</p>
@@ -119,7 +120,12 @@ function ChoiceItemPage() {
                 </div>
               ))}
           </div>
-        </div>
+          <div className="form-group form-group-button">
+            <button type="submit" className="btn btn-primary">
+              Add selected items ({selectedItemName?.length || 0})
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );

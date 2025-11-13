@@ -301,6 +301,20 @@
         }
       }
     }
+    &.single-button {
+      .form-group-button {
+        @include mobile {
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          z-index: 1000;
+          grid-template-columns: 100%;
+          margin-bottom: 0;
+          padding: 1rem;
+        }
+      }
+    }
   }
   &.gabarit-selection {
     .gabarit-top {
