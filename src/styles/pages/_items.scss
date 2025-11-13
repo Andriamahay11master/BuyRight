@@ -3,6 +3,25 @@
     padding: 0 1rem 1rem;
   }
   .gabarit-header {
+    position: relative;
+    z-index: 2;
+    &::before,
+    &::after {
+      display: none;
+      content: "";
+      position: absolute;
+      top: 0;
+      width: 1rem;
+      height: 100%;
+      z-index: 1;
+      background: $white-f5;
+    }
+    &::before {
+      left: -1rem;
+    }
+    &::after {
+      right: -1rem;
+    }
     @include mobile {
       padding: 1rem 0;
       position: sticky;
@@ -10,6 +29,10 @@
       left: 0;
       background: $white-f5;
       z-index: 5;
+      &::before,
+      &::after {
+        display: block;
+      }
     }
   }
   .gabarit-top {
