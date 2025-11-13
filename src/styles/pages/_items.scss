@@ -144,6 +144,31 @@
         z-index: 2;
       }
     }
+    &.active {
+      border: 2px solid $secondary-color;
+      &::before {
+        content: "";
+        position: absolute;
+        top: -4px;
+        left: -4px;
+        right: -4px;
+        bottom: -4px;
+        border: 2px solid $primary-color;
+        border-radius: 1rem;
+        animation: pulseBorder 2s infinite;
+        @keyframes pulseBorder {
+          0% {
+            box-shadow: 0 0 5px rgba($primary-color, 0.5);
+          }
+          50% {
+            box-shadow: 0 0 15px rgba($primary-color, 1);
+          }
+          100% {
+            box-shadow: 0 0 5px rgba($primary-color, 0.5);
+          }
+        }
+      }
+    }
   }
 
   .gabarit-form {

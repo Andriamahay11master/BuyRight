@@ -95,7 +95,11 @@ function ChoiceItemPage() {
               .sort((a, b) => a.name.localeCompare(b.name))
               .map((item) => (
                 <div
-                  className="gabarit-item styleImg"
+                  className={
+                    selectedItemName?.includes(item.name)
+                      ? "gabarit-item styleImg active"
+                      : "gabarit-item styleImg"
+                  }
                   key={item.name}
                   onClick={() => selectItem(item)}
                 >
