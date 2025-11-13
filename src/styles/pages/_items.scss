@@ -90,6 +90,7 @@
       grid-gap: 1rem;
       @include mobile {
         grid-template-columns: repeat(2, 1fr);
+        padding-top: 1rem;
       }
     }
   }
@@ -296,6 +297,34 @@
             display: grid;
             grid-template-columns: auto auto auto;
             grid-gap: 0.3rem;
+          }
+        }
+      }
+    }
+  }
+  &.gabarit-selection {
+    .gabarit-top {
+      @include flex-between;
+      @include mobile {
+        align-items: start;
+      }
+      .icon-clear {
+        display: none;
+        @include mobile {
+          display: block;
+        }
+      }
+      span {
+        @include mobile {
+          display: none;
+        }
+      }
+      .btn {
+        @include mobile {
+          width: auto;
+          height: auto;
+          i {
+            font-size: 1.5rem;
           }
         }
       }

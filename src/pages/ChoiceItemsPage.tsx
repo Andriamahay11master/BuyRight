@@ -66,7 +66,7 @@ function ChoiceItemPage() {
     getItems();
   }, [user]);
   return (
-    <div className="gabarit-page gabarit-add">
+    <div className="gabarit-page gabarit-selection">
       <div className="gabarit-header">
         <div className="gabarit-top">
           <Link to="/create" className="btn btn-nav">
