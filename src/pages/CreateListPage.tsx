@@ -28,7 +28,7 @@ const CreateListPage: React.FC = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const selectedItemsFromChoice = selectedItems || [];
-
+  const { setSelectedItems } = useSelectedItems();
   // Pre-fill items if navigated from ChoiceItemsPage
   React.useEffect(() => {
     if (selectedItemsFromChoice.length > 0) {
@@ -139,6 +139,9 @@ const CreateListPage: React.FC = () => {
 
       // Navigate to the new list
       navigate(`/list/${listRef.id}`);
+
+      //reset the context selected items
+      setSelectedItems([]);
     } catch (err: any) {
       setError(err.message || "Failed to create list");
       scrollToTop();
