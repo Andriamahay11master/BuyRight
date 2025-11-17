@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Item } from "../models/Item";
 import firebase from "../firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { useAuth } from "../contexts/AuthContext";
 
 function ChoiceItemPage() {
+  const navigate = useNavigate();
   const { user } = useAuth();
   const [searchValue, setSearchValue] = useState<string>("");
   const [listItem, setListItem] = useState<Item[]>([] as Item[]);

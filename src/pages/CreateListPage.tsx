@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import {
   collection,
   addDoc,
@@ -17,6 +17,7 @@ import { scrollToTop } from "../utils/common";
 
 const CreateListPage: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { user } = useAuth();
   const [formData, setFormData] = useState({
     name: "",
@@ -25,6 +26,23 @@ const CreateListPage: React.FC = () => {
   const [items, setItems] = useState<ListItem[]>([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const selectedItemsFromChoice = location.state?.selectedItems || [];
+
+  // Pre-fill items if navigated from ChoiceItemsPage
+  React.useEffect(() => {
+    if (selectedItemsFromChoice.length > 0) {
+      const prefilledItems = selectedItemsFromChoice.map(
+        (itemName: string) => ({
+          id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
+          name: itemName,
+          quantity: 1,
+          unit: "",
+          notes: "",
+        })
+      );
+      setItems(prefilledItems);
+    }
+  }, [selectedItemsFromChoice]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -208,15 +226,10 @@ const CreateListPage: React.FC = () => {
             <div className="items-section">
               <div className="section-header">
                 <h3 className="title-h3">Items</h3>
-                <button
-                  type="button"
-                  className="btn btn-small btn-dashed"
-                  onClick={addItem}
-                  disabled={loading}
-                >
+                <Link to="/selectItem" className="btn btn-small btn-dashed">
                   <i className="icon-plus-circle"></i>
                   <span>Add Item from Repository</span>
-                </button>
+                </Link>
               </div>
 
               <div className="items-container">
