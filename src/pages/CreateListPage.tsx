@@ -42,6 +42,7 @@ const CreateListPage: React.FC = () => {
         })
       );
       setItems(prefilledItems);
+      console.log("Prefilled Items:", selectedItemsFromChoice);
     }
   }, [selectedItemsFromChoice]);
 
@@ -53,17 +54,6 @@ const CreateListPage: React.FC = () => {
       ...prev,
       [name]: value,
     }));
-  };
-
-  const addItem = () => {
-    const newItem: ListItem = {
-      id: Date.now().toString(),
-      name: "",
-      quantity: 1,
-      unit: "",
-      notes: "",
-    };
-    setItems([...items, newItem]);
   };
 
   const removeItem = (id: string) => {
