@@ -14,10 +14,11 @@ import Loader from "../components/loader/Loader";
 import { ListItem } from "../models/ListItem";
 import { onlyLetters, onlyLettersNumbersSpace } from "../utils/regex";
 import { scrollToTop } from "../utils/common";
+import { useSelectedItems } from "../contexts/SelectedItemsContext";
 
 const CreateListPage: React.FC = () => {
   const navigate = useNavigate();
-  const location = useLocation();
+  const { selectedItems } = useSelectedItems();
   const { user } = useAuth();
   const [formData, setFormData] = useState({
     name: "",
@@ -26,7 +27,7 @@ const CreateListPage: React.FC = () => {
   const [items, setItems] = useState<ListItem[]>([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const selectedItemsFromChoice = location.state?.selectedItems || [];
+  const selectedItemsFromChoice = selectedItems || [];
 
   // Pre-fill items if navigated from ChoiceItemsPage
   React.useEffect(() => {

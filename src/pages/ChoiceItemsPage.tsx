@@ -4,13 +4,14 @@ import { Item } from "../models/Item";
 import firebase from "../firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { useAuth } from "../contexts/AuthContext";
+import { useSelectedItems } from "../contexts/SelectedItemsContext";
 
 function ChoiceItemPage() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const [searchValue, setSearchValue] = useState<string>("");
   const [listItem, setListItem] = useState<Item[]>([] as Item[]);
-  const [selectedItemName, setselectedItemName] = useState<string[] | null>([]);
+  const { selectedItems, setSelectedItems } = useSelectedItems();
 
   const getItems = async () => {
     try {
@@ -37,7 +38,7 @@ function ChoiceItemPage() {
   };
 
   const selectItem = (item: Item) => {
-    setselectedItemName((prevSelected) => {
+    setSelectedItems((prevSelected) => {
       // Toggle selection
       if (prevSelected === null) {
         return [item.name];
@@ -51,13 +52,13 @@ function ChoiceItemPage() {
 
     // Save the updated list to localStorage if user is logged in
     if (user) {
-      if (!selectedItemName) {
+      if (!selectedItems) {
         localStorage.setItem("selectedItems", JSON.stringify([item.name]));
         return;
       }
-      const updatedSelection = selectedItemName.includes(item.name)
-        ? selectedItemName.filter((id) => id !== item.name)
-        : [...selectedItemName, item.name];
+      const updatedSelection = selectedItems.includes(item.name)
+        ? selectedItems.filter((id) => id !== item.name)
+        : [...selectedItems, item.name];
       localStorage.setItem("selectedItems", JSON.stringify(updatedSelection));
     }
   };
@@ -66,9 +67,7 @@ function ChoiceItemPage() {
     e.preventDefault();
 
     // Navigate + send selected items
-    navigate("/create", {
-      state: { selectedItems: selectedItemName },
-    });
+    navigate("/create");
   };
 
   useEffect(() => {
@@ -109,7 +108,7 @@ function ChoiceItemPage() {
               .map((item) => (
                 <div
                   className={
-                    selectedItemName?.includes(item.name)
+                    selectedItems?.includes(item.name)
                       ? "gabarit-item styleImg active"
                       : "gabarit-item styleImg"
                   }
@@ -120,7 +119,7 @@ function ChoiceItemPage() {
                     type="checkbox"
                     id={"checkboxItem" + item.name}
                     className="checkbox-item"
-                    checked={selectedItemName?.includes(item.name)}
+                    checked={selectedItems?.includes(item.name)}
                     readOnly
                   />
                   <figure className="gabarit-item-img">
@@ -134,7 +133,7 @@ function ChoiceItemPage() {
           </div>
           <div className="form-group form-group-button">
             <button type="submit" className="btn btn-primary">
-              Add selected items ({selectedItemName?.length || 0})
+              Add selected items ({selectedItems?.length || 0})
             </button>
           </div>
         </form>
