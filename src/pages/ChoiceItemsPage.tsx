@@ -59,7 +59,15 @@ function ChoiceItemPage() {
         : [...selectedItemName, item.name];
       localStorage.setItem("selectedItems", JSON.stringify(updatedSelection));
     }
-    console.log("selectedItemName", selectedItemName);
+  };
+
+  const addSelectItemsToList = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Navigate + send selected items
+    navigate("/create", {
+      state: { selectedItems: selectedItemName },
+    });
   };
 
   useEffect(() => {
@@ -87,7 +95,10 @@ function ChoiceItemPage() {
         </div>
       </div>
       <div className="gabarit-content">
-        <form className="gabarit-form single-button">
+        <form
+          className="gabarit-form single-button"
+          onSubmit={addSelectItemsToList}
+        >
           <div className="gabarit-list gabarit-choice">
             {listItem.length === 0 && (
               <p className="gabarit-null">No items found</p>
