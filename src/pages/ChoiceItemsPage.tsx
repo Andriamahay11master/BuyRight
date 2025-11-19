@@ -39,26 +39,22 @@ function ChoiceItemPage() {
 
   const selectItem = (item: Item) => {
     setSelectedItems((prevSelected) => {
-      // Toggle selection
-      if (prevSelected === null) {
-        return [item.name];
+      // If the item exists → remove it
+      if (prevSelected.some((i) => i.name === item.name)) {
+        return prevSelected.filter((i) => i.name !== item.name);
       }
-      if (prevSelected.includes(item.name)) {
-        return prevSelected.filter((id) => id !== item.name);
-      } else {
-        return [...prevSelected, item.name];
-      }
+
+      // Else add it (with unit + image)
+      return [...prevSelected, item];
     });
 
     // Save the updated list to localStorage if user is logged in
+    // Save in localStorage
     if (user) {
-      if (!selectedItems) {
-        localStorage.setItem("selectedItems", JSON.stringify([item.name]));
-        return;
-      }
-      const updatedSelection = selectedItems.includes(item.name)
-        ? selectedItems.filter((id) => id !== item.name)
-        : [...selectedItems, item.name];
+      const updatedSelection = selectedItems.some((i) => i.name === item.name)
+        ? selectedItems.filter((i) => i.name !== item.name)
+        : [...selectedItems, item];
+
       localStorage.setItem("selectedItems", JSON.stringify(updatedSelection));
     }
   };
@@ -108,7 +104,7 @@ function ChoiceItemPage() {
               .map((item) => (
                 <div
                   className={
-                    selectedItems?.includes(item.name)
+                    selectedItems.some((i) => i.name === item.name)
                       ? "gabarit-item styleImg active"
                       : "gabarit-item styleImg"
                   }
@@ -119,7 +115,7 @@ function ChoiceItemPage() {
                     type="checkbox"
                     id={"checkboxItem" + item.name}
                     className="checkbox-item"
-                    checked={selectedItems?.includes(item.name)}
+                    checked={selectedItems.some((i) => i.name === item.name)}
                     readOnly
                   />
                   <figure className="gabarit-item-img">

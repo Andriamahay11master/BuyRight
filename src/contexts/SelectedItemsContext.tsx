@@ -1,8 +1,9 @@
 import { createContext, useContext, useState } from "react";
+import { Item } from "../models/Item";
 
 interface SelectedItemsContextType {
-  selectedItems: string[];
-  setSelectedItems: React.Dispatch<React.SetStateAction<string[]>>;
+  selectedItems: Item[];
+  setSelectedItems: React.Dispatch<React.SetStateAction<Item[]>>;
 }
 
 const SelectedItemsContext = createContext<SelectedItemsContextType | null>(
@@ -14,7 +15,7 @@ export function SelectedItemsProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [selectedItems, setSelectedItems] = useState<string[]>([]);
+  const [selectedItems, setSelectedItems] = useState<Item[]>([]);
 
   return (
     <SelectedItemsContext.Provider value={{ selectedItems, setSelectedItems }}>
