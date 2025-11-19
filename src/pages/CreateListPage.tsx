@@ -15,7 +15,6 @@ import { ListItem } from "../models/ListItem";
 import { onlyLetters, onlyLettersNumbersSpace } from "../utils/regex";
 import { scrollToTop } from "../utils/common";
 import { useSelectedItems } from "../contexts/SelectedItemsContext";
-import category from "../data/category";
 
 const CreateListPage: React.FC = () => {
   const navigate = useNavigate();
@@ -42,6 +41,7 @@ const CreateListPage: React.FC = () => {
         notes: "",
       }));
       setItems(prefilledItems);
+      console.log("Prefilled Items:", prefilledItems);
     }
   }, [selectedItemsFromChoice]);
 
@@ -344,7 +344,7 @@ const CreateListPage: React.FC = () => {
                           <input
                             type="text"
                             id={`item-unit-${item.id}`}
-                            value={item.unit}
+                            value={item.unit.toUpperCase()}
                             onChange={(e) => {
                               const value = e.target.value.replace(
                                 onlyLetters,
@@ -354,6 +354,7 @@ const CreateListPage: React.FC = () => {
                             }}
                             placeholder="e.g., kg, pcs, l, ml, etc."
                             disabled={loading}
+                            readOnly={!!item.unit}
                           />
                         </div>
                       </div>
