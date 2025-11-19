@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   collection,
   addDoc,
@@ -15,6 +15,7 @@ import { ListItem } from "../models/ListItem";
 import { onlyLetters, onlyLettersNumbersSpace } from "../utils/regex";
 import { scrollToTop } from "../utils/common";
 import { useSelectedItems } from "../contexts/SelectedItemsContext";
+import category from "../data/category";
 
 const CreateListPage: React.FC = () => {
   const navigate = useNavigate();
@@ -32,17 +33,15 @@ const CreateListPage: React.FC = () => {
   // Pre-fill items if navigated from ChoiceItemsPage
   React.useEffect(() => {
     if (selectedItemsFromChoice.length > 0) {
-      const prefilledItems = selectedItemsFromChoice.map(
-        (itemName: string) => ({
-          id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
-          name: itemName,
-          quantity: 1,
-          unit: "",
-          notes: "",
-        })
-      );
+      const prefilledItems = selectedItemsFromChoice.map((item) => ({
+        id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
+        image: item.image,
+        name: item.name,
+        quantity: 1,
+        unit: item.unit || "",
+        notes: "",
+      }));
       setItems(prefilledItems);
-      console.log("Prefilled Items:", selectedItemsFromChoice);
     }
   }, [selectedItemsFromChoice]);
 
@@ -260,6 +259,13 @@ const CreateListPage: React.FC = () => {
                     </div>
 
                     <div className="item-fields">
+                      <div className="form-group">
+                        {item.image && (
+                          <figure className="item-image">
+                            <img src={item.image} alt={item.name} />
+                          </figure>
+                        )}
+                      </div>
                       <div className="form-group">
                         <label htmlFor={`item-name-${item.id}`}>
                           Item Name

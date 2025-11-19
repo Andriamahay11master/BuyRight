@@ -49,7 +49,6 @@ function ChoiceItemPage() {
     });
 
     // Save the updated list to localStorage if user is logged in
-    // Save in localStorage
     if (user) {
       const updatedSelection = selectedItems.some((i) => i.name === item.name)
         ? selectedItems.filter((i) => i.name !== item.name)
