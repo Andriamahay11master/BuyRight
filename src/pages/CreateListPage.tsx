@@ -149,6 +149,13 @@ const CreateListPage: React.FC = () => {
     }
   };
 
+  const cancelCreateList = () => {
+    if (selectedItems.length > 0) {
+      setSelectedItems([]);
+    }
+    navigate("/");
+  };
+
   return (
     <div className="gabarit-page gabarit-add">
       <div className="gabarit-header">
@@ -387,8 +394,9 @@ const CreateListPage: React.FC = () => {
 
           <div className="form-group form-group-button">
             <button
+              type="button"
               className="btn btn-cancel"
-              onClick={() => navigate(-1)}
+              onClick={cancelCreateList}
               disabled={loading}
             >
               Cancel
