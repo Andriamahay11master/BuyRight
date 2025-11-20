@@ -11,7 +11,10 @@ const category = [
   "Personal Care",
   "Household",
   "Proteins",
-  "Frozen"
+  "Frozen",
+  "Canned Goods",
+  "Condiments",
+  "Spices",
 ];
 
 category.sort();
