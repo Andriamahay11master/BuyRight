@@ -15,14 +15,16 @@ import { ListItem } from "../models/ListItem";
 import { onlyLetters, onlyLettersNumbersSpace } from "../utils/regex";
 import { scrollToTop } from "../utils/common";
 import { useSelectedItems } from "../contexts/SelectedItemsContext";
+import { useInfoNewList } from "../contexts/InfoNewListContext";
 
 const CreateListPage: React.FC = () => {
   const navigate = useNavigate();
   const { selectedItems } = useSelectedItems();
+  const { listName, listDescription } = useInfoNewList();
   const { user } = useAuth();
   const [formData, setFormData] = useState({
-    name: "",
-    description: "",
+    name: listName,
+    description: listDescription,
   });
   const [items, setItems] = useState<ListItem[]>([]);
   const [error, setError] = useState("");
