@@ -65,6 +65,13 @@ const CreateListPage: React.FC = () => {
       ...prev,
       [name]: value,
     }));
+
+    // Update context when form changes
+    if (name === "name") {
+      setListName(value);
+    } else if (name === "description") {
+      setListDescription(value);
+    }
   };
 
   const removeItem = (id: string) => {
@@ -204,9 +211,9 @@ const CreateListPage: React.FC = () => {
                   target: {
                     ...e.target,
                     value,
-                    name: e.target.name,
+                    name: "name",
                   },
-                });
+                } as React.ChangeEvent<HTMLInputElement>);
               }}
               placeholder="Fill in the name of the list"
               disabled={loading}
@@ -228,9 +235,9 @@ const CreateListPage: React.FC = () => {
                   target: {
                     ...e.target,
                     value,
-                    name: e.target.name,
+                    name: "description",
                   },
-                });
+                } as React.ChangeEvent<HTMLTextAreaElement>);
               }}
               placeholder="Fill in the description of the list"
               rows={4}
