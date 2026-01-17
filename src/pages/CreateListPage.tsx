@@ -23,14 +23,24 @@ const CreateListPage: React.FC = () => {
   const { listName, listDescription } = useInfoNewList();
   const { user } = useAuth();
   const [formData, setFormData] = useState({
-    name: listName,
-    description: listDescription,
+    name: "",
+    description: "",
   });
   const [items, setItems] = useState<ListItem[]>([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const selectedItemsFromChoice = selectedItems || [];
   const { setSelectedItems } = useSelectedItems();
+  const { setListName, setListDescription } = useInfoNewList();
+
+  // Sync context values with form data
+  React.useEffect(() => {
+    setFormData({
+      name: listName,
+      description: listDescription,
+    });
+  }, [listName, listDescription]);
+
   // Pre-fill items if navigated from ChoiceItemsPage
   React.useEffect(() => {
     if (selectedItemsFromChoice.length > 0) {
@@ -143,6 +153,10 @@ const CreateListPage: React.FC = () => {
 
       //reset the context selected items
       setSelectedItems([]);
+
+      //reset the context info new list
+      setListName("");
+      setListDescription("");
     } catch (err: any) {
       setError(err.message || "Failed to create list");
       scrollToTop();
