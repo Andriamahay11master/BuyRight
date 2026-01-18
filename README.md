@@ -45,12 +45,14 @@ src/
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/Andriamahay11master/BuyRight.git
    cd BuyRight
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
@@ -59,6 +61,7 @@ src/
    - Set up your Firebase project credentials in `src/firebase.ts`
 
 4. **Start the development server**
+
    ```bash
    npm run dev
    ```
@@ -76,6 +79,7 @@ src/
 ## 🔐 Authentication
 
 The app supports secure user authentication with:
+
 - Email/Password registration and login
 - Password reset functionality
 - Protected routes for authenticated users
@@ -87,6 +91,3 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## 📄 License
 
 This project is open source and available under the MIT License.
-
-
-

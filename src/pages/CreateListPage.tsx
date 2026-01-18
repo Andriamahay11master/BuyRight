@@ -58,7 +58,7 @@ const CreateListPage: React.FC = () => {
   }, [selectedItemsFromChoice]);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -81,10 +81,12 @@ const CreateListPage: React.FC = () => {
   const updateItem = (
     id: string,
     field: keyof ListItem,
-    value: string | number
+    value: string | number,
   ) => {
     setItems(
-      items.map((item) => (item.id === id ? { ...item, [field]: value } : item))
+      items.map((item) =>
+        item.id === id ? { ...item, [field]: value } : item,
+      ),
     );
   };
 
@@ -176,6 +178,8 @@ const CreateListPage: React.FC = () => {
     if (selectedItems.length > 0) {
       setSelectedItems([]);
     }
+    setListName("");
+    setListDescription("");
     navigate("/");
   };
 
@@ -183,7 +187,7 @@ const CreateListPage: React.FC = () => {
     <div className="gabarit-page gabarit-add">
       <div className="gabarit-header">
         <div className="gabarit-top">
-          <Link to="/items" className="btn btn-nav">
+          <Link to="/" className="btn btn-nav" onClick={cancelCreateList}>
             <i className="icon-clear"></i>
             <span>Return to list</span>
           </Link>
@@ -204,7 +208,7 @@ const CreateListPage: React.FC = () => {
                 setError("");
                 const value = e.target.value.replace(
                   onlyLettersNumbersSpace,
-                  ""
+                  "",
                 );
                 handleChange({
                   ...e,
@@ -228,7 +232,7 @@ const CreateListPage: React.FC = () => {
               onChange={(e) => {
                 const value = e.target.value.replace(
                   onlyLettersNumbersSpace,
-                  ""
+                  "",
                 );
                 handleChange({
                   ...e,
@@ -308,7 +312,7 @@ const CreateListPage: React.FC = () => {
                             setError("");
                             const alphanumericValue = e.target.value.replace(
                               onlyLettersNumbersSpace,
-                              ""
+                              "",
                             );
                             updateItem(item.id, "name", alphanumericValue);
                           }}
@@ -331,7 +335,7 @@ const CreateListPage: React.FC = () => {
                                 updateItem(
                                   item.id,
                                   "quantity",
-                                  parseInt(e.target.value) || 1
+                                  parseInt(e.target.value) || 1,
                                 )
                               }
                               min="1"
@@ -345,7 +349,7 @@ const CreateListPage: React.FC = () => {
                                 updateItem(
                                   item.id,
                                   "quantity",
-                                  Math.max(1, item.quantity - 1)
+                                  Math.max(1, item.quantity - 1),
                                 )
                               }
                               disabled={loading || item.quantity <= 1}
@@ -359,7 +363,7 @@ const CreateListPage: React.FC = () => {
                                 updateItem(
                                   item.id,
                                   "quantity",
-                                  item.quantity + 1
+                                  item.quantity + 1,
                                 )
                               }
                               disabled={loading}
@@ -378,7 +382,7 @@ const CreateListPage: React.FC = () => {
                             onChange={(e) => {
                               const value = e.target.value.replace(
                                 onlyLetters,
-                                ""
+                                "",
                               );
                               updateItem(item.id, "unit", value);
                             }}
@@ -400,7 +404,7 @@ const CreateListPage: React.FC = () => {
                           onChange={(e) => {
                             const value = e.target.value.replace(
                               onlyLettersNumbersSpace,
-                              ""
+                              "",
                             );
                             updateItem(item.id, "notes", value);
                           }}
