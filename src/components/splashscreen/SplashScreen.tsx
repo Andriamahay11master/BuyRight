@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import React, { useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
 interface SplashScreenProps {
   onComplete: () => void;
@@ -11,7 +11,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setProgress(prev => {
+      setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(timer);
           onComplete();
@@ -25,7 +25,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
   }, [onComplete]);
 
   return (
-    <div className="splash-screen">
+    <div className="splash-screen" data-testid="splash-screen">
       <div className="splash-content">
         <div className="logo-container">
           <FontAwesomeIcon icon={faShoppingCart} className="logo-icon" />
@@ -35,10 +35,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
           <p>Smart Shopping Made Simple</p>
         </div>
         <div className="progress-container">
-          <div 
-            className="progress-bar" 
-            style={{ width: `${progress}%` }}
-          />
+          <div className="progress-bar" style={{ width: `${progress}%` }} />
           <span className="progress-text">{progress}%</span>
         </div>
       </div>
@@ -46,4 +43,4 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
   );
 };
 
-export default SplashScreen; 
+export default SplashScreen;

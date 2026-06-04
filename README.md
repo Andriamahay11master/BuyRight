@@ -75,6 +75,7 @@ src/
 - `npm run build` - Build for production
 - `npm run preview` - Preview production build locally
 - `npm run lint` - Run ESLint to check code quality
+- `npm run test` - Run Test unit (add -- path="" for specific file)
 
 ## 🔐 Authentication
 
