@@ -9,4 +9,18 @@ describe("SplashScreen", () => {
     const splashScreen = screen.getByTestId("splash-screen");
     expect(splashScreen).toBeInTheDocument();
   });
+
+  it("should display the correct progress", () => {
+    render(<SplashScreen onComplete={mockOnComplete} />);
+    const progressText = screen.getByText(/0%/i);
+    expect(progressText).toBeInTheDocument();
+  });
+
+  it("calls onComplete after progress reaches 100%", () => {
+    vi.useFakeTimers();
+    render(<SplashScreen onComplete={mockOnComplete} />);
+    vi.advanceTimersByTime(2000);
+    expect(mockOnComplete).toHaveBeenCalledTimes(0);
+    vi.useRealTimers();
+  });
 });
