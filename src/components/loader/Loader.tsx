@@ -18,7 +18,7 @@ const Loader: React.FC<LoaderProps> = ({
   };
 
   return (
-    <div className="loader">
+    <div className="loader" data-testid="loader">
       <FontAwesomeIcon
         icon={faSpinner}
         spin
