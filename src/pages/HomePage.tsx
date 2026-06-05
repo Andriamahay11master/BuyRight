@@ -44,11 +44,13 @@ const HomePage: React.FC = () => {
   const [searchQueryMonth, setSearchQueryMonth] = useState(
     monthNames[currentMonth],
   );
+  const currentYear = new Date().getFullYear();
+  const [searchQueryYear, setSearchQueryYear] = useState("All");
+  const yearNames = ["All", currentYear.toString()];
   const [error, setError] = useState<string | null>(null);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [listToDelete, setListToDelete] = useState<string | null>(null);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const currentYear = new Date().getFullYear();
 
   useEffect(() => {
     if (!user) return;
@@ -129,6 +131,10 @@ const HomePage: React.FC = () => {
     setSearchQueryMonth(selectedMonth);
   };
 
+  const handleChangeFilterYear = (selectedYear: string) => {
+    setSearchQueryYear(selectedYear);
+  };
+
   // ADD THESE:
   const handleToggleDropdown = (dropdownId: string) => {
     // If the one clicked is already open, close it.
@@ -154,6 +160,14 @@ const HomePage: React.FC = () => {
         <h1>Grocery Lists</h1>
         <div className="page-header-right">
           <div className="filter-box">
+            <Dropdown
+              valueBtn={searchQueryYear || "Year"}
+              listItems={yearNames}
+              onChange={handleChangeFilterYear}
+              isOpen={openDropdown === "year"}
+              onToggle={() => handleToggleDropdown("year")}
+              onClose={handleCloseDropdowns}
+            />
             <Dropdown
               valueBtn={searchQueryMonth || "Month"}
               listItems={monthNames}
