@@ -42,12 +42,13 @@ const HomePage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("All");
   const [searchQueryMonth, setSearchQueryMonth] = useState(
-    monthNames[currentMonth]
+    monthNames[currentMonth],
   );
   const [error, setError] = useState<string | null>(null);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [listToDelete, setListToDelete] = useState<string | null>(null);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const currentYear = new Date().getFullYear();
 
   useEffect(() => {
     if (!user) return;
@@ -58,7 +59,7 @@ const HomePage: React.FC = () => {
         const q = query(
           listsRef,
           where("userId", "==", user.uid),
-          orderBy("updatedAt", "desc")
+          orderBy("updatedAt", "desc"),
         );
 
         const querySnapshot = await getDocs(q);
@@ -214,8 +215,12 @@ const HomePage: React.FC = () => {
                 (searchQuery === "Ongoing" &&
                   list.completedItems !== list.items.length &&
                   list.completedItems !== 0) ||
-                (searchQuery === "New" && list.completedItems === 0)
+                (searchQuery === "New" && list.completedItems === 0),
             )
+            .filter((list) => {
+              const listYear = list.createdAt.getFullYear();
+              return listYear === currentYear;
+            })
             .map((list) => (
               <div
                 key={list.id}
