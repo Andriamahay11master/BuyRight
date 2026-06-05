@@ -3,6 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { describe, it, expect, vi } from "vitest";
 import Navbar from "./Navbar";
 import { BrowserRouter, MemoryRouter } from "react-router-dom";
+import { signOut } from "firebase/auth";
 
 const user = userEvent.setup();
 
@@ -36,13 +37,45 @@ describe("Navbar component", () => {
     expect(logoutButton).toBeInTheDocument();
   });
 
-  it("calls handleLogout when the logout button is clicked", () => {
-    const mockLogout = vi.fn();
+  const { mockNavigate } = vi.hoisted(() => ({
+    mockNavigate: vi.fn(),
+  }));
+
+  vi.mock("firebase/auth", async () => {
+    const actual =
+      await vi.importActual<typeof import("firebase/auth")>("firebase/auth");
+
+    return {
+      ...actual,
+      signOut: vi.fn(),
+    };
+  });
+
+  vi.mock("react-router-dom", async () => {
+    const actual =
+      await vi.importActual<typeof import("react-router-dom")>(
+        "react-router-dom",
+      );
+
+    return {
+      ...actual,
+      useNavigate: () => mockNavigate,
+    };
+  });
+
+  it("when the logout button is clicked, it should sign out and navigate to the login page", async () => {
+    vi.mocked(signOut).mockResolvedValue(undefined);
+
     render(<MockedNavbar />);
-    const logoutButton = screen.getByRole("button", { name: /logout/i });
-    logoutButton.onclick = mockLogout;
-    logoutButton.click();
-    expect(mockLogout).toHaveBeenCalled();
+
+    const logoutButton = screen.getByRole("button", {
+      name: /logout/i,
+    });
+
+    await user.click(logoutButton);
+
+    expect(signOut).toHaveBeenCalled();
+    expect(mockNavigate).toHaveBeenCalledWith("/login");
   });
 
   it("should change the route when a link is clicked", () => {
