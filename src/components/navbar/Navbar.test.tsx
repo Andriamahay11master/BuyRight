@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import Navbar from "./Navbar";
 import { BrowserRouter } from "react-router-dom";
 
@@ -19,5 +19,20 @@ describe("Navbar component", () => {
     expect(screen.getByText("Create")).toBeInTheDocument();
     expect(screen.getByText("Profile")).toBeInTheDocument();
     expect(screen.getByText("Items")).toBeInTheDocument();
+  });
+
+  it("renders the logout button", () => {
+    render(<MockedNavbar />);
+    const logoutButton = screen.getByRole("button", { name: /logout/i });
+    expect(logoutButton).toBeInTheDocument();
+  });
+
+  it("calls handleLogout when the logout button is clicked", () => {
+    const mockLogout = vi.fn();
+    render(<MockedNavbar />);
+    const logoutButton = screen.getByRole("button", { name: /logout/i });
+    logoutButton.onclick = mockLogout;
+    logoutButton.click();
+    expect(mockLogout).toHaveBeenCalled();
   });
 });
