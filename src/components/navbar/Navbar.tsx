@@ -72,7 +72,11 @@ const Navbar: React.FC = () => {
           </div>
 
           <div className="navbar-auth">
-            <button className="btn btn-logout" onClick={handleLogout}>
+            <button
+              className="btn btn-logout"
+              onClick={handleLogout}
+              aria-label="Logout"
+            >
               <i className="icon-power"></i>
             </button>
           </div>
