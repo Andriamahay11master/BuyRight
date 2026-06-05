@@ -45,7 +45,9 @@ const HomePage: React.FC = () => {
     monthNames[currentMonth],
   );
   const currentYear = new Date().getFullYear();
-  const [searchQueryYear, setSearchQueryYear] = useState("All");
+  const [searchQueryYear, setSearchQueryYear] = useState(
+    currentYear.toString(),
+  );
   const yearNames = ["All", currentYear.toString()];
   const [error, setError] = useState<string | null>(null);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
@@ -232,8 +234,10 @@ const HomePage: React.FC = () => {
                 (searchQuery === "New" && list.completedItems === 0),
             )
             .filter((list) => {
-              const listYear = list.createdAt.getFullYear();
-              return listYear === currentYear;
+              if (searchQueryYear === "All") return true;
+
+              const listYear = list.createdAt.getFullYear().toString();
+              return listYear === searchQueryYear;
             })
             .map((list) => (
               <div
