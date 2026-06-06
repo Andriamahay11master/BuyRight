@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { describe, it, expect, vi } from "vitest";
 import Dropdown from "./Dropdown";
 
@@ -22,5 +23,24 @@ describe("Dropdown component", () => {
     expect(screen.getByText("Option 1")).toBeInTheDocument();
     expect(screen.getByText("Option 2")).toBeInTheDocument();
     expect(screen.getByText("Option 3")).toBeInTheDocument();
+  });
+
+  const user = userEvent.setup();
+  it("calls onChange and onClose when a list item is clicked", async () => {
+    render(
+      <Dropdown
+        valueBtn="Test"
+        listItems={["Option 1", "Option 2", "Option 3"]}
+        isOpen={true}
+        onChange={mockOnChange}
+        onToggle={mockOnToggle}
+        onClose={mockOnClose}
+      />,
+    );
+    const option1 = screen.getByText("Option 1");
+    expect(option1).toBeInTheDocument();
+    await user.click(option1);
+    expect(mockOnChange).toHaveBeenCalledWith("Option 1");
+    expect(mockOnClose).toHaveBeenCalled();
   });
 });
