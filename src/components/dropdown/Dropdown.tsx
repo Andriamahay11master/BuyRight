@@ -41,7 +41,7 @@ export default function Dropdown({
   }, [isOpen, onClose, dropdownRef]);
   // ---------------------------------------------------------------
   return (
-    <div className={"dropdown" + (isOpen ? " open" : "")}>
+    <div className={"dropdown" + (isOpen ? " open" : "")} ref={dropdownRef}>
       <button className="dropdown-button" onClick={onToggle}>
         {valueBtn}
       </button>

@@ -43,4 +43,36 @@ describe("Dropdown component", () => {
     expect(mockOnChange).toHaveBeenCalledWith("Option 1");
     expect(mockOnClose).toHaveBeenCalled();
   });
+
+  it("calls onToggle when the dropdown button is clicked and isOpen is true", async () => {
+    render(
+      <Dropdown
+        valueBtn="Test"
+        listItems={["Option 1", "Option 2", "Option 3"]}
+        isOpen={true}
+        onChange={mockOnChange}
+        onToggle={mockOnToggle}
+        onClose={mockOnClose}
+      />,
+    );
+    const dropdownButton = screen.getByText("Test");
+    expect(dropdownButton).toBeInTheDocument();
+    await user.click(dropdownButton);
+    expect(mockOnToggle).toHaveBeenCalled();
+  });
+
+  it("When the dropdown is open, there should be a class of 'open' on the dropdown div", () => {
+    const { container } = render(
+      <Dropdown
+        valueBtn="Test"
+        listItems={["Option 1", "Option 2", "Option 3"]}
+        isOpen={true}
+        onChange={mockOnChange}
+        onToggle={mockOnToggle}
+        onClose={mockOnClose}
+      />,
+    );
+    const dropdownDiv = container.querySelector(".dropdown");
+    expect(dropdownDiv).toHaveClass("open");
+  });
 });
