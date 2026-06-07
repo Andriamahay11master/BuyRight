@@ -10,8 +10,10 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({
 }) => {
   return (
     <div className="app">
-      <Navbar />
-      <main className="main-content">{children}</main>
+      <Navbar data-testid="navbar" />
+      <main className="main-content" data-testid="children">
+        {children}
+      </main>
     </div>
   );
 };
