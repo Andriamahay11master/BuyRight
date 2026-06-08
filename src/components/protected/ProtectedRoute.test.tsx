@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import ProtectedRoute from "./ProtectedRoute";
-import { BrowserRouter, MemoryRouter } from "react-router-dom";
+import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 
 vi.mock("../../contexts/AuthContext", () => ({
@@ -26,5 +26,29 @@ describe("ProtectedRoute component", () => {
     );
 
     expect(screen.getByRole("status")).toBeInTheDocument();
+  });
+
+  it("redirects to login when user is not authenticated", () => {
+    mockedUseAuth.mockReturnValue({
+      user: null,
+      loading: false,
+    });
+    render(
+      <MemoryRouter initialEntries={["/profile"]}>
+        <Routes>
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <div>Profile</div>
+              </ProtectedRoute>
+            }
+          />
+
+          <Route path="/login" element={<div>Login Page</div>} />
+        </Routes>
+      </MemoryRouter>,
+    );
+    expect(screen.getByText("Login Page")).toBeInTheDocument();
   });
 });
