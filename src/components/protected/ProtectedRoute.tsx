@@ -13,7 +13,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
 
   if (loading) {
     return (
-      <div className="loader-container">
+      <div className="loader-container" role="status">
         <Loader size="large" />
       </div>
     );
@@ -25,7 +25,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     return <Navigate to="/login" state={{ from: location.pathname }} replace />;
   }
 
-  return <>{children}</>;
+  return <div data-testid="protected-content">{children}</div>;
 };
 
 export default ProtectedRoute;
