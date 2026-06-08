@@ -13,7 +13,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
 
   if (loading) {
     return (
-      <div className="loader-container">
+      <div className="loader-container" role="status">
         <Loader size="large" />
       </div>
     );
